@@ -1,0 +1,342 @@
+#app {
+  background-image: url(./coffee.jpg);
+  background-position: top;
+  background-size: cover;
+}
+
+body {
+  margin: 0px;
+}
+
+.wrapper {
+  background-image:url('sugar.jpg');
+  background-size: cover;
+  background-repeat:no-repeat;
+  background-position:top;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
+  -ms-content-zooming: none;
+  position:absolute;
+  width:100%;
+  height:100%;
+  overflow: hidden;
+  font-family: 'Scout', arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 620px;
+  height: 251px;
+  border-radius: 50px;
+  background-color: #56423C;
+  opacity: 95%;
+}
+
+.register-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 620px;
+  height: 470px;
+  border-radius: 50px;
+  background-color: #56423C;
+  opacity: 95%;
+  min-height: 470px;
+  margin-top: 13px;
+}
+
+.login-input {
+  border-left: none;
+  border-top: none;
+  border-right: none;
+  border-bottom: 1px white solid;
+  background: none;
+  width: 80%;
+  margin-bottom: 37px;
+  height: 31px;
+  color: white;
+  font-size: 20px;
+}
+
+.login-input::placeholder {
+  color: rgba(255, 255, 255, 0.731);
+  font-size: 20px;
+}
+
+.login-button {
+  height: 45px;
+  width: 158px;
+  border: 1px solid white;
+  background: none;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  margin-right: 15px;
+}
+
+.login-button:hover {
+  background-color: white;
+  color: #56423C;
+  cursor: hand;
+}
+
+.facebook-button {
+  height: 45px;
+  width: 158px;
+  border: 1px solid white;
+  background: #3A559F;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.facebook-button:hover {
+  background-color: #4a64ab;
+  cursor: hand;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+input:focus, input:focus{
+  outline: none;
+}
+
+.logo {
+  height: 57px;
+  width: auto;
+  left: 14px;
+  position: absolute;
+  top: 8px;
+}
+
+.address {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: 57px;
+  margin-right: 45px;
+}
+
+.nav-bar {
+  background-color: #8B442F;
+  width: 100%;
+  height: 75px;
+}
+
+.shops-module {
+  height: 75%;
+  width: 40%;
+  background: #56423C;
+  border-radius: 3%;
+  margin: 20px;
+  margin-left: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.shop-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 75%;
+  width: 60%;
+  background: #56423C;
+  border-radius: 3%;
+  margin: 20px;
+  margin-right: 40px;
+}
+
+.portal-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.rating {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: row;
+}
+
+.tag {
+  background-color: #A52E30;
+  width: 100px;
+  height: 25px;
+  display: flex;
+  border-radius: 11px;
+  margin: 5px;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: #ffffffa3 solid 1px;
+}
+
+.tags {
+  display: flex;
+  flex-direction: row;
+}
+
+.shop-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 489px;
+}
+
+.shop-entry {
+  margin-top: 16px;
+}
+
+.details {
+  display: flex;
+  flex-direction: row;
+  margin: 11px;
+}
+
+.column-a {
+  height: 300px;
+  width: 419px;
+  margin: 16px;
+}
+
+.column-b {
+  height: 300px;
+  width: 300px;
+  margin: 16px;
+  background-image: url(google-maps.jpg);
+  background-size: cover;
+}
+
+.reviews {
+  height: 300px;
+  width: 90%;
+  margin-bottom: 25px;
+}
+
+.shop-website {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.reviews-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.reviews-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.review-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.featured-item {
+  margin: 7px;
+  border: 1px solid white;
+  height: 109px;
+  width: 109px;
+}
+
+.hr {
+  color: rgb(190, 166, 159);
+  height: 2px;
+  font-size: 6px;
+  background: rgb(190, 166, 159);
+  border: 1px solid;
+  border-radius: 14px;
+}
+
+.review-input {
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid white;
+  width: 85%;
+  font-size: 15px;
+  color: white;
+  margin: 17px;
+}
+
+.review-button {
+  background: none;
+  border: 1px #a39898 solid;
+  width: 56px;
+  color: white;
+}
+
+.review-button:hover {
+  background: #756764;
+  cursor: hand;
+}
+
+
+
+
+
+
+
+/* 304 marc */
+.Modal {
+  position: fixed;
+  bottom: -150vh;
+  background-color: darkred;
+  width: 100%;
+  left: 0;
+  padding: 0 1px 12px;
+  transition: bottom 0.3s ease-out;
+  z-index: 10;
+}
+
+.Modal.Show {
+  bottom: 0;
+}
+
+.Overlay {
+  background-color: rgba(0, 0, 0, 0.55);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  display: none;
+  z-index: 5;
+}
+
+.Overlay.Show {
+  display: block;
+}
+.modalTitle {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: rgba(124, 73, 6, 0.822);
+  font-size: larger;
+  font-weight: bolder;
+  padding: 1.25em;
+}

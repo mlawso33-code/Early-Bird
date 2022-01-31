@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "axios": "^0.25.0",
+    "env": "^0.0.2",
     "express": "^4.17.2",
     "mysql2": "^2.3.3",
     "react": "^17.0.2",
