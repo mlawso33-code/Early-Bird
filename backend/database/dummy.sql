@@ -5,4 +5,4 @@ VALUES ('Coffee Test Shop', '555 Test Me Dr.', 'TestCity', 'TS', '12345', '5LAT'
 
 /* DUMMY REVIEWS */
 INSERT INTO reviews (rating, body, date)
-VALUES (5, 'Weirdest coffeee ever, was all in code?', 01-31-2022)
+VALUES (5, 'Weirdest coffeee ever, was all in code?', '01-31-2022')

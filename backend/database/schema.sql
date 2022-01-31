@@ -8,7 +8,7 @@ CREATE DATABASE early_bird;
 
 USE early_bird;
 
-CREATE TABLE users {
+CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT,
   username VARCHAR(20) UNIQUE NOT NULL,
   password VARCHAR(50) NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE users {
   latitude VARCHAR(50) NOT NULL,
   longitude VARCHAR(50) NOT NULL,
   PRIMARY KEY (id)
-};
+)
 
 CREATE TABLE payment_info {
   id INT NOT NULL AUTO_INCREMENT,
