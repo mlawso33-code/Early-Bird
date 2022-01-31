@@ -21,7 +21,7 @@ CREATE TABLE users {
   latitude VARCHAR(50) NOT NULL,
   longitude VARCHAR(50) NOT NULL,
   PRIMARY KEY (id)
-}
+};
 
 CREATE TABLE payment_info {
   id INT NOT NULL AUTO_INCREMENT,
@@ -33,7 +33,7 @@ CREATE TABLE payment_info {
   PRIMARY KEY (id),
   FOREIGN KEY (user_id)
     REFERENCES users(id)
-}
+};
 
 CREATE TABLE stores {
   id INT NOT NULL AUTO_INCREMENT,
@@ -45,10 +45,9 @@ CREATE TABLE stores {
   latitude VARCHAR(50) NOT NULL,
   longitude VARCHAR(50) NOT NULL,
   store_open TIME NOT NULL,
-  store_open TIME NOT NULL,
   url VARCHAR(250),
   PRIMARY KEY (id)
-}
+};
 
 CREATE TABLE reviews {
   id INT NOT NULL AUTO_INCREMENT,
@@ -62,7 +61,7 @@ CREATE TABLE reviews {
     REFERENCES users(id),
   FOREIGN KEY (store_id)
     REFERENCES stores(id)
-}
+};
 
 CREATE TABLE products {
   id INT NOT NULL AUTO_INCREMENT,
@@ -74,7 +73,7 @@ CREATE TABLE products {
   PRIMARY KEY (id),
   FOREIGN KEY (store_id)
     REFERENCES stores(id)
-}
+};
 
 /*  Execute this file from the command line by typing:
  *    mysql -u <USER> < schema.sql
