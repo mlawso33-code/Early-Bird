@@ -70,6 +70,9 @@ body {
   height: 31px;
   color: white;
   font-size: 20px;
+  font-family: neue-haas-grotesk-display, sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .login-input::placeholder {
@@ -84,8 +87,12 @@ body {
   background: none;
   color: white;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 20px;
   margin-right: 15px;
+  font-family: neue-haas-grotesk-display, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 1px;
 }
 
 .login-button:hover {
@@ -293,4 +300,50 @@ input:focus, input:focus{
 .review-button:hover {
   background: #756764;
   cursor: hand;
+}
+
+
+
+
+
+
+
+/* 304 marc */
+.Modal {
+  position: fixed;
+  bottom: -150vh;
+  background-color: darkred;
+  width: 100%;
+  left: 0;
+  padding: 0 1px 12px;
+  transition: bottom 0.3s ease-out;
+  z-index: 10;
+}
+
+.Modal.Show {
+  bottom: 0;
+}
+
+.Overlay {
+  background-color: rgba(0, 0, 0, 0.55);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  display: none;
+  z-index: 5;
+}
+
+.Overlay.Show {
+  display: block;
+}
+.modalTitle {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: rgba(124, 73, 6, 0.822);
+  font-size: larger;
+  font-weight: bolder;
+  padding: 1.25em;
 }

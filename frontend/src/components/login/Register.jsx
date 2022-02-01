@@ -55,6 +55,9 @@ const Register = () => {
     marginRight: '15px'}} onChange={handleChange}/>
       </div>
       <div className="buttons">
+<<<<<<< HEAD
+        <button className="login-button">REGISTER</button>
+=======
         <button className="login-button" onClick={(event) => {
            if (userRegister.username.length === 0) {
              alert('Please enter a Username')
@@ -83,6 +86,7 @@ const Register = () => {
             )
           }
         }}>Register</button>
+>>>>>>> main
       </div>
     </div>
   </div>

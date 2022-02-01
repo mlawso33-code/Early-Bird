@@ -8,9 +8,9 @@ const StoreView = () => {
     <div className="wrapper" style={{height: '100%', width: '100%'}}>
       <img src="LOGO.png" className="logo"/>
       <div className="nav-bar"></div>
-      <div className="portal-container" style={{height: '100%', width: '100%'}}>
+      <div className="portal-container" style={{height: '100%', width: '100%', fontFamily: 'neue-haas-grotesk-display'}}>
         <div className="shops-module">
-          <div style={{color: 'white', fontWeight: 'bold', fontSize: '25px'}}>RESULTS FROM <span className="location-style" style={{fontWeight: 'normal', color: '#D2B48C'}}>NEW YORK, NEW YORK</span></div>
+          <div style={{color: 'white', fontWeight: 'bold', fontSize: '25px', fontFamily: 'poppins, sans-serif'}}>RESULTS FROM <span className="location-style" style={{fontWeight: 'normal', color: '#D2B48C'}}>NEW YORK, NEW YORK</span></div>
           <div className="shop-container">
             <div className="shop-entry" style={{backgroundColor: 'white', paddingLeft: '7px', paddingTop: '7px', background: 'linear-gradient(180deg, #6b5a55 86%, #00ffff00 50%)'}}>
               <div style={{color: 'white'}}>COFFEE SHOP</div>
