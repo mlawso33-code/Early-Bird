@@ -2,6 +2,7 @@
 const express = require('express');
 const db = require('../database/index.js');
 const controllers = require('../database/controllers.js');
+const path = require('path')
 
 // create express app
 const app = express();
@@ -19,7 +20,13 @@ app.use(express.json());
 // get, post, delete request routing
 app.get('/api/some_endpoint', controllers.getSomeData);
 app.post('/api/some_endpoint', controllers.postSomeData);
-
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
 
 // listen for get/post requests
 app.listen(PORT, () => {

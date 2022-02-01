@@ -4,6 +4,9 @@ import GlobalContext from '../../contexts/context.js';
 const StoreView = () => {
   const { page, setPage } = useContext(GlobalContext);
 
+  //We need to confirm the user is logged in before returning the following html.
+  //We don't want the user to be able to navigate to /home without being logged in.
+
   return (
     <div className="wrapper" style={{height: '100%', width: '100%'}}>
       <img src="LOGO.png" className="logo"/>
