@@ -3,7 +3,7 @@
 // Database creation
 // ==============================================
 */
-DROP DATABASE IF EXISTS early_bird;
+
 CREATE DATABASE early_bird;
 
 USE early_bird;
