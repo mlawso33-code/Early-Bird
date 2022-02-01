@@ -106,4 +106,8 @@ typings/
 .tern-port
 
 
+<<<<<<< HEAD
 frontend/dist/bundle.js
+=======
+frontend/dist/bundle.js
+>>>>>>> main
