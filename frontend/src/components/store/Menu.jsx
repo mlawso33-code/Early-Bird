@@ -1,14 +1,11 @@
 import React, {useState} from 'react'
 
-import axios from 'axios'
+import Axios from 'Axios'
 
 const Menu = () => {
   const [products, setProducts] = useState([])
 
   function fetchProducts() {
-    axios
-    .get()
-    .then()
   }
   return(
     <div>

@@ -17,8 +17,9 @@ app.use('/', express.static(__dirname + '/../../frontend/dist'));
 app.use(express.json());
 
 // get, post, delete request routing
-app.get('/api/some_endpoint', controllers.getSomeData);
-app.post('/api/some_endpoint', controllers.postSomeData);
+app.get('/api/stores/:store_id/reviews', controllers.getSomeData);
+app.get('/api/stores', controllers.getStores)
+app.post('/api/stores/reviews', controllers.postSomeData);
 
 
 // listen for get/post requests
