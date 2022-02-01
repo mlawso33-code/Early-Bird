@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 import ReviewModal from './ReviewModal.jsx'
-import Axios from 'axios'
+import Axios from 'Axios'
 
 const ReviewList = () => {
 
