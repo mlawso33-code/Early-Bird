@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import GlobalContext from '../../contexts/context.js';
 
+
+import ReviewList from './ReviewList.jsx'
+
 const StoreView = () => {
   const { page, setPage } = useContext(GlobalContext);
 
@@ -106,26 +109,7 @@ const StoreView = () => {
               <input className="review-input"/>
               <button className="review-button">Post</button>
             </div>
-            <div className="reviews">
-              <div className="review" style={{background: '#ffffff2e', borderRadius: '21px', padding: '15px', marginTop: '12px'}}>
-                <div className="review-header" style={{marginBottom: '6px'}}>
-                  <div style={{color: 'white', marginRight: '5px', marginLeft: '10px'}}>Janie Smith</div>
-                  <div style={{color: 'rgb(255, 207, 46)', fontSize: '12px'}}>★★★★★</div>
-                </div>
-                <div className="review-comment" style={{color: 'white', fontSize: '12px', marginLeft: '10px'}}>
-                  Great customer service! They had my coffee out in just a couple minutes!
-                </div>
-              </div>
-              <div className="review" style={{background: '#ffffff2e', borderRadius: '21px', padding: '15px', marginTop: '12px'}}>
-                <div className="review-header" style={{marginBottom: '6px'}}>
-                  <div style={{color: 'white', marginRight: '5px', marginLeft: '10px'}}>John Doe</div>
-                  <div style={{color: 'rgb(255, 207, 46)', fontSize: '12px'}}>★★★★★</div>
-                </div>
-                <div className="review-comment" style={{color: 'white', fontSize: '12px', marginLeft: '10px'}}>
-                  Great customer service! They had my coffee out in just a couple minutes!
-                </div>
-              </div>
-            </div>
+           <ReviewList />
           </div>
         </div>
       </div>

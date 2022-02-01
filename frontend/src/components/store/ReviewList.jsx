@@ -1,19 +1,16 @@
 import React, {useState} from 'react'
 
 import ReviewModal from './ReviewModal.jsx'
-import axios from 'axios'
+import Axios from 'axios'
 
 const ReviewList = () => {
 
   const[addReview, setAddReview] = useState(false)
 
   function submitReview() {
-    axios
-    .post()
-    .then()
   }
 
-  function addReview() {
+  function handleReview() {
     setAddReview(!addReview)
   }
 
@@ -29,7 +26,7 @@ const ReviewList = () => {
     </div>
     <hr className="hr"/>
     <a href="" className={`Modal ${displayModal ? 'Show' : ''}`}>
-       {addReview ?  <ReviewModal toggle={addReview} /> : "Add a Review"}
+       {addReview ?  <ReviewModal toggle={submitReview} /> : "Add a Review"}
       </a>
       <div className={`Overlay ${displayModal ? 'Show' : ''}`} />
     <div className="reviews">
