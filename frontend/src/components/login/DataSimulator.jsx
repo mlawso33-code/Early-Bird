@@ -2,7 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import GlobalContext from '../../contexts/context.js';
 import Axios from 'axios';
 
-const DataSimulator = () => {
+let DataSimulator = function () {
+  //This function assumes: access to user latitude and longitude, a state to set store info to, multiple routes to handle information being saved
+  //open and close times need to be added
+
+
   //These aren't real states, yet. Ideally these state will reference an object that
   //contains a user's address and the current store data attached to that address
   const { userInfo, setUserInfo, storeData, setStoreData } = useContext(MainContext);
@@ -13,7 +17,10 @@ const DataSimulator = () => {
       console.log('Error: ', err);
     })
       .then((result) => {
-        setStoreData(result);
+        //Check to see if there's data for this user's location
+        if (result === 'No saved data for this location') {
+          createSimulatedStoreData();
+        }
       })
   });
 
@@ -26,6 +33,18 @@ const DataSimulator = () => {
     drinks: ['Super Cinnamon Swirl', 'Caffeine Express', 'Wake Up!', 'Affogato', 'Kaffeost', "Witch's Cold Brew", 'Snickerdoodle Latte', 'Happy Birthday Shake', 'Turn-Up Tea', 'Chocomite', 'ZOOM']
   }
 
+  //Object of possible opening and closing times to select from
+  //Opening times are assumed to be in the a.m. and closing times are assumed to be in the p.m.
+  let storeHoursBank = {
+    open: [6, 7, 8],
+    close: [8, 9, 10]
+  }
+
+  //This exists on the storeView component
+  coffeeMenuBank = [['someItemName', 3.49], ['someItemName', 3.49], ['someItemName', 3.49]];
+  teaMenuBank = [['someItemName', 3.49], ['someItemName', 3.49], ['someItemName', 3.49]];
+  
+
   //Create new simulated data for this user's location
   let createSimulatedStoreData = function () {
     let coffeeStoreCollection = [];
@@ -34,26 +53,37 @@ const DataSimulator = () => {
     for (let i = 0; i < numberOfLocalStores; i++) {
       let simulatedStore = {
         storeName: '',
+        open: '',
+        close: '',
         location: {
           latitude: '',
           longitude: '',
           milesAway: ''
         },
         featuredFood: [],
-        featuredDrinks: []
+        featuredDrinks: [],
+        foodTag: false,
+        coffeeTag: true,
+        teaTag: false
       };
 
       simulatedStore.storeName = createSimulatedStoreName();
+      simulatedStore.open = createOpenTime();
+      simulatedStore.close = createCloseTime();
       simulatedStore.location = createSimulatedLocation();
-      simulatedStore.featuredFood = createSimulatedFeaturedFood();
-      simulatedStore.featuredDrinks = createSimulatedFeaturedDrinks();
+      let foodAndTags = createSimulatedFeaturedFood();
+      simulatedStore.featuredFood = foodAndTags[0];
+      simulatedStore.foodTag = foodAndTags[1];
+      let drinksAndTeaTag = createSimulatedFeaturedDrinks();
+      simulatedStore.featuredDrinks = drinksAndTeaTag[0];
+      simulatedStore.teaTag = drinksAndTeaTag[1];
 
       coffeeStoreCollection.push(simulatedStore);
     }
 
     setStoreData(coffeeStoreCollection);
 
-    Axios.post(`/storeInfo/${userInfo.address}`)
+    Axios.post('/store/details', coffeeStoreCollection)
       .catch((err) => {
         console.log('There was an error processing this request.');
         console.log('Error: ', err);
@@ -65,6 +95,16 @@ const DataSimulator = () => {
   //Returns a random store name to the createSimulatedStoreData function
   let createSimulatedStoreName = function () {
     return storeNamesBank[Math.floor(Math.random() * storeNamesBank.length)];
+  }
+
+  //Returns a random opening time to the createSimulateStoreData function
+  let createOpenTime = function () {
+    return storeHoursBank.open[Math.floor(Math.random() * 3)];
+  }
+
+  //Returns a random closing time to the createSimulateStoreData function
+  let createCloseTime = function () {
+    return storeHoursBank.close[Math.floor(Math.random() * 3)];
   }
 
   //Returns a random store location to the createSimulatedStoreData function
@@ -115,45 +155,46 @@ const DataSimulator = () => {
     }
   }
 
-  //Returns an array of random featured foods to the createSimulatedStoreData function
+  //Returns an array of random featured foods and a boolean representing the food tag to the createSimulatedStoreData function
   let createSimulatedFeaturedFood = function () {
-    let numberOfFeaturedFoods = Math.floor(Math.random() * 3) + 1;
-    let featuredFoods = [];
+    let numberOfFeaturedFoods = Math.floor(Math.random() * 4);
+    let featuredFoods = [[], false];
 
     for (let i = 0; i < numberOfFeaturedFoods + 1; i++) {
-      featuredFoods.push(featuredItemsBank.food[Math.floor(Math.random() * featuredItemsBank.food.length)]);
+      let foodItem = featuredItemsBank.food[Math.floor(Math.random() * featuredItemsBank.food.length)];
+      featuredFoods.indexOf(foodItem) !== -1 ? featuredFoods[0].push(foodItem) : '';
     }
 
-    for (let i = 0; i < featuredFoods.length; i++) {
-      if (featuredFoods.indexOf(i, i) !== -1) {
-        featuredFoods.splice(featuredFoods.indexOf(i, i), 1);
-      }
+    if (featuredFoods.length > 0) {
+      featuredFoods[1] = true;
     }
 
     return featuredFoods;
   }
 
-  //Returns an array of random featured drinks to the createSimulatedStoreData function
+  //Returns an array of random featured drinks and a boolean representing the tea tag to the createSimulatedStoreData function
   let createSimulatedFeaturedDrinks = function () {
-    let numberOfFeaturedDrinks = Math.floor(Math.random() * 3) + 1;
-    let featuredDrinks = [];
+    let numberOfFeaturedDrinks = Math.floor(Math.random() * 4);
+
+    let featuredDrinks = [[], false];
 
     for (let i = 0; i < numberOfFeaturedDrinks + 1; i++) {
-      featuredDrinks.push(featuredItemsBank.drinks[Math.floor(Math.random() * featuredItemsBank.drinks.length)]);
+      let drinkItem = featuredItemsBank.drinks[Math.floor(Math.random() * featuredItemsBank.drinks.length)];
+      featuredDrinks.indexOf(drinkItem) !== -1 ? featuredDrinks[0].push(drinkItem) : '';
     }
 
-    for (let i = 0; i < featuredDrinks.length; i++) {
-      if (featuredDrinks.indexOf(i, i) !== -1) {
-        featuredDrinks.splice(featuredDrinks.indexOf(i, i), 1);
-      }
+    //Determine if tea tag exists
+    let decideTeaTag = Math.floor(Math.random() * 2);
+    if (decideTeaTag === 0) {
+      featuredDrinks[1] = true;
+    }
+
+    //Handle edge case where a featured item is a tea
+    if (featuredDrinks.indexOf('Turn-Up Tea') !== -1) {
+      featuredDrinks[1] = true;
     }
 
     return featuredDrinks;
-  }
-
-  //Check to see if there's data for this user's location
-  if (storeData === 'No saved data for this location') {
-    createSimulatedStoreData();
   }
 }
 
