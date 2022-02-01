@@ -1,5 +1,6 @@
 // import react, child component
 import React, { useState, useEffect, useContext } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GlobalContext from '../contexts/context.js';
 import Login from './login/Login.jsx';
 import Register from './login/Register.jsx';
@@ -10,18 +11,15 @@ import UserInfo from './login/UserInfo.jsx';
 const App = () => {
   const [page, setPage] = useState('login');
 
-  let pages = {
-    login: <Login />,
-    register: <Register />,
-    storeView: <StoreView />,
-    userInfo: <UserInfo />
-  }
-
   return (
     <GlobalContext.Provider value={{page, setPage}}>
-      <div>
-        {pages[page]}
-      </div>
+      <BrowserRouter><Routes>
+
+  <Route path="/" element={<Login />} />
+  <Route path="register" element={<Register />} />
+  <Route path="Home" element={<StoreView />} />
+
+      </Routes></BrowserRouter>
     </GlobalContext.Provider>
   )
 }

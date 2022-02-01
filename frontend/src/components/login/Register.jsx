@@ -21,7 +21,7 @@ const Register = () => {
     marginRight: '15px'}}/>
       </div>
       <div className="buttons">
-        <button className="login-button">Register</button>
+        <button className="login-button">REGISTER</button>
       </div>
     </div>
   </div>
