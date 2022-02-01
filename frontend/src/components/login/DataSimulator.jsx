@@ -28,6 +28,7 @@ const DataSimulator = () => {
 
   //Create new simulated data for this user's location
   let createSimulatedStoreData = function () {
+    let coffeeStoreCollection = [];
     let numberOfLocalStores = Math.floor((Math.random() * 5) + 5);
 
     for (let i = 0; i < numberOfLocalStores; i++) {
@@ -46,7 +47,19 @@ const DataSimulator = () => {
       simulatedStore.location = createSimulatedLocation();
       simulatedStore.featuredFood = createSimulatedFeaturedFood();
       simulatedStore.featuredDrinks = createSimulatedFeaturedDrinks();
+
+      coffeeStoreCollection.push(simulatedStore);
     }
+
+    setStoreData(coffeeStoreCollection);
+
+    Axios.post(`/storeInfo/${userInfo.address}`)
+      .catch((err) => {
+        console.log('There was an error processing this request.');
+        console.log('Error: ', err);
+      }).then(() => {
+        console.log('Coffee stores have been updated for this location!');
+      })
   };
 
   //Returns a random store name to the createSimulatedStoreData function
