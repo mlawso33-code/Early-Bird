@@ -3,7 +3,7 @@ var SRC_DIR = path.join(__dirname, '/frontend/src');
 var DIST_DIR = path.join(__dirname, '/frontend/dist');
 
 module.exports = {
-  entry: `${SRC_DIR}/index.js`,
+  entry: ['babel-polyfill', `${SRC_DIR}/index.js`],
   output: {
     filename: 'bundle.js',
     path: DIST_DIR

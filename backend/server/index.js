@@ -2,6 +2,8 @@
 const express = require('express');
 const db = require('../database/index.js');
 const controllers = require('../database/controllers.js');
+require("babel-core/register");
+require("babel-polyfill");
 
 // create express app
 const app = express();
