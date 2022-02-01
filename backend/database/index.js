@@ -1,13 +1,22 @@
 // import mysql
 const mysql = require('mysql2');
+require('dotenv').config();
 
 // create a connection to the db
 const connection = mysql.createConnection({
-  host: 'FILL_THIS_IN',
+<<<<<<< HEAD
+  host: 'localhost',
   port: 3306,
-  user: 'FILL_THIS_IN',
-  password: 'FILL_THIS_IN',
-  database: 'FILL_THIS_IN'
+  user: 'root',
+  password: 'password',
+  database: 'early_bird'
+=======
+  host: process.env.DATABASE_HOST_IP,
+  port: process.env.DATABASE_PORT,
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_CURRENT_DB
+>>>>>>> main
 });
 
 // actually connect
