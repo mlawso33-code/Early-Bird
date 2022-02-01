@@ -9,6 +9,10 @@ const StoreView = () => {
   const [stores, setStores] = useState([])
   const { page, setPage } = useContext(GlobalContext);
 
+<<<<<<< HEAD
+  //We need to confirm the user is logged in before returning the following html.
+  //We don't want the user to be able to navigate to /home without being logged in.
+=======
   console.log(stores)
   function fetchStores() {
     Axios
@@ -19,6 +23,7 @@ const StoreView = () => {
   useEffect(() => {
     fetchStores()
   }, [])
+>>>>>>> main
 
   return (
     <div className="wrapper" style={{ height: '100%', width: '100%' }}>
