@@ -9,7 +9,7 @@ import UserInfo from './login/UserInfo.jsx';
 
 
 const App = () => {
-  const [page, setPage] = useState('login');
+  const [page, setPage] = useState('userInfo');
 
   return (
     <GlobalContext.Provider value={{page, setPage}}>
