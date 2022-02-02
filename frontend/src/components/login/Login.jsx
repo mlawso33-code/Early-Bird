@@ -29,6 +29,7 @@ const Login = () => {
     //     const errorMessage = error.message;
     //     return false
     //   });
+    return true
   }
 
   const ConditionalLink = ({ children, to, condition }) => (!!condition && to)
