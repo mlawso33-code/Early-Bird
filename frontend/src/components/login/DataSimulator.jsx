@@ -35,7 +35,7 @@ let DataSimulator = function (dataAlreadyExists) {
 
   //Create additional banks for preset food, coffee, and tea menus with item prices for later use in storeView component
   ///////////////////
-  
+
 
   //Create new simulated data for this user's location
   let createSimulatedStoreData = function () {
@@ -80,7 +80,7 @@ let DataSimulator = function (dataAlreadyExists) {
         console.log('There was an error processing this request.');
         console.log('Error: ', err);
       }).then((result) => {
-        setStoreData(result);
+
         console.log('Coffee stores have been updated for this location!');
       })
   };
