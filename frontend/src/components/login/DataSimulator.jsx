@@ -57,7 +57,7 @@ let DataSimulator = function (dataAlreadyExists) {
         foodTag: false,
         coffeeTag: true,
         teaTag: false,
-        reviews: []          
+        reviews: []
       };
 
       simulatedStore.storeName = createSimulatedStoreName();
@@ -75,13 +75,9 @@ let DataSimulator = function (dataAlreadyExists) {
       coffeeStoreCollection.push(simulatedStore);
     }
 
-<<<<<<< HEAD
     setStoreData(coffeeStoreCollection);
 
     axios.post('/store/details', coffeeStoreCollection)
-=======
-    Axios.post('/store/details', coffeeStoreCollection)
->>>>>>> main
       .catch((err) => {
         console.log('There was an error processing this request.');
         console.log('Error: ', err);

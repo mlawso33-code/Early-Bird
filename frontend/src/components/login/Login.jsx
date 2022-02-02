@@ -20,18 +20,10 @@ const Login = () => {
     //please make sure this function:
     //returns true if meets your conditions
     //returns false if doesn't meet your conditions
-<<<<<<< HEAD
-    axios.get(`user/${loginCred.username}/${loginCred.password}`).then((result) => {
-      console.log(result);
-      if (result) {
-        loggedIn = true;
-        return true;
-=======
       Axios.get(`user/${loginCred.username}/${loginCred.password}`).then(async (result) => {
       if (result.data !== false) {
         setUserInfo(result.data[0]);
         setLoggedIn(true);
->>>>>>> main
       } else {
         alert("Username or password was not recognized!");
       }
