@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import GlobalContext from '../../contexts/context.js';
-import Axios from 'Axios'
+import axios from 'axios'
 import ReviewList from './Stores/Reviews/ReviewList.jsx'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -12,7 +12,7 @@ const StoreView = () => {
   //We don't want the user to be able to navigate to /home without being logged in.
   console.log(stores)
   function fetchStores() {
-    Axios
+    axios
       .get('/api/stores')
       .then(res => setStores(res.data))
   }

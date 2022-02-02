@@ -5,7 +5,7 @@ import StarRating from './StarRating.jsx'
 import Rating from 'react-rating'
 import { FaRegStar, FaStar } from 'react-icons/fa'
 
-import Axios from 'Axios'
+import axios from 'axios'
 
 const ReviewList = ({ store }) => {
   const [rate, setRate] = useState(0)
@@ -16,7 +16,7 @@ const ReviewList = ({ store }) => {
   console.log('reviews:::', reviews)
 
   function fetchReviews(id) {
-    Axios
+    axios
       .get(`/api/stores/${id}/reviews`)
       .then(res => setReviews(res.data))
   }
