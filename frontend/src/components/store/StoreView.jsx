@@ -3,36 +3,34 @@ import GlobalContext from '../../contexts/context.js';
 import axios from 'axios'
 
 import ReviewList from './Stores/Reviews/ReviewList.jsx'
+import Menu from './Menu.jsx'
+
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const StoreView = () => {
   const [stores, setStores] = useState([])
-  const [users, setUsers] = useState([])
+  const [menuModal, setMenuModal] = useState(false)
+
   const { page, setPage } = useContext(GlobalContext);
 
   //We need to confirm the user is logged in before returning the following html.
   //We don't want the user to be able to navigate to /home without being logged in.
 
+  function handleMenu() {
+    setMenuModal(!menuModal)
+  }
+
   function fetchStores() {
     axios
-      .get('/api/stores')
+      .get('/stores')
       .then(res => setStores(res.data))
-  }
-  function fetchUsers() {
-    Axios
-      .get('/api/users')
-      .then(res => setUsers(res.data))
   }
 
   // console.log('users:::', users)
-   //console.log('stores:::')
+  //console.log('stores:::')
 
   useEffect(() => {
     fetchStores()
-  }, [])
-
-  useEffect(() => {
-    fetchUsers()
   }, [])
 
   const auth = getAuth();
@@ -42,7 +40,7 @@ const StoreView = () => {
       // https://firebase.google.com/docs/reference/js/firebase.User
       const uid = user.uid;
       // ...
-      return(
+      return (
         <div>not logged in</div>
       )
     } else {
@@ -125,6 +123,13 @@ const StoreView = () => {
                 <div style={{ fontSize: '12px', color: 'white' }}>Visit Website</div>
               </div>
               <div style={{ color: '#D2B48C' }}>MON-FRI 09:00 AM - 07:00 PM</div>
+
+              <button onClick={handleMenu}>Order Online</button>
+              <div className={`Modal ${menuModal ? 'Show' : ''}`}>
+                {menuModal ? <Menu toggle={handleMenu} /> : null}
+              </div>
+              <div className={`Overlay ${menuModal ? 'Show' : ''}`} />
+
               <div className="featured" style={{ marginTop: '10px' }}>
                 <div style={{ color: 'white', fontSize: '30px' }}>Featured Items</div>
                 <hr className="hr" style={{ color: '#BEA69F', margin: '1px', size: '3px', width: '97%' }} />
@@ -140,7 +145,7 @@ const StoreView = () => {
             </div>
             <hr className="hr" />
           </div>
-          <ReviewList store={stores[0]} user={users}/>
+          <ReviewList store={stores[0]} />
         </div>
       </div>
     </div>

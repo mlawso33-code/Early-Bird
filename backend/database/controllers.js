@@ -20,27 +20,36 @@ const controllers = {
 
   },
 
-  getStoreReviews(req,res) {
-    console.log('received a new GET request to getStoreReviews');
-
+  getStoreReviews(req, res) {
+    let { id } = req.params;
+    let queryString = 'SELECT r.id, u.username, r.rating, r.body, r.date FROM reviews r, users u WHERE r.store_id = ? AND u.id = r.user_id';
+    let queryArgs = [id];
+    db.query(queryString, queryArgs, (err, dbRes) => {
+      if (err) {
+        console.log('there was an error fetching review data')
+        res.status(404).send(err);
+      } else {
+        res.status(201).send(dbRes);
+      }
+    });
   },
 
-  getStoreProducts(req,res) {
+  getStoreProducts(req, res) {
     console.log('received a new GET request to getStoreProducts');
 
   },
 
-  getNearbyStores(req,res) {
+  getNearbyStores(req, res) {
     console.log('received a new GET request to getNearbyStores');
 
   },
 
-  getProductDetails(req,res) {
+  getProductDetails(req, res) {
     console.log('received a new GET request to getProductDetails');
 
   },
 
-  getUserDetails(req,res) {
+  getUserDetails(req, res) {
     let { username, password } = req.params;
     db.query('SELECT * FROM users WHERE username = ?', [username], (err, response) => {
       if (err) {
@@ -49,13 +58,13 @@ const controllers = {
       };
 
       let hashedPass = response.password;
-      bcrypt.compare(password, hashedPass, function(err, result) {
+      bcrypt.compare(password, hashedPass, function (err, result) {
         if (result) {
           res.send(true);
         } else {
           res.send(false);
         }
-    });
+      });
     })
   },
 
@@ -67,7 +76,7 @@ const controllers = {
     console.log('received a new POST request to addNewUser');
 
     // password encrypt function
-    bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
+    bcrypt.hash(myPlaintextPassword, saltRounds, function (err, hash) {
       // Store hash in your password DB.
     });
 
@@ -113,7 +122,7 @@ const controllers = {
 
     axios
       .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.GOOGLE_API_KEY}`)
-      .then( ({data}) => {
+      .then(({ data }) => {
 
         const name = req.body.name;
         const address = data.results[0].formatted_address;
@@ -141,7 +150,7 @@ const controllers = {
         });
 
       })
-      .catch( (err) => {
+      .catch((err) => {
         console.log('there was an error fetching google address API data', err)
       });
   },
@@ -152,12 +161,12 @@ const controllers = {
   // PUT REQUESTS
   // ================================================================
 
-  updateUserRewardsPoints(req,res) {
+  updateUserRewardsPoints(req, res) {
     console.log('received a new PUT request to updateUserRewardsPoints');
 
   },
 
-  updateUserInformation(req,res) {
+  updateUserInformation(req, res) {
     console.log('received a new PUT request to updateUserInformation');
 
   },

@@ -311,7 +311,7 @@ input:focus, input:focus{
 /* 304 marc */
 .Modal {
   position: fixed;
-  bottom: -150vh;
+  bottom: -120vh;
   background-color: darkred;
   width: 100%;
   left: 0;
@@ -321,7 +321,7 @@ input:focus, input:focus{
 }
 
 .Modal.Show {
-  bottom: 0;
+  bottom: 5;
 }
 
 .Overlay {
@@ -338,7 +338,7 @@ input:focus, input:focus{
 .Overlay.Show {
   display: block;
 }
-.reviewModalTitle {
+.ModalTitle {
   display:flex;
   flex-direction: row;
   justify-content: space-between;
@@ -346,4 +346,13 @@ input:focus, input:focus{
   font-size: larger;
   font-weight: bolder;
   padding: 1.25em;
+}
+
+#close:hover {
+  cursor: pointer;
+}
+#paymentIcons {
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
 }

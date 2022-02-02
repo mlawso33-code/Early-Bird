@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import GlobalContext from '../../contexts/context.js';
-import Axios from 'Axios';
+import axios from 'axios';
 import { GiCoffeeBeans } from 'react-icons/gi'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 

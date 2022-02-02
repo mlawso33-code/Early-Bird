@@ -3,7 +3,7 @@ import GlobalContext from '../../contexts/context.js';
 import { Link } from 'react-router-dom';
 import Register from './Register.jsx';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import Axios from 'axios';
+import axios from 'axios';
 
 const Login = () => {
   const { page, setPage } = useContext(GlobalContext);
@@ -20,7 +20,7 @@ const Login = () => {
     //please make sure this function:
     //returns true if meets your conditions
     //returns false if doesn't meet your conditions
-    Axios.get(`user/${loginCred.username}/${loginCred.password}`).then((result) => {
+    axios.get(`user/${loginCred.username}/${loginCred.password}`).then((result) => {
       console.log(result);
       if (result) {
         loggedIn = true;
