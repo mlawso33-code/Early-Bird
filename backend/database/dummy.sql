@@ -8,8 +8,8 @@ VALUES
 ('Coffee Shop 4', '444 Test Me Dr., TestCity, TS, 12345', '40.123','-145.234', '1.4', '08:00:00', '19:00:00', 'http://www.shop4.com', '["tacos4", "biscuit4"]', '["coffee4", "fruit juice4"]', 0, 1, 1),
 ('Coffee Shop 5', '555 Test Me Dr., TestCity, TS, 12345', '50.123','-155.234', '1.5', '08:00:00', '19:00:00', 'http://www.shop5.com', '["tacos5", "biscuit5"]', '["coffee5", "fruit juice5"]', 1, 1, 1);
 
-
 /*dummy user */
+
 INSERT INTO users (username, password, email, street_address, city, state, zip, reward_points, latitude, longitude)
 VALUES
 ('testMan111', '1234', 'testuser1@test.com', '111 Test Street', 'TestCity', 'TS', '12345', 0, '11.123', '116.234'),

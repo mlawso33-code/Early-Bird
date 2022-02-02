@@ -338,7 +338,7 @@ input:focus, input:focus{
 .Overlay.Show {
   display: block;
 }
-.modalTitle {
+.reviewModalTitle {
   display:flex;
   flex-direction: row;
   justify-content: space-between;

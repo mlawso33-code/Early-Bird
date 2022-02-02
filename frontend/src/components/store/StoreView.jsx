@@ -7,19 +7,32 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const StoreView = () => {
   const [stores, setStores] = useState([])
+  const [users, setUsers] = useState([])
   const { page, setPage } = useContext(GlobalContext);
 
   //We need to confirm the user is logged in before returning the following html.
   //We don't want the user to be able to navigate to /home without being logged in.
-  console.log(stores)
+
   function fetchStores() {
     axios
       .get('/api/stores')
       .then(res => setStores(res.data))
   }
+  function fetchUsers() {
+    Axios
+      .get('/api/users')
+      .then(res => setUsers(res.data))
+  }
+
+  // console.log('users:::', users)
+   //console.log('stores:::')
 
   useEffect(() => {
     fetchStores()
+  }, [])
+
+  useEffect(() => {
+    fetchUsers()
   }, [])
 
   const auth = getAuth();
@@ -127,7 +140,7 @@ const StoreView = () => {
             </div>
             <hr className="hr" />
           </div>
-          <ReviewList store={stores} />
+          <ReviewList store={stores[0]} user={users}/>
         </div>
       </div>
     </div>
