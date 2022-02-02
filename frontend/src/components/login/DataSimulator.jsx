@@ -23,8 +23,8 @@ let DataSimulator = function (dataAlreadyExists) {
   //Object of possible opening and closing times to select from
   //Opening times are assumed to be in the a.m. and closing times are assumed to be in the p.m.
   let storeHoursBank = {
-    open: [6, 7, 8],
-    close: [8, 9, 10]
+    open: ['06:00:00', '07:00:00', '08:00:00'],
+    close: ['20:00:00', '21:00:00', '22:00:00']
   }
 
   //Create additional banks for preset food, coffee, and tea menus with item prices for later use in storeView component
@@ -83,12 +83,12 @@ let DataSimulator = function (dataAlreadyExists) {
     return storeNamesBank[Math.floor(Math.random() * storeNamesBank.length)];
   }
 
-  //Returns a random opening time to the createSimulateStoreData function
+  //Returns a random opening time to the createSimulatedStoreData function
   let createOpenTime = function () {
     return storeHoursBank.open[Math.floor(Math.random() * 3)];
   }
 
-  //Returns a random closing time to the createSimulateStoreData function
+  //Returns a random closing time to the createSimulatedStoreData function
   let createCloseTime = function () {
     return storeHoursBank.close[Math.floor(Math.random() * 3)];
   }
@@ -154,7 +154,7 @@ let DataSimulator = function (dataAlreadyExists) {
     }
 
     //Determine if food tag is true
-    if (featuredFoods.length > 0) {
+    if (featuredFoods[0].length > 0) {
       featuredFoods[1] = true;
     }
 
@@ -181,7 +181,7 @@ let DataSimulator = function (dataAlreadyExists) {
     }
 
     //Handle edge case where a featured item is a tea
-    if (featuredDrinks.indexOf('Turn-Up Tea') !== -1) {
+    if (featuredDrinks[0].indexOf('Turn-Up Tea') !== -1) {
       featuredDrinks[1] = true;
     }
 
