@@ -57,10 +57,16 @@ const controllers = {
         res.sendStatus(500);
       };
 
+<<<<<<< HEAD
       let hashedPass = response.password;
       bcrypt.compare(password, hashedPass, function (err, result) {
+=======
+      console.log(response);
+      let hashedPass = response[0].password;
+      bcrypt.compare(password, hashedPass, function(err, result) {
+>>>>>>> main
         if (result) {
-          res.send(true);
+          res.send(response);
         } else {
           res.send(false);
         }
@@ -75,9 +81,24 @@ const controllers = {
   addNewUser(req, res) {
     console.log('received a new POST request to addNewUser');
 
+    //implement latitude, longitude
+    let {username, password, email, street_address, city, state, zip, reward_points} = req.body;
     // password encrypt function
+<<<<<<< HEAD
     bcrypt.hash(myPlaintextPassword, saltRounds, function (err, hash) {
       // Store hash in your password DB.
+=======
+    bcrypt.hash(password, saltRounds, function(err, hash) {
+      console.log(hash);
+      db.query('INSERT INTO users (username, password, email, street_address, city, state, zip, reward_points, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [username, hash, email, street_address, city, state, zip, reward_points, 1, 1], (err, response) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('complete')
+          res.sendStatus(201);
+        }
+      })
+>>>>>>> main
     });
 
     // In this example, “myPlaintextPassword” would be the password that is sent up in the URL params or request body.

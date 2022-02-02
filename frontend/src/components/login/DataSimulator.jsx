@@ -27,6 +27,12 @@ let DataSimulator = function (dataAlreadyExists) {
     close: ['20:00:00', '21:00:00', '22:00:00']
   }
 
+  //Object of possible reviewer names and review messages
+  let reviewsBank = {
+    goodReviews: ['This place was fantastic!', 'Love getting coffee here.', 'Super cool patio out back', 'I come here almost every day (:', 'This is where you go when you need to wake up in the morning!!!', "I can't wait to see what new menu items they add next!", 'The staff were so friendly', 'Already dreaming about my next coffee', 'So. Freaking. Good!', "I can't believe how close this coffee shop is to me!", "AMAZING AMAZING AMAZING!!", "I wake up everyday, and thank God this shop was made. The coffee here kicks like a horse while still tasting amazing!", "I will certainly be raising my children to love this store as much as I do.", "The level of compassion and patience that worker Goku-Son gave to me was beyond expectations. He asked to fight though, which was weird.", "The coffee slaps!!!", "I hope they stay up forever. What an amazing local shop!", "Revolutionary!!!"],
+    badReviews: ['I expected so much more', 'Good, but not my favorite', 'My coffee was so cold!', 'They really need to offer more menu items', "I wish my tea wasn't so plain, I asked for more sugar but I don't think they understood", "Disappointed at the service provided by the worked SugarBee, she treated me like just another person and didn't have any spark in her pep today", "My tea was mediocre...", "The coffee was bland, staff was bland. Never coming again!", "Where did they get these muffins??? Taste like Walmart", "I don't mind this shop, but I dont know if i can keep going"]
+  }
+
   //Create additional banks for preset food, coffee, and tea menus with item prices for later use in storeView component
   ///////////////////
 
@@ -50,7 +56,8 @@ let DataSimulator = function (dataAlreadyExists) {
         featuredDrinks: [],
         foodTag: false,
         coffeeTag: true,
-        teaTag: false
+        teaTag: false,
+        reviews: []          
       };
 
       simulatedStore.storeName = createSimulatedStoreName();
@@ -63,17 +70,23 @@ let DataSimulator = function (dataAlreadyExists) {
       let drinksAndTeaTag = createSimulatedFeaturedDrinks();
       simulatedStore.featuredDrinks = drinksAndTeaTag[0];
       simulatedStore.teaTag = drinksAndTeaTag[1];
+      simulatedStore.reviews = createSimulatedReviews();
 
       coffeeStoreCollection.push(simulatedStore);
     }
 
+<<<<<<< HEAD
     setStoreData(coffeeStoreCollection);
 
     axios.post('/store/details', coffeeStoreCollection)
+=======
+    Axios.post('/store/details', coffeeStoreCollection)
+>>>>>>> main
       .catch((err) => {
         console.log('There was an error processing this request.');
         console.log('Error: ', err);
-      }).then(() => {
+      }).then((result) => {
+
         console.log('Coffee stores have been updated for this location!');
       })
   };
@@ -186,6 +199,32 @@ let DataSimulator = function (dataAlreadyExists) {
     }
 
     return featuredDrinks;
+  }
+
+  //Returns and array of objects containing randomized user reviews
+  let createSimulatedReviews = function() {
+    let storeReviews = [];
+    let numberOfReviews = (Math.floor(Math.random() * 5)) + 8;
+
+    for (let i = 0; i <= numberOfReviews; i++) {
+      let individualReview = {
+        reviewerName: '',
+        starRating: '',
+        reviewText: ''
+      }
+
+      individualReview.reviewerName = (Math.floor(Math.random * 5)) + 1;
+      individualReview.starRating = Math.floor(Math.random() * 6);
+      if (individualReview.starRating >= 2) {
+        individualReview.reviewText = reviewsBank.badReviews[Math.floor(Math.random * reviewsBank.badReviews.length)];
+      } else {
+        individualReview.reviewText = reviewsBank.goodReviews[Math.floor(Math.random * reviewsBank.goodReviews.length)];
+      }
+
+      storeReviews.push(individualReview);
+    }
+
+    return storeReviews;
   }
 
   //Check to see if data needs to be created
