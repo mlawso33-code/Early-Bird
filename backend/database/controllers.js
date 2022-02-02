@@ -1,5 +1,7 @@
 // import our db info
 const db = require("./index.js");
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 
 
@@ -36,8 +38,22 @@ const controllers = {
   },
 
   getUserDetails(req,res) {
-    console.log('received a new GET request to getUserDetails');
+    let { username, password } = req.params;
+    db.query('SELECT * FROM users WHERE username = ?', [username], (err, response) => {
+      if (err) {
+        console.log(err);
+        res.sendStatus(500);
+      };
 
+      let hashedPass = response.password;
+      bcrypt.compare(password, hashedPass, function(err, result) {
+        if (result) {
+          res.send(true);
+        } else {
+          res.send(false);
+        }
+    });
+    })
   },
 
 
