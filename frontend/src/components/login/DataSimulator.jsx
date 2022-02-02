@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import GlobalContext from '../../contexts/context.js';
 import Axios from 'axios';
 
-let DataSimulator = function () {
+let DataSimulator = function (dataAlreadyExists) {
   //This function assumes: access to user latitude and longitude, a state to set store info to, multiple routes to handle information being saved
   //open and close times need to be added
 
@@ -10,19 +10,6 @@ let DataSimulator = function () {
   //These aren't real states, yet. Ideally these state will reference an object that
   //contains a user's address and the current store data attached to that address
   const { userInfo, setUserInfo, storeData, setStoreData } = useContext(MainContext);
-
-  useEffect(() => {
-    Axios.get(`/storeInfo/${userInfo.address}`).catch((err) => {
-      console.log('There was an error processing this request.');
-      console.log('Error: ', err);
-    })
-      .then((result) => {
-        //Check to see if there's data for this user's location
-        if (result === 'No saved data for this location') {
-          createSimulatedStoreData();
-        }
-      })
-  });
 
   //Array of possible store names to select from
   let storeNamesBank = ['Sunbucks', 'Moon Brews', 'Moose Coffee', 'Poor Java', 'Ben Cunninghams', 'Savor the Sip', 'Zees', "True Man's Beans", 'CoCoFee', 'Moca Marc'];
@@ -40,9 +27,8 @@ let DataSimulator = function () {
     close: [8, 9, 10]
   }
 
-  //This exists on the storeView component
-  coffeeMenuBank = [['someItemName', 3.49], ['someItemName', 3.49], ['someItemName', 3.49]];
-  teaMenuBank = [['someItemName', 3.49], ['someItemName', 3.49], ['someItemName', 3.49]];
+  //Create additional banks for preset food, coffee, and tea menus with item prices for later use in storeView component
+  ///////////////////
   
 
   //Create new simulated data for this user's location
@@ -160,11 +146,14 @@ let DataSimulator = function () {
     let numberOfFeaturedFoods = Math.floor(Math.random() * 4);
     let featuredFoods = [[], false];
 
-    for (let i = 0; i < numberOfFeaturedFoods + 1; i++) {
+    for (let i = 0; i < numberOfFeaturedFoods; i++) {
       let foodItem = featuredItemsBank.food[Math.floor(Math.random() * featuredItemsBank.food.length)];
-      featuredFoods.indexOf(foodItem) !== -1 ? featuredFoods[0].push(foodItem) : '';
+      if (featuredFoods[0].indexOf(foodItem) === -1) {
+          featuredFoods[0].push(foodItem);
+      }
     }
 
+    //Determine if food tag is true
     if (featuredFoods.length > 0) {
       featuredFoods[1] = true;
     }
@@ -178,12 +167,14 @@ let DataSimulator = function () {
 
     let featuredDrinks = [[], false];
 
-    for (let i = 0; i < numberOfFeaturedDrinks + 1; i++) {
+    for (let i = 0; i < numberOfFeaturedDrinks; i++) {
       let drinkItem = featuredItemsBank.drinks[Math.floor(Math.random() * featuredItemsBank.drinks.length)];
-      featuredDrinks.indexOf(drinkItem) !== -1 ? featuredDrinks[0].push(drinkItem) : '';
+      if (featuredDrinks[0].indexOf(drinkItem) === -1) {
+          featuredDrinks[0].push(drinkItem);
+      }
     }
 
-    //Determine if tea tag exists
+    //Determine if tea tag is true
     let decideTeaTag = Math.floor(Math.random() * 2);
     if (decideTeaTag === 0) {
       featuredDrinks[1] = true;
@@ -195,6 +186,13 @@ let DataSimulator = function () {
     }
 
     return featuredDrinks;
+  }
+
+  //Check to see if data needs to be created
+  if (!dataAlreadyExists) {
+    createSimulatedStoreData();
+  } else {
+    setStoreData(userInfo.storeData);
   }
 }
 
