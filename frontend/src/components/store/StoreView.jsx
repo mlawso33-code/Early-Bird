@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import GlobalContext from '../../contexts/context.js';
-import Axios from 'Axios'
+import Axios from 'axios'
 import ReviewList from './Stores/Reviews/ReviewList.jsx'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
