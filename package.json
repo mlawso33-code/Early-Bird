@@ -49,11 +49,6 @@
     "react-icons": "^4.3.1",
     "react-rating": "^2.0.5",
     "react-router": "^6.2.1",
-<<<<<<< HEAD
     "react-router-dom": "^6.2.1"
-=======
-    "react-router-dom": "^6.2.1",
-    "react-router-native": "^6.2.1"
->>>>>>> d172acb6e4dd4f90650da08b7b67bed95d9b1697
   }
 }
