@@ -5,7 +5,7 @@ import StarRating from './StarRating.jsx'
 import Rating from 'react-rating'
 import { FaRegStar, FaStar } from 'react-icons/fa'
 
-import Axios from 'Axios'
+import Axios from 'axios'
 
 const ReviewList = ({ store }) => {
   const [rate, setRate] = useState(0)
