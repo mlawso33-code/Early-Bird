@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import GlobalContext from '../../contexts/context.js';
-import axios from 'axios';
+import Axios from 'Axios';
 import {GiCoffeeBeans} from 'react-icons/gi';
 import {FiCoffee} from 'react-icons/fi';
 
