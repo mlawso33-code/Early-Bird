@@ -5,7 +5,7 @@ import {GiCoffeeBeans} from 'react-icons/gi';
 import {FiCoffee} from 'react-icons/fi';
 
 const UserInfo = () => {
-  const { page, setPage } = useContext(GlobalContext);
+  const { page, setPage, userInfo, setUserInfo } = useContext(GlobalContext);
   const [currentUser, setCurrentUser] = useState({
     username: 'this name is hardcoded',
     email: 'myemail@hardcoded.com',
@@ -58,17 +58,17 @@ const UserInfo = () => {
     <div className="container" style={{height: '100%', width: '100%'}}>
     <img src="LOGO.png" className="logo"/>
     <GiCoffeeBeans style={{height: '30px', color: 'white', top:'8px', right: '50px', position: 'absolute'}} ></GiCoffeeBeans>
-    <div style={{height: '30px', color: 'white', top:'14px', right: '10px', position: 'absolute'}}>{currentUser.points}</div>
+    <div style={{height: '30px', color: 'white', top:'14px', right: '10px', position: 'absolute'}}>{userInfo.points}</div>
     <div className="register-field">
-    <input type="text" className="login-input" value={currentUser.username} name="username" style={{marginTop: '44px'}} readOnly/>
-      <input type="email" className="login-input" placeholder={currentUser.email} name="email" onChange={handleChange}/>
-      <input type="text" className="login-input" placeholder={currentUser.address} name="adress" onChange={handleChange}/>
+    <input type="text" className="login-input" value={userInfo.username} name="username" style={{marginTop: '44px'}} readOnly/>
+      <input type="email" className="login-input" placeholder={userInfo.email} name="email" onChange={handleChange}/>
+      <input type="text" className="login-input" placeholder={userInfo.address} name="adress" onChange={handleChange}/>
       <div className="address">
-        <input type="text" className="login-input" placeholder={currentUser.city} name="city" style={{width: '50%',
+        <input type="text" className="login-input" placeholder={userInfo.city} name="city" style={{width: '50%',
     marginRight: '15px'}} onChange={handleChange}/>
-        <input type="text" className="login-input" placeholder={currentUser.state} name="state" style={{width: '15%',
+        <input type="text" className="login-input" placeholder={userInfo.state} name="state" style={{width: '15%',
     marginRight: '15px'}} onChange={handleChange}/>
-        <input type="text" className="login-input" placeholder={currentUser.zip} name="zip" style={{width: '25%',
+        <input type="text" className="login-input" placeholder={userInfo.zip} name="zip" style={{width: '25%',
     marginRight: '15px'}} onChange={handleChange}/>
       </div>
       <div className="buttons">
@@ -90,7 +90,7 @@ const UserInfo = () => {
           }
         }}>Update Info</button>
         <GiCoffeeBeans className="login-input"></GiCoffeeBeans>
-        <div className="login-input">Total: {currentUser.points}</div>
+        <div className="login-input">Total: {userInfo.points}</div>
       </div>
     </div>
 

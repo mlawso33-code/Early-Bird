@@ -21,7 +21,7 @@ const Login = () => {
     //returns true if meets your conditions
     //returns false if doesn't meet your conditions
     Axios.get(`user/${loginCred.username}/${loginCred.password}`).then((result) => {
-      console.log(result);
+      //console.log(result);
       if (result) {
         loggedIn = true;
         return true;

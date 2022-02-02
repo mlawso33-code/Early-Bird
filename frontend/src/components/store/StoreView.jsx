@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import GlobalContext from '../../contexts/context.js';
 import axios from 'axios'
-
 import ReviewList from './Stores/Reviews/ReviewList.jsx'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const StoreView = () => {
   const [stores, setStores] = useState([])
   const [users, setUsers] = useState([])
-  const { page, setPage } = useContext(GlobalContext);
+  const { page, setPage, storeData, setStoreData, userInfo, setUserInfo } = useContext(GlobalContext);
 
   //We need to confirm the user is logged in before returning the following html.
   //We don't want the user to be able to navigate to /home without being logged in.
@@ -25,7 +24,7 @@ const StoreView = () => {
   }
 
   // console.log('users:::', users)
-   //console.log('stores:::')
+  //console.log('stores:::')
 
   useEffect(() => {
     fetchStores()
@@ -35,25 +34,28 @@ const StoreView = () => {
     fetchUsers()
   }, [])
 
-  const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      const uid = user.uid;
-      // ...
-      return(
-        <div>not logged in</div>
-      )
-    } else {
-      // User is signed out
-      // ...
-    }
-  });
+  // const auth = getAuth();
+  // onAuthStateChanged(auth, (user) => {
+  //   if (!user) {
+  //     // User is signed in, see docs for a list of available properties
+  //     // https://firebase.google.com/docs/reference/js/firebase.User
+  //     const uid = user.uid;
+  //     // ...
+  //     return(
+  //       <div>not logged in</div>
+  //     )
+  //   } else {
+  //     // User is signed out
+  //     // ...
+  //   }
+  // });
 
   return (
     <div className="wrapper" style={{ height: '100%', width: '100%' }}>
       <img src="LOGO.png" className="logo" />
+      <div style={{ height: '30px', color: 'white', top: '14px', right: '100px', position: 'absolute' }}>{userInfo.username}</div>
+      <GiCoffeeBeans style={{ height: '30px', color: 'white', top: '8px', right: '50px', position: 'absolute' }} ></GiCoffeeBeans>
+      <div style={{ height: '30px', color: 'white', top: '14px', right: '10px', position: 'absolute' }}>{userInfo.points}</div>
       <div className="nav-bar"></div>
       <div className="portal-container" style={{ height: '100%', width: '100%', fontFamily: 'neue-haas-grotesk-display' }}>
         <div className="shops-module">
@@ -140,7 +142,7 @@ const StoreView = () => {
             </div>
             <hr className="hr" />
           </div>
-          <ReviewList store={stores[0]} user={users}/>
+          <ReviewList store={stores[0]} user={users} />
         </div>
       </div>
     </div>
