@@ -20,8 +20,11 @@ app.use('/', express.static(__dirname + '/../../frontend/dist'));
 app.use(express.json());
 
 // get, post, delete request routing
-app.get('/api/stores/:store_id/reviews', controllers.getSomeData);
 app.get('/api/stores', controllers.getStores)
+app.get('/api/users', controllers.getUsers)
+// app.get('/api/reviews', controllers.getReviews)
+app.get('/api/stores/:store_id/reviews', controllers.getStoreReviewData);
+app.get('/api/users/:user_id/reviews', controllers.getUserReviewData)
 app.post('/api/stores/reviews', controllers.postSomeData);
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'), function(err) {
