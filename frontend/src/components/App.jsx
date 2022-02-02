@@ -10,10 +10,7 @@ import UserInfo from './login/UserInfo.jsx';
 
 const App = () => {
   const [page, setPage] = useState('userInfo');
-  const [userInfo, setUserInfo] = useState({
-    username: '',
-    address: ''
-  })
+  const [userInfo, setUserInfo] = useState({})
   const [storeData, setStoreData] = useState([]);
 
   return (

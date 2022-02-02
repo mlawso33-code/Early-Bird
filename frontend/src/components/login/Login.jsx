@@ -20,6 +20,7 @@ const Login = () => {
     //please make sure this function:
     //returns true if meets your conditions
     //returns false if doesn't meet your conditions
+<<<<<<< HEAD
     Axios.get(`user/${loginCred.username}/${loginCred.password}`).then((result) => {
       console.log(result);
       if (result) {
@@ -31,6 +32,22 @@ const Login = () => {
       }
     });
 
+=======
+    // const auth = getAuth();
+    // signInWithEmailAndPassword(auth, loginCred.email, loginCred.password)
+    //   .then((userCredential) => {
+    //     // Signed in
+    //     const user = userCredential.user;
+    //     return true
+    //     // ...
+    //   })
+    //   .catch((error) => {
+    //     const errorCode = error.code;
+    //     const errorMessage = error.message;
+    //     return false
+    //   });
+    return true
+>>>>>>> main
   }
 
   const ConditionalLink = ({ children, to, condition }) => (!!condition && to)

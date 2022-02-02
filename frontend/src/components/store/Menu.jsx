@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import Axios from 'Axios'
+import axios from 'axios'
 
 const Menu = () => {
   const [products, setProducts] = useState([])

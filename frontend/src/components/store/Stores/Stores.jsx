@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import GlobalContext from '../../../contexts/context.js';
-import Axios from 'axios';
+import axios from 'axios';
 
 const Stores = () => {
   const { page, setPage } = useContext(GlobalContext);
   let stores;
 
-  Axios.get('/api/stores').then((result) => {
+  axios.get('/api/stores').then((result) => {
     //db.query('SELECT * FROM stores WHERE zip=?', ['%100%'], (err, result) => {
       if (err) {
         console.log(err);
