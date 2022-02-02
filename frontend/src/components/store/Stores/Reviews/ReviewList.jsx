@@ -4,8 +4,8 @@ import ReviewModal from './ReviewModal.jsx'
 import StarRating from './StarRating.jsx'
 import Rating from 'react-rating'
 import { FaRegStar, FaStar } from 'react-icons/fa'
-
 import axios from 'axios'
+
 
 const ReviewList = ({ store }) => {
   const [rate, setRate] = useState(0)
