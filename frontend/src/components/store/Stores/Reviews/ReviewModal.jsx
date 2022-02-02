@@ -4,9 +4,9 @@ import React, { useState } from 'react'
 const ReviewModal = ({toggle, submit}) => {
   return (
     <div className="reviewModal">
-      <div>
-        <span className="closeReview" onClick={toggle}>X</span>
-        <h3>STORE NAME</h3>
+      <div className="reviewModalTitle">STORE NAME
+        <button onClick={toggle}>X</button>
+
       </div>
       <form className="reviewModalBody" onSubmit={submit}>
         <input type="text-area" placeholder="Enter your review."></input>

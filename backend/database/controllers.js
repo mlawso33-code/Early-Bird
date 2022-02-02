@@ -14,6 +14,7 @@ const controllers = {
   // GET REQUESTS
   // ================================================================
 
+
   getStoreDetails(req, res) {
     console.log('received a new GET request to getStoreDetails');
 
@@ -58,7 +59,6 @@ const controllers = {
     })
   },
 
-
   // ================================================================
   // POST REQUESTS
   // ================================================================
@@ -88,7 +88,6 @@ const controllers = {
     //     res.status(201).send();
     //   }
     // });
-
   },
 
   addNewReview(req, res) {
