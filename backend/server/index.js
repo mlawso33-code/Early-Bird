@@ -25,7 +25,7 @@ app.get('/stores/:id/reviews', controllers.getStoreReviews);
 app.get('/stores/:id/products', controllers.getStoreProducts);
 app.get('/stores/nearby', controllers.getNearbyStores);
 app.get('/product/:id', controllers.getProductDetails);
-app.get('/user/:id', controllers.getUserDetails);
+app.get('/user/:username/:password', controllers.getUserDetails);
 
 // post request routes
 app.post('/user', controllers.addNewUser);
