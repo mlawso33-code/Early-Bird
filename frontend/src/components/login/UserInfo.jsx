@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import GlobalContext from '../../contexts/context.js';
 import Axios from 'Axios';
-import {GiCoffeeBeans} from 'react-icons/gi'
-import {FiCoffee} from 'react-icons/fi'
+import {GiCoffeeBeans} from 'react-icons/gi';
+import {FiCoffee} from 'react-icons/fi';
 
 const UserInfo = () => {
   const { page, setPage } = useContext(GlobalContext);
@@ -17,7 +17,7 @@ const UserInfo = () => {
   });
 
   // useEffect(() => {
-  //   Axios.get('/api/some_endpoint').then((result) => {
+  //   axios.get('/api/some_endpoint').then((result) => {
   //     console.log(result);
   //      setCurrentUser({
   //       username: result.data.username,
@@ -84,13 +84,12 @@ const UserInfo = () => {
           } else if (currentUser.zip.length === 0 || hasLetter(currentUser.zip)) {
             alert('Please enter a valid Zipcode')
           } else {
-            Axios.put('/api/some_endpoint', currentUser).then(
+            axios.put('/api/some_endpoint', currentUser).then(
               //change pages
             )
           }
         }}>Update Info</button>
         <GiCoffeeBeans className="login-input"></GiCoffeeBeans>
-        {/* <FiCoffee className="login-input"></FiCoffee> */}
         <div className="login-input">Total: {currentUser.points}</div>
       </div>
     </div>
