@@ -2,8 +2,6 @@
 const express = require('express');
 const db = require('../database/index.js');
 const controllers = require('../database/controllers.js');
-require("babel-core/register");
-require("babel-polyfill");
 const path = require('path')
 
 // create express app
@@ -23,13 +21,6 @@ app.use(express.json());
 app.get('/api/stores/:store_id/reviews', controllers.getSomeData);
 app.get('/api/stores', controllers.getStores)
 app.post('/api/stores/reviews', controllers.postSomeData);
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'), function(err) {
-    if (err) {
-      res.status(500).send(err)
-    }
-  })
-})
 
 
 // listen for get/post requests
