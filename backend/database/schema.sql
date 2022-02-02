@@ -3,7 +3,7 @@
 // Database creation
 // ==============================================
 */
-
+DROP DATABASE IF EXISTS early_bird;
 CREATE DATABASE early_bird;
 
 USE early_bird;
@@ -32,7 +32,7 @@ CREATE TABLE payment_info (
   billing_zip VARCHAR(10) NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (user_id)
-    REFERENCES users(id)
+  REFERENCES users(id)
 );
 
 CREATE TABLE stores (
@@ -59,9 +59,9 @@ CREATE TABLE reviews (
   date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   FOREIGN KEY (user_id)
-    REFERENCES users(id),
+  REFERENCES users(id),
   FOREIGN KEY (store_id)
-    REFERENCES stores(id)
+  REFERENCES stores(id)
 );
 
 CREATE TABLE products (
@@ -73,7 +73,7 @@ CREATE TABLE products (
   is_featured_item BOOLEAN DEFAULT 0,
   PRIMARY KEY (id),
   FOREIGN KEY (store_id)
-    REFERENCES stores(id)
+  REFERENCES stores(id)
 );
 
 /*  Execute this file from the command line by typing:

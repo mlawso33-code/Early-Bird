@@ -1,4 +1,5 @@
 var path = require('path');
+const HtmlWebPackPlug = require('html-webpack-plugin');
 var SRC_DIR = path.join(__dirname, '/frontend/src');
 var DIST_DIR = path.join(__dirname, '/frontend/dist');
 
@@ -6,7 +7,11 @@ module.exports = {
   entry: ['babel-polyfill', `${SRC_DIR}/index.js`],
   output: {
     filename: 'bundle.js',
-    path: DIST_DIR
+    path: DIST_DIR,
+    publicPath: '/',
+  },
+  devServer: {
+    historyApiFallback: true
   },
   module: {
     rules: [
