@@ -31,22 +31,24 @@ CREATE TABLE payment_info (
   ccv INT NOT NULL,
   billing_zip VARCHAR(10) NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (user_id)
-  REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE stores (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(50) NOT NULL,
-  street_address VARCHAR(100) NOT NULL,
-  city VARCHAR(50) NOT NULL,
-  state VARCHAR(20) NOT NULL,
-  zip VARCHAR(10) NOT NULL,
+  address VARCHAR(100) NOT NULL,
   latitude VARCHAR(50) NOT NULL,
   longitude VARCHAR(50) NOT NULL,
+  miles_away VARCHAR(5),
   store_open TIME NOT NULL,
   store_close TIME NOT NULL,
   url VARCHAR(250),
+  featured_foods VARCHAR(100),
+  featured_drinks VARCHAR(100),
+  food_tag BOOLEAN DEFAULT 0,
+  tea_tag BOOLEAN DEFAULT 0,
+  coffee_tag BOOLEAN DEFAULT 0,
   PRIMARY KEY (id)
 );
 
@@ -58,10 +60,8 @@ CREATE TABLE reviews (
   body VARCHAR(250) NOT NULL,
   date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
-  FOREIGN KEY (user_id)
-  REFERENCES users(id),
-  FOREIGN KEY (store_id)
-  REFERENCES stores(id)
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (store_id) REFERENCES stores(id)
 );
 
 CREATE TABLE products (
@@ -72,8 +72,7 @@ CREATE TABLE products (
   category VARCHAR(20) NOT NULL,
   is_featured_item BOOLEAN DEFAULT 0,
   PRIMARY KEY (id),
-  FOREIGN KEY (store_id)
-  REFERENCES stores(id)
+  FOREIGN KEY (store_id) REFERENCES stores(id)
 );
 
 /*  Execute this file from the command line by typing:

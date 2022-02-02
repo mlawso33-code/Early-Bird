@@ -4,8 +4,8 @@ import ReviewModal from './ReviewModal.jsx'
 import StarRating from './StarRating.jsx'
 import Rating from 'react-rating'
 import { FaRegStar, FaStar } from 'react-icons/fa'
+import axios from 'axios'
 
-import Axios from 'Axios'
 
 const ReviewList = ({ store, user }) => {
   const [totalReviews, setTotalReviews] = useState(0)
@@ -15,18 +15,19 @@ const ReviewList = ({ store, user }) => {
   const [userReviews, setUserReviews] = useState([])
   const [addReview, setAddReview] = useState(false)
 
+
   console.log('store id',)
   console.log('store reviews:::', storeReviews)
   console.log('users reviews:::', userReviews)
 
-  function fetchStoreReviews(id) {
-    Axios
+  function fetchReviews(id) {
+    axios
       .get(`/api/stores/${id}/reviews`)
       .then(res => setStoreReviews(res.data))
   }
 
   function fetchUserReviews(id) {
-    Axios
+    axios
       .get(`/api/users/${id}/reviews`)
       .then(res => setUserReviews(res.data))
   }

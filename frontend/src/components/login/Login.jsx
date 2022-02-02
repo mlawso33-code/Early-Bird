@@ -3,32 +3,33 @@ import GlobalContext from '../../contexts/context.js';
 import { Link } from 'react-router-dom';
 import Register from './Register.jsx';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import Axios from 'axios';
 
 const Login = () => {
   const { page, setPage } = useContext(GlobalContext);
   const [loginCred, setLoginCred] = useState({
     username: '',
     email: '',
-    password: ''
+    password: '',
   })
+  const saltRounds = 10;
+  const myPlaintextPassword = loginCred.password;
+  let loggedIn = false;
 
   function conditionalFunction() {
     //please make sure this function:
     //returns true if meets your conditions
     //returns false if doesn't meet your conditions
-    // const auth = getAuth();
-    // signInWithEmailAndPassword(auth, loginCred.email, loginCred.password)
-    //   .then((userCredential) => {
-    //     // Signed in
-    //     const user = userCredential.user;
-    //     return true
-    //     // ...
-    //   })
-    //   .catch((error) => {
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-    //     return false
-    //   });
+    Axios.get(`user/${loginCred.username}/${loginCred.password}`).then((result) => {
+      console.log(result);
+      if (result) {
+        loggedIn = true;
+        return true;
+      } else {
+        loggedIn = false;
+        return false;
+      }
+    });
   }
 
   const ConditionalLink = ({ children, to, condition }) => (!!condition && to)
@@ -51,8 +52,8 @@ const Login = () => {
         <input type="text" name="username" className="login-input" placeholder="Username" onChange={handleChange}/>
         <input type="text" name="password" className="login-input" placeholder="Password" onChange={handleChange}/>
         <div className="buttons">
-          <ConditionalLink to="/home" condition={conditionalFunction() === true}><button className="login-button">LOGIN</button></ConditionalLink>
-          <ConditionalLink to="/register" condition={conditionalFunction() === true}><button className="login-button">REGISTER</button></ConditionalLink>
+          <ConditionalLink to="/home" condition={loggedIn === true}><button className="login-button" onClick={conditionalFunction}>LOGIN</button></ConditionalLink>
+          <ConditionalLink to="/register" condition={conditionalFunction === false}><button className="login-button">REGISTER</button></ConditionalLink>
           <button className="facebook-button">Login with Facebook</button>
         </div>
       </div>

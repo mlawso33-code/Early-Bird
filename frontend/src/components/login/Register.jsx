@@ -85,21 +85,9 @@ const Register = () => {
             } else if (userRegister.zip.length !== 5 || hasLetter(userRegister.zip)) {
               alert('Please enter a valid Zipcode')
             } else {
-              axios.post('/api/some_endpoint', userRegister).then(
+              axios.post('/api/user', userRegister).then(
                 console.log(userRegister)
               )
-              const auth = getAuth();
-              createUserWithEmailAndPassword(auth, userRegister.email, userRegister.password)
-                .then((userCredential) => {
-                  // Signed in
-                  const user = userCredential.user;
-                  // ...
-                })
-                .catch((error) => {
-                  const errorCode = error.code;
-                  const errorMessage = error.message;
-                  // ..
-                });
             }
           }}>Register</button>
         </div>
