@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
 import GlobalContext from '../../contexts/context.js';
 import axios from 'axios'
+import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
 import ReviewList from './Stores/Reviews/ReviewList.jsx'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const StoreView = () => {
   const [stores, setStores] = useState([])
   const [users, setUsers] = useState([])
-  const { page, setPage, storeData, setStoreData, userInfo, setUserInfo } = useContext(GlobalContext);
-
+  const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn  } = useContext(GlobalContext);
+  let navigate = useNavigate();
   //We need to confirm the user is logged in before returning the following html.
   //We don't want the user to be able to navigate to /home without being logged in.
 
@@ -18,7 +19,7 @@ const StoreView = () => {
       .then(res => setStores(res.data))
   }
   function fetchUsers() {
-    Axios
+    axios
       .get('/api/users')
       .then(res => setUsers(res.data))
   }
@@ -40,6 +41,7 @@ const StoreView = () => {
   //     // User is signed in, see docs for a list of available properties
   //     // https://firebase.google.com/docs/reference/js/firebase.User
   //     const uid = user.uid;
+  //     //const uid = user.uid;
   //     // ...
   //     return(
   //       <div>not logged in</div>
@@ -49,6 +51,12 @@ const StoreView = () => {
   //     // ...
   //   }
   // });
+
+  if (loggedIn === false) {
+    navigate('/');
+  } else {
+    console.log(userInfo)
+  }
 
   return (
     <div className="wrapper" style={{ height: '100%', width: '100%' }}>
@@ -142,7 +150,7 @@ const StoreView = () => {
             </div>
             <hr className="hr" />
           </div>
-          <ReviewList store={stores[0]} user={users} />
+          {/* <ReviewList store={stores[0]} user={users}/> */}
         </div>
       </div>
     </div>
