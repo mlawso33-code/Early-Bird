@@ -25,7 +25,7 @@ const StoreView = () => {
   }
 
   // console.log('users:::', users)
-   //console.log('stores:::')
+  //console.log('stores:::')
 
   useEffect(() => {
     fetchStores()
@@ -40,6 +40,7 @@ const StoreView = () => {
   //   if (!user) {
   //     // User is signed in, see docs for a list of available properties
   //     // https://firebase.google.com/docs/reference/js/firebase.User
+  //     const uid = user.uid;
   //     //const uid = user.uid;
   //     // ...
   //     return(
@@ -60,6 +61,9 @@ const StoreView = () => {
   return (
     <div className="wrapper" style={{ height: '100%', width: '100%' }}>
       <img src="LOGO.png" className="logo" />
+      <div style={{ height: '30px', color: 'white', top: '14px', right: '100px', position: 'absolute' }}>{userInfo.username}</div>
+      <GiCoffeeBeans style={{ height: '30px', color: 'white', top: '8px', right: '50px', position: 'absolute' }} ></GiCoffeeBeans>
+      <div style={{ height: '30px', color: 'white', top: '14px', right: '10px', position: 'absolute' }}>{userInfo.points}</div>
       <div className="nav-bar"></div>
       <div className="portal-container" style={{ height: '100%', width: '100%', fontFamily: 'neue-haas-grotesk-display' }}>
         <div className="shops-module">

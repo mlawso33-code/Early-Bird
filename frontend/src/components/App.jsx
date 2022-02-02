@@ -5,7 +5,7 @@ import GlobalContext from '../contexts/context.js';
 import Login from './login/Login.jsx';
 import Register from './login/Register.jsx';
 import StoreView from './store/StoreView.jsx';
-import UserInfo from './login/UserInfo.jsx';
+import UserUpdate from './login/UserUpdate.jsx';
 
 
 const App = () => {
@@ -21,7 +21,7 @@ const App = () => {
   <Route path="/" element={<Login />} />
   <Route path="register" element={<Register />} />
   <Route path="Home" element={<StoreView />} />
-  <Route path="userInfo" element={<UserInfo />} />
+  <Route path="userInfo" element={<UserUpdate />} />
 
       </Routes></BrowserRouter>
     </GlobalContext.Provider>
