@@ -30,7 +30,6 @@ const Login = () => {
         return false;
       }
     });
-
   }
 
   const ConditionalLink = ({ children, to, condition }) => (!!condition && to)

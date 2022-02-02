@@ -1,12 +1,12 @@
 /* DUMMY STOREs */
-INSERT INTO stores (name, street_address, city, state, zip, latitude, longitude, store_open, store_close, url, featured_foods, featured_drinks, food_tag, tea_tag, coffee_tag)
+INSERT INTO stores (name, address, latitude, longitude, miles_away, store_open, store_close, url, featured_foods, featured_drinks, food_tag, tea_tag, coffee_tag)
 
 VALUES
-('Coffee Shop 1', '111 Test Me Dr.', 'TestCity', 'TS', '12345', '10.123','-115.234', '08:00:00', '19:00:00', 'http://www.shop1.com', '["tacos1", "biscuit1"]', '["coffee1", "fruit juice1"]', 0, 1, 1),
-('Coffee Shop 2', '222 Test Me Dr.', 'TestCity', 'TS', '12345', '20.123','-125.234', '08:00:00', '19:00:00', 'http://www.shop2.com', '["tacos2", "biscuit2"]', '["coffee2", "fruit juice2"]', 1, 1, 1),
-('Coffee Shop 3', '333 Test Me Dr.', 'TestCity', 'TS', '12345', '30.123','-135.234', '08:00:00', '19:00:00', 'http://www.shop3.com', '["tacos3", "biscuit3"]', '["coffee3", "fruit juice3"]', 1, 0, 1),
-('Coffee Shop 4', '444 Test Me Dr.', 'TestCity', 'TS', '12345', '40.123','-145.234', '08:00:00', '19:00:00', 'http://www.shop4.com', '["tacos4", "biscuit4"]', '["coffee4", "fruit juice4"]', 0, 1, 1),
-('Coffee Shop 5', '555 Test Me Dr.', 'TestCity', 'TS', '12345', '50.123','-155.234', '08:00:00', '19:00:00', 'http://www.shop5.com', '["tacos5", "biscuit5"]', '["coffee5", "fruit juice5"]', 1, 1, 1);
+('Coffee Shop 1', '111 Test Me Dr., TestCity, TS, 12345', '10.123','-115.234', '1.1', '08:00:00', '19:00:00', 'http://www.shop1.com', '["tacos1", "biscuit1"]', '["coffee1", "fruit juice1"]', 0, 1, 1),
+('Coffee Shop 2', '222 Test Me Dr., TestCity, TS, 12345', '20.123','-125.234', '1.2', '08:00:00', '19:00:00', 'http://www.shop2.com', '["tacos2", "biscuit2"]', '["coffee2", "fruit juice2"]', 1, 1, 1),
+('Coffee Shop 3', '333 Test Me Dr., TestCity, TS, 12345', '30.123','-135.234', '1.3', '08:00:00', '19:00:00', 'http://www.shop3.com', '["tacos3", "biscuit3"]', '["coffee3", "fruit juice3"]', 1, 0, 1),
+('Coffee Shop 4', '444 Test Me Dr., TestCity, TS, 12345', '40.123','-145.234', '1.4', '08:00:00', '19:00:00', 'http://www.shop4.com', '["tacos4", "biscuit4"]', '["coffee4", "fruit juice4"]', 0, 1, 1),
+('Coffee Shop 5', '555 Test Me Dr., TestCity, TS, 12345', '50.123','-155.234', '1.5', '08:00:00', '19:00:00', 'http://www.shop5.com', '["tacos5", "biscuit5"]', '["coffee5", "fruit juice5"]', 1, 1, 1);
 
 
 /*dummy user */
