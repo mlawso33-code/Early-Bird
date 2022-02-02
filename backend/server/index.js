@@ -23,7 +23,7 @@ app.use(express.json());
 app.get('/stores/:id/details', controllers.getStoreDetails);
 app.get('/stores/:id/reviews', controllers.getStoreReviews);
 app.get('/stores/:id/products', controllers.getStoreProducts);
-app.get('/stores/nearby', controllers.getNearbyStores);
+app.get('/stores/nearby/:zip', controllers.getNearbyStores);
 app.get('/product/:id', controllers.getProductDetails);
 app.get('/user/:username/:password', controllers.getUserDetails);
 
