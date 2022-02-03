@@ -3,7 +3,7 @@ import GlobalContext from '../../contexts/context.js';
 import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
 import Register from './Register.jsx';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import Axios from 'axios';
+import axios from 'axios';
 
 const Login = () => {
   const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn } = useContext(GlobalContext);
@@ -20,7 +20,7 @@ const Login = () => {
     //please make sure this function:
     //returns true if meets your conditions
     //returns false if doesn't meet your conditions
-      Axios.get(`user/${loginCred.username}/${loginCred.password}`).then(async (result) => {
+      axios.get(`user/${loginCred.username}/${loginCred.password}`).then(async (result) => {
       if (result.data !== false) {
         setUserInfo(result.data[0]);
         setLoggedIn(true);

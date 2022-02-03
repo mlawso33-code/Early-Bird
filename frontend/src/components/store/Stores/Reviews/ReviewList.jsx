@@ -33,7 +33,7 @@ const ReviewList = ({ store, user }) => {
   }
 
   // function fetchReviews() {
-  //   Axios
+  //   axios
   //   .get('/api/reviews')
   //   .then(res => setReviews(res.data))
   // }

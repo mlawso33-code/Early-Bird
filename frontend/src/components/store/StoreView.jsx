@@ -4,6 +4,7 @@ import axios from 'axios'
 import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
 import ReviewList from './Stores/Reviews/ReviewList.jsx'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {GiCoffeeBeans} from 'react-icons/gi';
 
 const StoreView = () => {
   const [stores, setStores] = useState([])
@@ -55,15 +56,20 @@ const StoreView = () => {
   if (loggedIn === false) {
     navigate('/');
   } else {
-    console.log(userInfo)
+    console.log('userInfo', userInfo)
   }
+
+  const ConditionalLink = ({ children, to, condition }) => (!!condition && to)
+    ? <Link to={to}>{children}</Link>
+    : <>{children}</>;
 
   return (
     <div className="wrapper" style={{ height: '100%', width: '100%' }}>
       <img src="LOGO.png" className="logo" />
       <div style={{ height: '30px', color: 'white', top: '14px', right: '100px', position: 'absolute' }}>{userInfo.username}</div>
+      <ConditionalLink to="/userUpdate" condition={1===1}><button style={{height: '30px', top: '35px', right: '40px', position: 'absolute' }}>UPDATE</button></ConditionalLink>
       <GiCoffeeBeans style={{ height: '30px', color: 'white', top: '8px', right: '50px', position: 'absolute' }} ></GiCoffeeBeans>
-      <div style={{ height: '30px', color: 'white', top: '14px', right: '10px', position: 'absolute' }}>{userInfo.points}</div>
+      <div style={{ height: '30px', color: 'white', top: '14px', right: '10px', position: 'absolute' }}>{userInfo.reward_points}</div>
       <div className="nav-bar"></div>
       <div className="portal-container" style={{ height: '100%', width: '100%', fontFamily: 'neue-haas-grotesk-display' }}>
         <div className="shops-module">

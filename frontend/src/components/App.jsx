@@ -21,7 +21,7 @@ const App = () => {
   <Route path="/" element={<Login />} />
   <Route path="register" element={<Register />} />
   <Route path="Home" element={<StoreView />} />
-  <Route path="userInfo" element={<UserUpdate />} />
+  <Route path="userUpdate" element={<UserUpdate />} />
 
       </Routes></BrowserRouter>
     </GlobalContext.Provider>

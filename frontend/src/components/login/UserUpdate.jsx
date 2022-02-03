@@ -3,34 +3,28 @@ import GlobalContext from '../../contexts/context.js';
 import axios from 'axios';
 import {GiCoffeeBeans} from 'react-icons/gi';
 import {FiCoffee} from 'react-icons/fi';
+import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
 
-const UserUpdate = () => {  
-  const { page, setPage, userInfo, setUserInfo } = useContext(GlobalContext);
-  
+const UserUpdate = () => {
+  const { page, setPage, userInfo, setUserInfo, loggedIn, setLoggedIn  } = useContext(GlobalContext);
+  let navigate = useNavigate();
+
   const [currentUser, setCurrentUser] = useState({
-    username: 'this name is hardcoded',
-    email: 'myemail@hardcoded.com',
-    address: '123 hard code ave.',
-    city: 'hardcode',
-    state: 'HC',
-    zip: '00000',
-    points: 7000,
+    username: userInfo.username,
+    password: userInfo.password,
+    email: userInfo.email,
+    street_address: userInfo.street_address,
+    city: userInfo.city,
+    state: userInfo.state,
+    zip: userInfo.zip,
+    reward_points: userInfo.reward_points
   });
 
-  // useEffect(() => {
-  //   axios.get('/api/some_endpoint').then((result) => {
-  //     console.log(result);
-  //      setCurrentUser({
-  //       username: result.data.username,
-  //       email: result.data.email,
-  //       address: result.data.address,
-  //       city: result.data.city,
-  //       state: result.data.state,
-  //       zip: result.data.zip,
-  //       points: 0,
-  // })
-  //   })
-  // })
+  if (loggedIn === false) {
+    navigate('/');
+  } else {
+    console.log(userInfo)
+  }
 
   const handleChange = (event) => {
     setCurrentUser({
@@ -58,12 +52,13 @@ const UserUpdate = () => {
   return (
     <div className="container" style={{height: '100%', width: '100%'}}>
     <img src="LOGO.png" className="logo"/>
+    <div style={{ height: '30px', color: 'white', top: '14px', right: '100px', position: 'absolute' }}>{userInfo.username}</div>
     <GiCoffeeBeans style={{height: '30px', color: 'white', top:'8px', right: '50px', position: 'absolute'}} ></GiCoffeeBeans>
     <div style={{height: '30px', color: 'white', top:'14px', right: '10px', position: 'absolute'}}>{userInfo.points}</div>
     <div className="register-field">
     <input type="text" className="login-input" value={userInfo.username} name="username" style={{marginTop: '44px'}} readOnly/>
       <input type="email" className="login-input" placeholder={userInfo.email} name="email" onChange={handleChange}/>
-      <input type="text" className="login-input" placeholder={userInfo.address} name="adress" onChange={handleChange}/>
+      <input type="text" className="login-input" placeholder={userInfo.street_address} name="street_address" onChange={handleChange}/>
       <div className="address">
         <input type="text" className="login-input" placeholder={userInfo.city} name="city" style={{width: '50%',
     marginRight: '15px'}} onChange={handleChange}/>
@@ -76,8 +71,8 @@ const UserUpdate = () => {
         <button className="login-button" onClick={(event) => {
            if (currentUser.email.length === 0 || !ValidateEmail(currentUser.email)) {
             alert('Please enter a valid Email')
-          } else if (currentUser.address.length === 0 || !hasNumber(currentUser.address) || !hasLetter(currentUser.address)) {
-            alert('Please enter a valid adress')
+          } else if (currentUser.street_address.length === 0 || !hasNumber(currentUser.street_address) || !hasLetter(currentUser.street_address)) {
+            alert('Please enter a valid address')
           } else if (currentUser.city.length === 0) {
             alert('Please enter a valid city')
           } else if (currentUser.state.length !== 2) {
@@ -85,11 +80,12 @@ const UserUpdate = () => {
           } else if (currentUser.zip.length === 0 || hasLetter(currentUser.zip)) {
             alert('Please enter a valid Zipcode')
           } else {
-            axios.put('/api/some_endpoint', currentUser).then(
-              //change pages
+            alert('put request attempted')
+            axios.put('/user', currentUser).then(
+              navigate('/Home')
             )
           }
-        }}>Update Info</button>
+        }}>Update</button>
         <GiCoffeeBeans className="login-input"></GiCoffeeBeans>
 
         <div className="login-input">Total: {userInfo.points}</div>
