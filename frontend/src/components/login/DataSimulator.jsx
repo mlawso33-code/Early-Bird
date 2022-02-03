@@ -2,14 +2,14 @@ import React, { useState, useEffect, useContext } from 'react';
 import GlobalContext from '../../contexts/context.js';
 import axios from 'axios';
 
-let DataSimulator = function (dataAlreadyExists) {
+let DataSimulator = function (dataAlreadyExists, userInfo) {
   //This function assumes: access to user latitude and longitude, a state to set store info to, multiple routes to handle information being saved
   //open and close times need to be added
 
 
   //These aren't real states, yet. Ideally these state will reference an object that
   //contains a user's address and the current store data attached to that address
-  const { userInfo, setUserInfo, storeData, setStoreData } = useContext(MainContext);
+  //const { userInfo, setUserInfo, storeData, setStoreData } = useContext(MainContext);
 
   //Array of possible store names to select from
   let storeNamesBank = ['Sunbucks', 'Moon Brews', 'Moose Coffee', 'Poor Java', 'Ben Cunninghams', 'Savor the Sip', 'Zees', "True Man's Beans", 'CoCoFee', 'Moca Marc'];
@@ -38,7 +38,7 @@ let DataSimulator = function (dataAlreadyExists) {
 
 
   //Create new simulated data for this user's location
-  let createSimulatedStoreData = function () {
+  let createSimulatedStoreData = async function () {
     let coffeeStoreCollection = [];
     let numberOfLocalStores = Math.floor((Math.random() * 5) + 5);
 
@@ -75,14 +75,13 @@ let DataSimulator = function (dataAlreadyExists) {
       coffeeStoreCollection.push(simulatedStore);
     }
 
-    axios.post('/store/details', coffeeStoreCollection)
+    let result = await axios.post('/stores/details', coffeeStoreCollection)
       .catch((err) => {
         console.log('There was an error processing this request.');
         console.log('Error: ', err);
-      }).then((result) => {
+      });
 
-        console.log('Coffee stores have been updated for this location!');
-      })
+      return result.data;
   };
 
   //Returns a random store name to the createSimulatedStoreData function
@@ -103,8 +102,8 @@ let DataSimulator = function (dataAlreadyExists) {
   //Returns a random store location to the createSimulatedStoreData function
   let createSimulatedLocation = function () {
     //User Information pulled from state
-    let userLat = userInfo.address.latitude;
-    let userLon = userInfo.address.longitude;
+    let userLat = userInfo.latitude;
+    let userLon = userInfo.longitude;
 
     //Define simulated results which will be calculated and returned later
     let simulatedLat;
@@ -223,7 +222,7 @@ let DataSimulator = function (dataAlreadyExists) {
 
   //Check to see if data needs to be created
   if (!dataAlreadyExists) {
-    createSimulatedStoreData();
+    return createSimulatedStoreData();
   } else {
     setStoreData(userInfo.storeData);
   }
