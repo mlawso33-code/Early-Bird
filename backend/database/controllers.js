@@ -201,8 +201,6 @@ const controllers = {
     axios
       .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.GOOGLE_API_KEY}`)
       .then(({ data }) => {
-        console.log('long-lat', lng, ' ', lat)
-        console.log('data', data);
         const name = req.body.name;
         const address = data.results[0].formatted_address;
         const latitude = JSON.stringify(req.body.location.latitude);

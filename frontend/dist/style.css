@@ -169,7 +169,8 @@ input:focus, input:focus{
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  overflow: scroll;
 }
 
 .shop-info {
@@ -224,6 +225,11 @@ input:focus, input:focus{
 
 .shop-entry {
   margin-top: 16px;
+}
+
+.shop-entry:hover {
+  cursor: hand;
+  opacity: 70%;
 }
 
 .details {
