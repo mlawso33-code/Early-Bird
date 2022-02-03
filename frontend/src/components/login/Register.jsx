@@ -96,7 +96,7 @@ const Register = () => {
                   setLoggedIn(true);
                   let value = await DataSimulator(result.data[0]);
                   console.log('Value:', value);
-                  setStoreData(value.data);
+                  setStoreData(value);
                   navigate('/Home');
                 })
               })
