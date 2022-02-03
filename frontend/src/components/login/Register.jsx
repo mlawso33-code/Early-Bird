@@ -90,8 +90,8 @@ const Register = () => {
             } else if (userRegister.zip.length !== 5 || hasLetter(userRegister.zip)) {
               alert('Please enter a valid Zipcode')
             } else {
-              Axios.post('/user', userRegister).then(() => {
-                Axios.get(`user/${userRegister.username}/${userRegister.password}`).then((result) => {
+              axios.post('/user', userRegister).then(() => {
+                axios.get(`user/${userRegister.username}/${userRegister.password}`).then((result) => {
                   setUserInfo(result.data[0]);
                   setLoggedIn(true);
                   navigate('/Home');

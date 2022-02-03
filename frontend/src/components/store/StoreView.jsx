@@ -6,13 +6,12 @@ import ReviewList from './Stores/Reviews/ReviewList.jsx'
 import Menu from './Menu.jsx'
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {GiCoffeeBeans} from 'react-icons/gi';
+
 
 const StoreView = () => {
   const [stores, setStores] = useState([])
   const [menuModal, setMenuModal] = useState(false)
-
-  const { page, setPage } = useContext(GlobalContext);
-
 
   const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn  } = useContext(GlobalContext);
   let navigate = useNavigate();

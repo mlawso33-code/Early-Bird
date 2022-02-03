@@ -312,7 +312,7 @@ input:focus, input:focus{
 .Modal {
   position: fixed;
   bottom: -120vh;
-  background-color: darkred;
+  background-color: brown;
   width: 100%;
   left: 0;
   padding: 0 1px 12px;
@@ -342,7 +342,7 @@ input:focus, input:focus{
   display:flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: rgba(124, 73, 6, 0.822);
+  background-color: lightsalmon;
   font-size: larger;
   font-weight: bolder;
   padding: 1.25em;
