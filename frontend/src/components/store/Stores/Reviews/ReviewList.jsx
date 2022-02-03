@@ -33,6 +33,9 @@ const ReviewList = ({ store }) => {
   // }
 
   function submitReview() {
+    axios
+    .post()
+    .then()
   }
 
   function handleReview() {
@@ -68,7 +71,7 @@ const ReviewList = ({ store }) => {
 
       <button onClick={handleReview}>Add Review</button>
       <div className={`Modal ${addReview ? 'Show' : ''}`}>
-        {addReview ? <ReviewModal toggle={handleReview} submit="submitReview" /> : null}
+        {addReview ? <ReviewModal toggle={handleReview} submit={submitReview} /> : null}
       </div>
       <div className={`Overlay ${addReview ? 'Show' : ''}`} />
 
