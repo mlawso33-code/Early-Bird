@@ -6,17 +6,6 @@ const Store = (props) => {
   const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn, currStore, setCurrStore } = useContext(GlobalContext);
   let { name, address, city, state, zip, latitude, longitude, miles_away, store_open, store_close, url, food_tag, tea_tag, coffee_tag } = props.data;
 
-  function evaluateStoreData(store) {
-    if (store.name !== currStore.name) {
-      return false;
-    } else if (store.latitude !== currStore.latitude) {
-      return false;
-    } else if (store.longitude !== currStore.longitude) {
-      return false;
-    }
-    return true;
-  }
-
   function getAverageRating(store) {
     let ratings = 0;
     if (Array.isArray(store.reviews) && store.reviews.length > 0) {
@@ -29,8 +18,8 @@ const Store = (props) => {
     }
   }
 
-  if (evaluateStoreData(props.data)) {
-    return (<div className="shop-entry" style={{ backgroundColor: 'white', paddingLeft: '7px', paddingTop: '7px', background: 'linear-gradient(180deg, #6b5a55 86%, #00ffff00 50%)' }}>
+  if (props.selected) {
+    return (<div className="shop-entry" onClick={{}} style={{ backgroundColor: 'white', paddingLeft: '7px', paddingTop: '7px', background: 'linear-gradient(180deg, #6b5a55 86%, #00ffff00 50%)' }}>
       <div style={{ color: 'white' }}>{name}</div>
       <div className="rating">
         <div style={{ marginRight: '10px', color: '#fff' }}>{getAverageRating(props.data)}</div>
