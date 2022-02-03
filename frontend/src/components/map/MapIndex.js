@@ -13,11 +13,17 @@ const MapIndex = () => {
   const [toObj, setToObj] = useState({});
   const [defaultZoom, setDefaultZoom] = useState(15);
   const [map, setMap] = useState(null);
-  const [center, setCenter] = useState({ lat: Number(userInfo.latitude), lng: Number(userInfo.longitude) })
+  const [center, setCenter] = useState({ lat: 40.0326, lng: -105.2801 })
 
   useEffect(() => {
-    setFromObj({ lat: userInfo.latitude, lng: userInfo.longitude, fromTitle: userInfo.state });
-    //settoObj({lat: userInfo.latitude, lng: userInfo.longitude, toTitle: userInfo.state})
+    const { latitude: fromLat, longitude: fromLng, state: fromState } = userInfo;
+    //const {latitude: toLat, longitude: toLng, state: toState} = selectedStore;
+    setFromObj({ lat: fromLat, lng: fromLng, fromTitle: fromState });
+    //settoObj({lat: toLat, lng: toLng, toTitle: toState});
+    let centerLat = ((Number(fromLat) + Number(fromLng)) / 2);
+    //let centerLng = ((Number(toLat) + Number(toLng)) / 2);
+    //setCenter({lat: centerLat, lng: centerLng})
+
   }, [userInfo])
 
   return (
