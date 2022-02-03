@@ -9,15 +9,13 @@ import axios from 'axios'
 
 const ReviewList = ({ store }) => {
   const [totalReviews, setTotalReviews] = useState(0)
-
   const [storeReviews, setStoreReviews] = useState([])
-
   const [addReview, setAddReview] = useState(false)
 
+  const[value, setValue] = useState(0)
+  const[reviewBody, setReviewBody] = useState('')
 
-  console.log('store id',)
   console.log('store reviews:::', storeReviews)
-
 
   function fetchStoreReviews(id) {
     axios
@@ -25,34 +23,44 @@ const ReviewList = ({ store }) => {
       .then(res => setStoreReviews(res.data))
   }
 
-  // function getMaxRating() {
-  //   const reducer = (previousValue, currentValue) => previousValue + currentValue;
-  //   const rating = storeReviews.map(reviews => reviews.rating)
-  //   const finalRating = rating.reduce(reducer) / storeReviews.length
-  //   setTotalReviews(finalRating.toFixed(1))
-  // }
+  function getMaxRating() {
+    const reducer = (previousValue, currentValue) => previousValue + currentValue;
+    const rating = storeReviews.map(reviews => reviews.rating)
+    const finalRating = rating.reduce(reducer) / storeReviews.length
+    setTotalReviews(finalRating.toFixed(1))
+  }
 
   function submitReview() {
+    const userObj = {
+      'user_id': storeReviews.id,
+      'store_id': store.id,
+      'rating': value,
+      'body': reviewBody,
+    }
     axios
-    .post()
-    .then()
+      .post(`/user/review`, userObj)
+      .then(fetchStoreReviews())
   }
 
   function handleReview() {
     setAddReview(!addReview)
   }
 
+  function handleReviewBody(newBody){
+    setReviewBody(newBody)
+  }
+
   function handleRatingChange(newRate) {
-    setRate(newRate)
+    setValue(newRate)
   }
 
   useEffect(() => {
-    setTimeout(() => fetchStoreReviews(store.id), 1)
+    fetchStoreReviews(store.id)
   }, [store])
 
-  // useEffect(() => {
-  //   setTimeout(() => getMaxRating(), 1)
-  // }, [storeReviews])
+  useEffect(() => {
+    setTimeout(() => getMaxRating(), 500)
+  }, [storeReviews])
 
   return (
     <div className="reviews">
@@ -71,29 +79,29 @@ const ReviewList = ({ store }) => {
 
       <button onClick={handleReview}>Add Review</button>
       <div className={`Modal ${addReview ? 'Show' : ''}`}>
-        {addReview ? <ReviewModal toggle={handleReview} submit={submitReview} /> : null}
+        {addReview ? <ReviewModal toggle={handleReview} submit={submitReview} value={value} change={handleRatingChange}
+          changeBody={handleReviewBody} reviewBody={reviewBody}/> : null}
       </div>
       <div className={`Overlay ${addReview ? 'Show' : ''}`} />
 
-      {/* {user.map((person) => (
-        userReviews.map((review) => (
-          <div className="reviews">
-            <div className="review" style={{ background: '#ffffff2e', borderRadius: '21px', padding: '15px', marginTop: '12px' }}>
-              <div className="review-header" style={{ marginBottom: '6px' }}>
-                <div style={{ color: 'white', marginRight: '5px', marginLeft: '10px' }}>{person.username}</div>
-                <div><Rating
-                  emptySymbol={<FaRegStar />}
-                  fullSymbol={<FaStar />}
-                  initialRating={review.rating} readonly />
-                </div>
-              </div>
-              <div className="review-comment" style={{ color: 'white', fontSize: '12px', marginLeft: '10px' }}>
-                {review.body}
+      <div className="reviews">
+        {storeReviews.map((review) => (
+          <div className="review" style={{ background: '#ffffff2e', borderRadius: '21px', padding: '15px', marginTop: '12px' }}>
+            <div className="review-header" style={{ marginBottom: '6px' }}>
+              <div style={{ color: 'white', marginRight: '5px', marginLeft: '10px' }}>{review.username}</div>
+              <div><Rating
+                key={review.id}
+                emptySymbol={<FaRegStar />}
+                fullSymbol={<FaStar />}
+                initialRating={review.rating} readonly />
               </div>
             </div>
+            <div className="review-comment" style={{ color: 'white', fontSize: '12px', marginLeft: '10px' }}>
+              {review.body}
+            </div>
           </div>
-        ))
-      ))} */}
+        ))}
+      </div>
 
     </div>
   )

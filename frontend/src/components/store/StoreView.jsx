@@ -125,7 +125,7 @@ const StoreView = () => {
                 </div>
                 <hr className="hr" />
               </div>
-              <ReviewList store={stores[0]} />
+              <ReviewList key={currStore.id} store={currStore} />
             </div>
           </div>
         </div>)

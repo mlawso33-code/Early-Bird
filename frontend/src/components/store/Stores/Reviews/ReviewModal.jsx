@@ -3,11 +3,8 @@ import React, { useState } from 'react'
 import Rating from 'react-rating'
 import {FaRegStar, FaStar} from 'react-icons/fa'
 
-const ReviewModal = ({ toggle, submit }) => {
-  const[value, setValue] = useState(0)
-  function handleRating(newRate) {
-    setValue(newRate)
-  }
+const ReviewModal = ({ toggle, submit, value, change, changeBody, reviewBody}) => {
+  // const[value, setValue] = useState(0)
 
   console.log('value::::', value)
   return (
@@ -20,9 +17,9 @@ const ReviewModal = ({ toggle, submit }) => {
         <Rating name='userRate'
           emptySymbol={<FaRegStar />}
           fullSymbol={<FaStar/>}
-          onChange={handleRating}
+          onChange={change}
           value={value} />
-        <input type="text-area" placeholder="Enter your review."></input>
+        <input type="text-area" placeholder="Enter your review." onChange={changeBody} value={reviewBody}></input>
         <button type="submit">Submit Review</button>
       </form>
     </div>
