@@ -75,7 +75,7 @@ const Register = () => {
               alert('Please enter a Password')
             } else if (userRegister.email.length === 0 || !ValidateEmail(userRegister.email)) {
               alert('Please enter a valid Email')
-            } else if (userRegister.address.length === 0 || !hasNumber(userRegister.address) || !hasLetter(userRegister.address)) {
+            } else if (userRegister.street_address.length === 0 || !hasNumber(userRegister.street_address) || !hasLetter(userRegister.street_address)) {
               alert('Please enter a valid adress')
             } else if (userRegister.username.includes('<')) {
               let text = userRegister.username;
