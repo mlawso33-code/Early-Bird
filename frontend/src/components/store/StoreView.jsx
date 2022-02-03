@@ -5,9 +5,10 @@ import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
 import ReviewList from './Stores/Reviews/ReviewList.jsx'
 import Menu from './Menu.jsx'
 import LoadingScreen from '../LoadingScreen.jsx'
+import MapIndex from '../map/MapIndex.js'
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import {GiCoffeeBeans} from 'react-icons/gi';
+import { GiCoffeeBeans } from 'react-icons/gi';
 
 const StoreView = () => {
   const [stores, setStores] = useState([])
@@ -163,7 +164,7 @@ const StoreView = () => {
                   </div>
                 </div>
                 <div className="column-b">
-                  Google Map
+                  <MapIndex />
                 </div>
                 <hr className="hr" />
               </div>

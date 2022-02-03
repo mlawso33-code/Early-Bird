@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext, Component } from 'react';
-import { convertLatLngToObj } from '../../utility/helpers';
 const { Marker, DirectionsRenderer } = require('react-google-maps');
 
 const DirectionRenderComponent = (props) => {
@@ -30,9 +29,6 @@ const DirectionRenderComponent = (props) => {
         // console.log("status", status);
         if (status === window.google.maps.DirectionsStatus.OK) {
           setDirections(result);
-          setWayPoints(result.routes[0].overview_path.filter((elem, index) => {
-            return index % 30 === 0;
-          }));
         } else if (
           status === window.google.maps.DirectionsStatus.OVER_QUERY_LIMIT
         ) {
@@ -54,8 +50,7 @@ const DirectionRenderComponent = (props) => {
   if (directions) {
     originMarker = (
       <Marker
-        label={'A'}
-        defaultIcon={null}
+        icon={{ url: "hummingbird.png", scaledSize: new google.maps.Size(48, 48) }}
         position={{
           lat: parseFloat(fromLat),
           lng: parseFloat(fromLng)
@@ -64,8 +59,7 @@ const DirectionRenderComponent = (props) => {
     );
     destinationMarker = (
       <Marker
-        label={'B'}
-        defaultIcon={null}
+        icon={{ url: "coffee-cup.png", scaledSize: new google.maps.Size(48, 48) }}
         position={{
           lat: parseFloat(toLat),
           lng: parseFloat(toLng)
@@ -91,8 +85,7 @@ const DirectionRenderComponent = (props) => {
           directions={directions}
           options={{
             polylineOptions: {
-              storkeColor: props.storkeColor,
-              strokeOpacity: 0.4,
+              strokeColor: '#921d25',
               strokeWeight: 4
             },
             preserveViewport: true,

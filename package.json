@@ -51,6 +51,8 @@
     "react-router-dom": "^6.2.1",
     "react-router-native": "^6.2.1",
     "react-icons": "^4.3.1",
-    "react-rating": "^2.0.5"
+    "react-rating": "^2.0.5",
+    "react-google-maps": "^9.4.5",
+    "recompose": "^0.30.0"
   }
 }
