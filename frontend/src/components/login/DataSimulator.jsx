@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let DataSimulator = function (dataAlreadyExists, userInfo) {
+let DataSimulator = function (userInfo) {
   //Array of possible store names to select from
   let storeNamesBank = ['Sunbucks', 'Moon Brews', 'Moose Coffee', 'Poor Java', 'Ben Cunninghams', 'Savor the Sip', 'Zees', "True Man's Beans", 'CoCoFee', 'Moca Marc'];
 
@@ -46,6 +46,7 @@ let DataSimulator = function (dataAlreadyExists, userInfo) {
         reviews: []
       };
 
+      //Build pieces of individual simulated store 
       simulatedStore.name = createSimulatedStoreName();
       simulatedStore.open = createOpenTime();
       simulatedStore.close = createCloseTime();
@@ -69,7 +70,7 @@ let DataSimulator = function (dataAlreadyExists, userInfo) {
           console.log('Error: ', err);
         });
 
-        data.push(result.data);
+      data.push(result.data);
     });
     return data;
   };
@@ -144,7 +145,7 @@ let DataSimulator = function (dataAlreadyExists, userInfo) {
     for (let i = 0; i < numberOfFeaturedFoods; i++) {
       let foodItem = featuredItemsBank.food[Math.floor(Math.random() * featuredItemsBank.food.length)];
       if (featuredFoods[0].indexOf(foodItem) === -1) {
-          featuredFoods[0].push(foodItem);
+        featuredFoods[0].push(foodItem);
       }
     }
 
@@ -165,7 +166,7 @@ let DataSimulator = function (dataAlreadyExists, userInfo) {
     for (let i = 0; i < numberOfFeaturedDrinks; i++) {
       let drinkItem = featuredItemsBank.drinks[Math.floor(Math.random() * featuredItemsBank.drinks.length)];
       if (featuredDrinks[0].indexOf(drinkItem) === -1) {
-          featuredDrinks[0].push(drinkItem);
+        featuredDrinks[0].push(drinkItem);
       }
     }
 
@@ -184,7 +185,7 @@ let DataSimulator = function (dataAlreadyExists, userInfo) {
   }
 
   //Returns and array of objects containing randomized user reviews
-  let createSimulatedReviews = function() {
+  let createSimulatedReviews = function () {
     let storeReviews = [];
     let numberOfReviews = (Math.floor(Math.random() * 5)) + 8;
 
@@ -209,12 +210,8 @@ let DataSimulator = function (dataAlreadyExists, userInfo) {
     return storeReviews;
   }
 
-  //Check to see if data needs to be created
-  if (!dataAlreadyExists) {
-    return createSimulatedStoreData();
-  } else {
-    setStoreData(userInfo.storeData);
-  }
+  //Return simulated data
+  return createSimulatedStoreData();
 }
 
 export default DataSimulator;
