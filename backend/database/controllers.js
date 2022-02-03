@@ -14,14 +14,40 @@ const controllers = {
   // GET REQUESTS
   // ================================================================
 
-
+  // get all information on a single store
   getStoreDetails(req, res) {
-    console.log('received a new GET request to getStoreDetails');
 
+    let {id} = req.params;
+
+    let queryString = 'SELECT * FROM stores WHERE id = ?';
+    let queryArgs = [id];
+
+    db.query(queryString, queryArgs, (err, dbRes) => {
+      if (err) {
+        console.log('there was an error fetching store data')
+        res.status(404).send(err);
+      } else {
+        res.status(201).send(dbRes[0]);
+      }
+    });
   },
 
+  // get all reviews for a single store
   getStoreReviews(req,res) {
-    console.log('received a new GET request to getStoreReviews');
+
+    let {id} = req.params;
+
+    let queryString = 'SELECT r.id, u.username, r.rating, r.body, r.date FROM reviews r, users u WHERE r.store_id = ? AND u.id = r.user_id';
+    let queryArgs = [id];
+
+    db.query(queryString, queryArgs, (err, dbRes) => {
+      if (err) {
+        console.log('there was an error fetching review data')
+        res.status(404).send(err);
+      } else {
+        res.status(201).send(dbRes);
+      }
+    });
 
   },
 
@@ -31,8 +57,21 @@ const controllers = {
   },
 
   getNearbyStores(req,res) {
-    console.log('received a new GET request to getNearbyStores');
 
+    const {zip} = req.params;
+    const trimmedZip = zip.slice(0, -1);
+
+    let queryString = `SELECT * FROM stores WHERE address LIKE "%${trimmedZip}%"`;
+    let queryArgs = [trimmedZip];
+
+    db.query(queryString, queryArgs, (err, dbRes) => {
+      if (err) {
+        console.log('there was an error getting nearby stores');
+        res.status(404).send(err);
+      } else {
+        res.status(201).send(dbRes);
+      }
+    });
   },
 
   getProductDetails(req,res) {
@@ -102,22 +141,23 @@ const controllers = {
   },
 
   addNewReview(req, res) {
-    console.log('received a new POST request to addNewReview');
-    let queryString = 'INSERT INTO reviews (col_1, col_2, col_3) VALUES (?, ?, ?)';
-    let queryArgs = [req.body.user_id, req.body.text, req.body.roomname, req.body.createdAt];
 
-    // db.query(queryString, queryArgs, (err, dbRes) => {
-    //   if (err) {
-    //     res.status(404).send();
-    //   } else {
-    //     res.status(201).send();
-    //   }
-    // });
+    let queryString = 'INSERT INTO reviews (user_id, store_id, rating, body) VALUES (?, ?, ?, ?)';
+    let queryArgs = [req.body.userId, req.body.storeId, req.body.rating, req.body.body];
+
+    db.query(queryString, queryArgs, (err, dbRes) => {
+      if (err) {
+        console.log('there was an error adding a new review');
+        res.status(404).send(err);
+      } else {
+        res.status(201).send();
+      }
+    });
 
   },
 
+  // create a new store, generate address using google api, add store to database
   addNewStore(req, res) {
-    console.log('received a new POST request to addNewStore');
 
     const lat = req.body.location.latitude;
     const lng = req.body.location.longitude;
