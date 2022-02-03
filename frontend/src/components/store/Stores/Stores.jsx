@@ -5,6 +5,7 @@ import Store from './Store.jsx';
 
 const Stores = () => {
   const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn, currStore, setCurrStore  } = useContext(GlobalContext);
+  console.log('storeData', storeData);
   let stores = storeData.map((store, index) => {
     if (index === 0) {
       setCurrStore(store);
