@@ -4,9 +4,9 @@ import axios from 'axios';
 import {GiCoffeeBeans} from 'react-icons/gi';
 import {FiCoffee} from 'react-icons/fi';
 
-const UserUpdate = () => {  
+const UserUpdate = () => {
   const { page, setPage, userInfo, setUserInfo } = useContext(GlobalContext);
-  
+
   const [currentUser, setCurrentUser] = useState({
     username: 'this name is hardcoded',
     email: 'myemail@hardcoded.com',

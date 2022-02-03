@@ -32,12 +32,6 @@ const controllers = {
     });
   },
 
-<<<<<<< HEAD
-  getStoreReviews(req, res) {
-    let { id } = req.params;
-    let queryString = 'SELECT r.id, u.username, r.rating, r.body, r.date FROM reviews r, users u WHERE r.store_id = ? AND u.id = r.user_id';
-    let queryArgs = [id];
-=======
   // get all reviews for a single store
   getStoreReviews(req,res) {
 
@@ -46,7 +40,6 @@ const controllers = {
     let queryString = 'SELECT r.id, u.username, r.rating, r.body, r.date FROM reviews r, users u WHERE r.store_id = ? AND u.id = r.user_id';
     let queryArgs = [id];
 
->>>>>>> main
     db.query(queryString, queryArgs, (err, dbRes) => {
       if (err) {
         console.log('there was an error fetching review data')
@@ -55,10 +48,6 @@ const controllers = {
         res.status(201).send(dbRes);
       }
     });
-<<<<<<< HEAD
-=======
-
->>>>>>> main
   },
 
   getStoreProducts(req, res) {
@@ -66,12 +55,7 @@ const controllers = {
 
   },
 
-<<<<<<< HEAD
-  getNearbyStores(req, res) {
-    console.log('received a new GET request to getNearbyStores');
-=======
   getNearbyStores(req,res) {
->>>>>>> main
 
     const {zip} = req.params;
     const trimmedZip = zip.slice(0, -1);
