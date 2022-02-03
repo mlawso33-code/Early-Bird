@@ -8,7 +8,7 @@ import axios from 'axios';
 import DataSimulator from './DataSimulator.jsx';
 
 const Login = () => {
-  const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn } = useContext(GlobalContext);
+  const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn, currStore, setCurrStore } = useContext(GlobalContext);
   const [loginCred, setLoginCred] = useState({
     username: '',
     email: '',
@@ -17,6 +17,7 @@ const Login = () => {
   const saltRounds = 10;
   const myPlaintextPassword = loginCred.password;
   let navigate = useNavigate();
+
 
    function verifyLogin() {
       axios.get(`user/${loginCred.username}/${loginCred.password}`).then(async (result) => {
@@ -27,14 +28,15 @@ const Login = () => {
       if (result.data !== false) {
         setUserInfo(result.data[0]);
         setLoggedIn(true);
-        Axios.get(`/stores/nearby/${result.data[0].zip}`).then((result) => {
-          setStoreData(result);
+        localStorage.setItem('logged', 'true')
+        var log = localStorage.getItem('logged')
+        axios.get(`/stores/nearby/${result.data[0].zip}`).then((result) => {
+          setStoreData(result.data);
         })
       } else {
         alert("Username or password was not recognized!");
       }
     });
-
   }
 
   const ConditionalLink = ({ children, to, condition }) => (!!condition && to)
@@ -47,7 +49,8 @@ const Login = () => {
         [event.target.name]: event.target.value
       })
     };
-
+    localStorage.setItem('username', loginCred.username)
+    localStorage.setItem('password', loginCred.password)
     if (loggedIn) {
       navigate('/Home')
     }

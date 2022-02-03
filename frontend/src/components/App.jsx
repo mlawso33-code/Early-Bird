@@ -13,9 +13,10 @@ const App = () => {
   const [userInfo, setUserInfo] = useState({})
   const [storeData, setStoreData] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [currStore, setCurrStore] = useState({});
 
   return (
-    <GlobalContext.Provider value={{page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn}}>
+    <GlobalContext.Provider value={{page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn, currStore, setCurrStore}}>
       <BrowserRouter><Routes>
 
   <Route path="/" element={<Login />} />

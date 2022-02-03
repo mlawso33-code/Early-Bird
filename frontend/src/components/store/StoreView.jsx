@@ -5,8 +5,8 @@ import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
 import ReviewList from './Stores/Reviews/ReviewList.jsx'
 import Menu from './Menu.jsx'
 import LoadingScreen from '../LoadingScreen.jsx'
+import Shops from './Stores/Stores.jsx'
 import MapIndex from '../map/MapIndex.js'
-
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { GiCoffeeBeans } from 'react-icons/gi';
 
@@ -15,10 +15,8 @@ const StoreView = () => {
   const [menuModal, setMenuModal] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn } = useContext(GlobalContext);
+  const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn, currStore, setCurrStore } = useContext(GlobalContext);
   let navigate = useNavigate();
-  console.log('storeData', storeData);
-  console.log('userInfo', userInfo);
   //We need to confirm the user is logged in before returning the following html.
   //We don't want the user to be able to navigate to /home without being logged in.
 
@@ -34,36 +32,50 @@ const StoreView = () => {
 
   useEffect(() => {
     fetchStores()
+    checkLogin()
   }, [])
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 3000)
   }, [])
 
-  // const auth = getAuth();
-  // onAuthStateChanged(auth, (user) => {
-  //   if (!user) {
-  //     // User is signed in, see docs for a list of available properties
-  //     // https://firebase.google.com/docs/reference/js/firebase.User
-  //     const uid = user.uid;
-  //     //const uid = user.uid;
-  //     // ...
-  //     return(
-  //       <div>not logged in</div>
-  //     )
-  //   } else {
-  //     // User is signed out
-  //     // ...
-  //   }
-  // });
 
-  if (loggedIn === false) {
+
+  function checkLogin() {
+    let log = localStorage.getItem('logged')
+    let userLog = localStorage.getItem('username')
+    let userPass = localStorage.getItem('password')
+  if (log === 'false') {
     navigate('/');
+  } else {
+    axios.get(`user/${userLog}/${userPass}`).then(async (result) => {
+      if (!Array.isArray(result.data)) {
+        alert('Username or password not valid!');
+        return;
+      }
+      if (result.data !== false) {
+        setUserInfo(result.data[0]);
+        setLoggedIn(true);
+        var log = localStorage.getItem('logged')
+        axios.get(`/stores/nearby/${result.data[0].zip}`).then((result) => {
+          setStoreData(result);
+        })
+      } else {
+        alert("Username or password was not recognized!");
+      }
+    });
   }
+};
 
   const ConditionalLink = ({ children, to, condition }) => (!!condition && to)
     ? <Link to={to}>{children}</Link>
     : <>{children}</>;
+
+  function logout() {
+    localStorage.setItem('logged', 'false')
+    setLoggedIn(false)
+    navigate('/');
+  }
 
   return (
     <>
@@ -73,70 +85,15 @@ const StoreView = () => {
           <div style={{ height: '30px', color: 'white', top: '14px', right: '100px', position: 'absolute' }}>{userInfo.username}</div>
           <GiCoffeeBeans style={{ height: '30px', color: 'white', top: '8px', right: '50px', position: 'absolute' }} ></GiCoffeeBeans>
           <div style={{ height: '30px', color: 'white', top: '14px', right: '10px', position: 'absolute' }}>{userInfo.reward_points}</div>
-          <ConditionalLink to="/userUpdate" condition={loggedIn}><button style={{ height: '25px', top: '32px', right: '50px', position: 'absolute' }}
+          <ConditionalLink to="/userUpdate" condition={loggedIn}><button style={{ height: '25px', top: '32px', right: '60px', position: 'absolute' }}
           >Update</button></ConditionalLink>
+          <button style={{ height: '25px', top: '32px', right: '10px', position: 'absolute' }} onClick={logout}
+          >Logout</button>
           <div className="nav-bar"></div>
           <div className="portal-container" style={{ height: '100%', width: '100%', fontFamily: 'neue-haas-grotesk-display' }}>
             <div className="shops-module">
-              <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px', fontFamily: 'poppins, sans-serif' }}>RESULTS FROM <span className="location-style" style={{ fontWeight: 'normal', color: '#D2B48C' }}>NEW YORK, NEW YORK</span></div>
-              <div className="shop-container">
-                <div className="shop-entry" style={{ backgroundColor: 'white', paddingLeft: '7px', paddingTop: '7px', background: 'linear-gradient(180deg, #6b5a55 86%, #00ffff00 50%)' }}>
-                  <div style={{ color: 'white' }}>COFFEE SHOP</div>
-                  <div className="rating">
-                    <div style={{ marginRight: '10px', color: '#fff' }}>5.0</div>
-                    <div style={{ color: '#FFCF2E' }}>★★★★★</div>
-                  </div>
-                  <div style={{ color: '#ffffffa6' }}>1.3 Miles from your location.</div>
-                  <div className="tags">
-                    <div className="tag">COFEE</div>
-                    <div className="tag">TEA</div>
-                    <div className="tag">FOOD</div>
-                  </div>
-                  <hr style={{ border: '1px solid rgb(190, 166, 159)' }} />
-                </div>
-                <div className="shop-entry">
-                  <div style={{ color: 'white' }}>COFFEE SHOP</div>
-                  <div className="rating">
-                    <div style={{ marginRight: '10px', color: '#fff' }}>5.0</div>
-                    <div style={{ color: '#FFCF2E' }}>★★★★★</div>
-                  </div>
-                  <div style={{ color: '#ffffffa6' }}>1.3 Miles from your location.</div>
-                  <div className="tags">
-                    <div className="tag">COFEE</div>
-                    <div className="tag">TEA</div>
-                    <div className="tag">FOOD</div>
-                  </div>
-                  <hr style={{ color: 'white', width: '100%', paddingLeft: '0px' }} />
-                </div>
-                <div className="shop-entry">
-                  <div style={{ color: 'white' }}>COFFEE SHOP</div>
-                  <div className="rating">
-                    <div style={{ marginRight: '10px', color: '#fff' }}>5.0</div>
-                    <div style={{ color: '#FFCF2E' }}>★★★★★</div>
-                  </div>
-                  <div style={{ color: '#ffffffa6' }}>1.3 Miles from your location.</div>
-                  <div className="tags">
-                    <div className="tag">COFEE</div>
-                    <div className="tag">TEA</div>
-                    <div className="tag">FOOD</div>
-                  </div>
-                  <hr style={{ color: 'white', width: '100%' }} />
-                </div>
-                <div className="shop-entry">
-                  <div style={{ color: 'white' }}>COFFEE SHOP</div>
-                  <div className="rating">
-                    <div style={{ marginRight: '10px', color: '#fff' }}>5.0</div>
-                    <div style={{ color: '#FFCF2E' }}>★★★★★</div>
-                  </div>
-                  <div style={{ color: '#ffffffa6' }}>1.3 Miles from your location.</div>
-                  <div className="tags">
-                    <div className="tag">COFEE</div>
-                    <div className="tag">TEA</div>
-                    <div className="tag">FOOD</div>
-                  </div>
-                  <hr style={{ color: 'white', width: '100%' }} />
-                </div>
-              </div>
+              <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px', fontFamily: 'poppins, sans-serif', marginTop: '15px' }}>RESULTS FROM <span className="location-style" style={{ fontWeight: 'normal', color: '#D2B48C' }}>NEW YORK, NEW YORK</span></div>
+                <Shops />
             </div>
             <div className="shop-info">
               <div className="details">
