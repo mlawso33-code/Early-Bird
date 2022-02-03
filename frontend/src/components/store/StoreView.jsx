@@ -5,19 +5,18 @@ import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
 import ReviewList from './Stores/Reviews/ReviewList.jsx'
 import Menu from './Menu.jsx'
 import LoadingScreen from '../LoadingScreen.jsx'
-
+import Shops from './Stores/Stores.jsx'
+import MapIndex from '../map/MapIndex.js'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import {GiCoffeeBeans} from 'react-icons/gi';
+import { GiCoffeeBeans } from 'react-icons/gi';
 
 const StoreView = () => {
   const [stores, setStores] = useState([])
   const [menuModal, setMenuModal] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn } = useContext(GlobalContext);
+  const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn, currStore, setCurrStore } = useContext(GlobalContext);
   let navigate = useNavigate();
-  console.log('storeData', storeData);
-  console.log('userInfo', userInfo);
   //We need to confirm the user is logged in before returning the following html.
   //We don't want the user to be able to navigate to /home without being logged in.
 
@@ -93,65 +92,8 @@ const StoreView = () => {
           <div className="nav-bar"></div>
           <div className="portal-container" style={{ height: '100%', width: '100%', fontFamily: 'neue-haas-grotesk-display' }}>
             <div className="shops-module">
-              <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px', fontFamily: 'poppins, sans-serif' }}>RESULTS FROM <span className="location-style" style={{ fontWeight: 'normal', color: '#D2B48C' }}>NEW YORK, NEW YORK</span></div>
-              <div className="shop-container">
-                <div className="shop-entry" style={{ backgroundColor: 'white', paddingLeft: '7px', paddingTop: '7px', background: 'linear-gradient(180deg, #6b5a55 86%, #00ffff00 50%)' }}>
-                  <div style={{ color: 'white' }}>COFFEE SHOP</div>
-                  <div className="rating">
-                    <div style={{ marginRight: '10px', color: '#fff' }}>5.0</div>
-                    <div style={{ color: '#FFCF2E' }}>★★★★★</div>
-                  </div>
-                  <div style={{ color: '#ffffffa6' }}>1.3 Miles from your location.</div>
-                  <div className="tags">
-                    <div className="tag">COFEE</div>
-                    <div className="tag">TEA</div>
-                    <div className="tag">FOOD</div>
-                  </div>
-                  <hr style={{ border: '1px solid rgb(190, 166, 159)' }} />
-                </div>
-                <div className="shop-entry">
-                  <div style={{ color: 'white' }}>COFFEE SHOP</div>
-                  <div className="rating">
-                    <div style={{ marginRight: '10px', color: '#fff' }}>5.0</div>
-                    <div style={{ color: '#FFCF2E' }}>★★★★★</div>
-                  </div>
-                  <div style={{ color: '#ffffffa6' }}>1.3 Miles from your location.</div>
-                  <div className="tags">
-                    <div className="tag">COFEE</div>
-                    <div className="tag">TEA</div>
-                    <div className="tag">FOOD</div>
-                  </div>
-                  <hr style={{ color: 'white', width: '100%', paddingLeft: '0px' }} />
-                </div>
-                <div className="shop-entry">
-                  <div style={{ color: 'white' }}>COFFEE SHOP</div>
-                  <div className="rating">
-                    <div style={{ marginRight: '10px', color: '#fff' }}>5.0</div>
-                    <div style={{ color: '#FFCF2E' }}>★★★★★</div>
-                  </div>
-                  <div style={{ color: '#ffffffa6' }}>1.3 Miles from your location.</div>
-                  <div className="tags">
-                    <div className="tag">COFEE</div>
-                    <div className="tag">TEA</div>
-                    <div className="tag">FOOD</div>
-                  </div>
-                  <hr style={{ color: 'white', width: '100%' }} />
-                </div>
-                <div className="shop-entry">
-                  <div style={{ color: 'white' }}>COFFEE SHOP</div>
-                  <div className="rating">
-                    <div style={{ marginRight: '10px', color: '#fff' }}>5.0</div>
-                    <div style={{ color: '#FFCF2E' }}>★★★★★</div>
-                  </div>
-                  <div style={{ color: '#ffffffa6' }}>1.3 Miles from your location.</div>
-                  <div className="tags">
-                    <div className="tag">COFEE</div>
-                    <div className="tag">TEA</div>
-                    <div className="tag">FOOD</div>
-                  </div>
-                  <hr style={{ color: 'white', width: '100%' }} />
-                </div>
-              </div>
+              <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px', fontFamily: 'poppins, sans-serif', marginTop: '15px' }}>RESULTS FROM <span className="location-style" style={{ fontWeight: 'normal', color: '#D2B48C' }}>NEW YORK, NEW YORK</span></div>
+                <Shops />
             </div>
             <div className="shop-info">
               <div className="details">
@@ -179,7 +121,7 @@ const StoreView = () => {
                   </div>
                 </div>
                 <div className="column-b">
-                  Google Map
+                  <MapIndex />
                 </div>
                 <hr className="hr" />
               </div>
