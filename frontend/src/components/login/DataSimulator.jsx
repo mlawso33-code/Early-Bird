@@ -1,16 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
-import GlobalContext from '../../contexts/context.js';
 import axios from 'axios';
 
 let DataSimulator = function (dataAlreadyExists, userInfo) {
-  //This function assumes: access to user latitude and longitude, a state to set store info to, multiple routes to handle information being saved
-  //open and close times need to be added
-
-
-  //These aren't real states, yet. Ideally these state will reference an object that
-  //contains a user's address and the current store data attached to that address
-  //const { userInfo, setUserInfo, storeData, setStoreData } = useContext(MainContext);
-
   //Array of possible store names to select from
   let storeNamesBank = ['Sunbucks', 'Moon Brews', 'Moose Coffee', 'Poor Java', 'Ben Cunninghams', 'Savor the Sip', 'Zees', "True Man's Beans", 'CoCoFee', 'Moca Marc'];
 
@@ -32,10 +22,6 @@ let DataSimulator = function (dataAlreadyExists, userInfo) {
     goodReviews: ['This place was fantastic!', 'Love getting coffee here.', 'Super cool patio out back', 'I come here almost every day (:', 'This is where you go when you need to wake up in the morning!!!', "I can't wait to see what new menu items they add next!", 'The staff were so friendly', 'Already dreaming about my next coffee', 'So. Freaking. Good!', "I can't believe how close this coffee shop is to me!", "AMAZING AMAZING AMAZING!!", "I wake up everyday, and thank God this shop was made. The coffee here kicks like a horse while still tasting amazing!", "I will certainly be raising my children to love this store as much as I do.", "The level of compassion and patience that worker Goku-Son gave to me was beyond expectations. He asked to fight though, which was weird.", "The coffee slaps!!!", "I hope they stay up forever. What an amazing local shop!", "Revolutionary!!!"],
     badReviews: ['I expected so much more', 'Good, but not my favorite', 'My coffee was so cold!', 'They really need to offer more menu items', "I wish my tea wasn't so plain, I asked for more sugar but I don't think they understood", "Disappointed at the service provided by the worked SugarBee, she treated me like just another person and didn't have any spark in her pep today", "My tea was mediocre...", "The coffee was bland, staff was bland. Never coming again!", "Where did they get these muffins??? Taste like Walmart", "I don't mind this shop, but I dont know if i can keep going"]
   }
-
-  //Create additional banks for preset food, coffee, and tea menus with item prices for later use in storeView component
-  ///////////////////
-
 
   //Create new simulated data for this user's location
   let createSimulatedStoreData = async function () {
@@ -208,7 +194,7 @@ let DataSimulator = function (dataAlreadyExists, userInfo) {
 
       individualReview.reviewerName = (Math.floor(Math.random * 5)) + 1;
       individualReview.starRating = Math.floor(Math.random() * 6);
-      if (individualReview.starRating >= 2) {
+      if (individualReview.starRating <= 2) {
         individualReview.reviewText = reviewsBank.badReviews[Math.floor(Math.random * reviewsBank.badReviews.length)];
       } else {
         individualReview.reviewText = reviewsBank.goodReviews[Math.floor(Math.random * reviewsBank.goodReviews.length)];
