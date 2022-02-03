@@ -8,7 +8,7 @@ import axios from 'axios';
 import DataSimulator from './DataSimulator.jsx';
 
 const Login = () => {
-  const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn } = useContext(GlobalContext);
+  const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn, currStore, setCurrStore } = useContext(GlobalContext);
   const [loginCred, setLoginCred] = useState({
     username: '',
     email: '',
@@ -27,8 +27,10 @@ const Login = () => {
       if (result.data !== false) {
         setUserInfo(result.data[0]);
         setLoggedIn(true);
-        Axios.get(`/stores/nearby/${result.data[0].zip}`).then((result) => {
-          setStoreData(result);
+        //${result.data[0].zip}`
+        axios.get('/stores/nearby/80303').then((result) => {
+          console.log('stores near by: ', result)
+          setStoreData(result.data);
         })
       } else {
         alert("Username or password was not recognized!");
