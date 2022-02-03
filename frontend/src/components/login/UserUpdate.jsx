@@ -4,7 +4,7 @@ import axios from 'axios';
 import {GiCoffeeBeans} from 'react-icons/gi';
 import {FiCoffee} from 'react-icons/fi';
 
-const UserInfo = () => {
+const UserUpdate = () => {
   const { page, setPage } = useContext(GlobalContext);
   const [currentUser, setCurrentUser] = useState({
     username: 'this name is hardcoded',
@@ -98,4 +98,4 @@ const UserInfo = () => {
   )
 }
 
-export default UserInfo;
+export default UserUpdate;
