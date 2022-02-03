@@ -4,6 +4,7 @@ import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
 import Register from './Register.jsx';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import Axios from 'axios';
+import DataSimulator from './DataSimulator.jsx';
 
 const Login = () => {
   const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn } = useContext(GlobalContext);
@@ -17,13 +18,17 @@ const Login = () => {
   let navigate = useNavigate();
 
    function verifyLogin() {
-    //please make sure this function:
-    //returns true if meets your conditions
-    //returns false if doesn't meet your conditions
       Axios.get(`user/${loginCred.username}/${loginCred.password}`).then(async (result) => {
+      if (!Array.isArray(result.data)) {
+        alert('Username or password not valid!');
+        return;
+      }
       if (result.data !== false) {
         setUserInfo(result.data[0]);
         setLoggedIn(true);
+        Axios.get(`/stores/nearby/${result.data[0].zip}`).then((result) => {
+          setStoreData(result);
+        })
       } else {
         alert("Username or password was not recognized!");
       }
