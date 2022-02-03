@@ -4,6 +4,7 @@ import axios from 'axios'
 import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
 import ReviewList from './Stores/Reviews/ReviewList.jsx'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {GiCoffeeBeans} from 'react-icons/gi';
 
 const StoreView = () => {
   const [stores, setStores] = useState([])

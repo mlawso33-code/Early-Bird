@@ -11,7 +11,7 @@ USE early_bird;
 CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT,
   username VARCHAR(20) UNIQUE NOT NULL,
-  password VARCHAR(75) NOT NULL,
+  password VARCHAR(100) NOT NULL,
   email VARCHAR(50) NOT NULL,
   street_address VARCHAR(100) NOT NULL,
   city VARCHAR(50) NOT NULL,
@@ -34,6 +34,16 @@ CREATE TABLE payment_info (
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+CREATE TABLE products (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(20) NOT NULL,
+  price DECIMAL(3,2) NOT NULL,
+  category VARCHAR(20) NOT NULL,
+  menu_categories VARCHAR(20),
+  PRIMARY KEY (id)
+);
+
+
 CREATE TABLE stores (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(50) NOT NULL,
@@ -49,7 +59,9 @@ CREATE TABLE stores (
   food_tag BOOLEAN DEFAULT 0,
   tea_tag BOOLEAN DEFAULT 0,
   coffee_tag BOOLEAN DEFAULT 0,
+  menu_id INT NOT NULL,
   PRIMARY KEY (id)
+
 );
 
 CREATE TABLE reviews (
@@ -64,16 +76,7 @@ CREATE TABLE reviews (
   FOREIGN KEY (store_id) REFERENCES stores(id)
 );
 
-CREATE TABLE products (
-  id INT NOT NULL AUTO_INCREMENT,
-  store_id INT NOT NULL,
-  name VARCHAR(20) NOT NULL,
-  price DECIMAL(3,2) NOT NULL,
-  category VARCHAR(20) NOT NULL,
-  is_featured_item BOOLEAN DEFAULT 0,
-  PRIMARY KEY (id),
-  FOREIGN KEY (store_id) REFERENCES stores(id)
-);
+
 
 /*  Execute this file from the command line by typing:
  *    mysql -u <USER> < schema.sql
