@@ -48,6 +48,7 @@ const StoreView = () => {
   if (log === 'false') {
     navigate('/');
   } else {
+    console.log('are they real?', userLog, userPass)
     axios.get(`user/${userLog}/${userPass}`).then(async (result) => {
       if (!Array.isArray(result.data)) {
         alert('Username or password not valid!');

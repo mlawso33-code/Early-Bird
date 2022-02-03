@@ -80,7 +80,7 @@ const UserUpdate = () => {
             alert('Please enter a valid Zipcode')
           } else {
             alert('put request attempted')
-            axios.put('/user', currentUser).then(
+            axios.put('/user/details', currentUser).then(
               navigate('/Home')
             )
           }
