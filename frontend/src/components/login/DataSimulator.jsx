@@ -192,12 +192,12 @@ let DataSimulator = function (dataAlreadyExists, userInfo) {
         reviewText: ''
       }
 
-      individualReview.reviewerName = (Math.floor(Math.random * 5)) + 1;
+      individualReview.reviewerName = (Math.floor(Math.random() * 5)) + 1;
       individualReview.starRating = Math.floor(Math.random() * 6);
       if (individualReview.starRating <= 2) {
-        individualReview.reviewText = reviewsBank.badReviews[Math.floor(Math.random * reviewsBank.badReviews.length)];
+        individualReview.reviewText = reviewsBank.badReviews[Math.floor(Math.random() * reviewsBank.badReviews.length)];
       } else {
-        individualReview.reviewText = reviewsBank.goodReviews[Math.floor(Math.random * reviewsBank.goodReviews.length)];
+        individualReview.reviewText = reviewsBank.goodReviews[Math.floor(Math.random() * reviewsBank.goodReviews.length)];
       }
 
       storeReviews.push(individualReview);
