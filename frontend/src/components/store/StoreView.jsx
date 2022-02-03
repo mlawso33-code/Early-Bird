@@ -58,7 +58,7 @@ const StoreView = () => {
         setLoggedIn(true);
         var log = localStorage.getItem('logged')
         axios.get(`/stores/nearby/${result.data[0].zip}`).then((result) => {
-          setStoreData(result);
+          setStoreData(result.data);
         })
       } else {
         alert("Username or password was not recognized!");
