@@ -11,11 +11,6 @@ const connection = mysql.createConnection({
   user: process.env.DATABASE_USER,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_CURRENT_DB
-  // host:'127.0.0.1',
-  // password:'password',
-  // user:'root',
-  // port:3306,
-  // database:'early_bird'
 });
 
 // actually connect

@@ -4,8 +4,9 @@ import axios from 'axios';
 import {GiCoffeeBeans} from 'react-icons/gi';
 import {FiCoffee} from 'react-icons/fi';
 
-const UserInfo = () => {
+const UserUpdate = () => {  
   const { page, setPage, userInfo, setUserInfo } = useContext(GlobalContext);
+  
   const [currentUser, setCurrentUser] = useState({
     username: 'this name is hardcoded',
     email: 'myemail@hardcoded.com',
@@ -90,7 +91,9 @@ const UserInfo = () => {
           }
         }}>Update Info</button>
         <GiCoffeeBeans className="login-input"></GiCoffeeBeans>
+
         <div className="login-input">Total: {userInfo.points}</div>
+
       </div>
     </div>
 
@@ -98,4 +101,5 @@ const UserInfo = () => {
   )
 }
 
-export default UserInfo;
+export default UserUpdate;
+
