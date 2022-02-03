@@ -16,6 +16,8 @@ const StoreView = () => {
 
   const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn } = useContext(GlobalContext);
   let navigate = useNavigate();
+  console.log('storeData', storeData);
+  console.log('userInfo', userInfo);
   //We need to confirm the user is logged in before returning the following html.
   //We don't want the user to be able to navigate to /home without being logged in.
 
@@ -56,8 +58,6 @@ const StoreView = () => {
 
   if (loggedIn === false) {
     navigate('/');
-  } else {
-    console.log('userInfo', userInfo)
   }
 
   const ConditionalLink = ({ children, to, condition }) => (!!condition && to)

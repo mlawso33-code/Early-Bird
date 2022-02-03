@@ -30,7 +30,7 @@ let DataSimulator = function (dataAlreadyExists, userInfo) {
 
     for (let i = 0; i < numberOfLocalStores; i++) {
       let simulatedStore = {
-        storeName: '',
+        name: '',
         open: '',
         close: '',
         location: {
@@ -46,7 +46,7 @@ let DataSimulator = function (dataAlreadyExists, userInfo) {
         reviews: []
       };
 
-      simulatedStore.storeName = createSimulatedStoreName();
+      simulatedStore.name = createSimulatedStoreName();
       simulatedStore.open = createOpenTime();
       simulatedStore.close = createCloseTime();
       simulatedStore.location = createSimulatedLocation();
@@ -61,13 +61,17 @@ let DataSimulator = function (dataAlreadyExists, userInfo) {
       coffeeStoreCollection.push(simulatedStore);
     }
 
-    let result = await axios.post('/stores/details', coffeeStoreCollection)
-      .catch((err) => {
-        console.log('There was an error processing this request.');
-        console.log('Error: ', err);
-      });
+    let data = [];
+    coffeeStoreCollection.forEach(async store => {
+      let result = await axios.post('/store/details', store)
+        .catch((err) => {
+          console.log('There was an error processing this request.');
+          console.log('Error: ', err);
+        });
 
-      return result.data;
+        data.push(result.data);
+    });
+    return data;
   };
 
   //Returns a random store name to the createSimulatedStoreData function
@@ -125,11 +129,10 @@ let DataSimulator = function (dataAlreadyExists, userInfo) {
       simulatedLat = ranLat;
       simulatedLon = ranLon;
     }
-
     return {
       latitude: simulatedLat,
       longitude: simulatedLon,
-      milesAway: miles
+      milesAway: miles.toFixed(2)
     }
   }
 
@@ -189,15 +192,15 @@ let DataSimulator = function (dataAlreadyExists, userInfo) {
       let individualReview = {
         reviewerName: '',
         starRating: '',
-        reviewText: ''
+        reviewerText: ''
       }
 
       individualReview.reviewerName = (Math.floor(Math.random() * 5)) + 1;
       individualReview.starRating = Math.floor(Math.random() * 6);
       if (individualReview.starRating <= 2) {
-        individualReview.reviewText = reviewsBank.badReviews[Math.floor(Math.random() * reviewsBank.badReviews.length)];
+        individualReview.reviewerText = reviewsBank.badReviews[Math.floor(Math.random() * reviewsBank.badReviews.length)];
       } else {
-        individualReview.reviewText = reviewsBank.goodReviews[Math.floor(Math.random() * reviewsBank.goodReviews.length)];
+        individualReview.reviewerText = reviewsBank.goodReviews[Math.floor(Math.random() * reviewsBank.goodReviews.length)];
       }
 
       storeReviews.push(individualReview);

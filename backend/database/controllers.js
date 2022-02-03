@@ -153,7 +153,7 @@ const controllers = {
     // password encrypt function
     bcrypt.hash(password, saltRounds, function (err, hash) {
       console.log(hash);
-      db.query('INSERT INTO users (username, password, email, street_address, city, state, zip, reward_points, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [username, hash, email, street_address, city, state, zip, reward_points, 1, 1], (err, response) => {
+      db.query('INSERT INTO users (username, password, email, street_address, city, state, zip, reward_points, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [username, hash, email, street_address, city, state, zip, reward_points, 40.015, -105.271], (err, response) => {
         if (err) {
           console.log(err);
         } else {
@@ -203,20 +203,21 @@ const controllers = {
 
     const lat = req.body.location.latitude;
     const lng = req.body.location.longitude;
-
     // generate an address for the store using google api
     axios
       .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.GOOGLE_API_KEY}`)
       .then(({ data }) => {
-
+        console.log('long-lat', lng, ' ', lat)
+        console.log('data', data);
         const name = req.body.name;
         const address = data.results[0].formatted_address;
         const latitude = JSON.stringify(req.body.location.latitude);
         const longitude = JSON.stringify(req.body.location.longitude);
-        const miles_away = JSON.stringify(req.body.location.milesAway);
+        const miles_away = req.body.location.milesAway;
         const store_open = req.body.open;
         const store_close = req.body.close;
-        const url = `http://www.${name.split(' ').join('')}.com`;
+        //`http://www.${name.split(' ').join('')}.com`;
+        const url = `abc.com`;
         const featured_food = JSON.stringify(req.body.featuredFood);
         const featured_drinks = JSON.stringify(req.body.featuredDrinks);
         const food_tag = req.body.foodTag;
@@ -242,7 +243,7 @@ const controllers = {
         // add the store to the database
         db.query(queryString, queryArgs, (err, dbRes) => {
           if (err) {
-            console.log('there was an error creating a new store entry')
+            console.log('there was an error creating a new store entry', err)
             res.status(404).send(err);
           } else {
 
