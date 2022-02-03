@@ -152,34 +152,28 @@ const controllers = {
     let { username, password, email, street_address, city, state, zip, reward_points } = req.body;
     // password encrypt function
     bcrypt.hash(password, saltRounds, function (err, hash) {
-      console.log(hash);
-      db.query('INSERT INTO users (username, password, email, street_address, city, state, zip, reward_points, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [username, hash, email, street_address, city, state, zip, reward_points, 40.015, -105.271], (err, response) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log('complete')
-          res.sendStatus(201);
-        }
-      })
+
+      // get lat, lng from user address
+      axios
+        .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${street_address},+${city},+${state}&key=${process.env.GOOGLE_API_KEY}`)
+        .then( ({data}) => {
+
+          let {lat, lng} = data.results[0].geometry.location;
+
+          db.query('INSERT INTO users (username, password, email, street_address, city, state, zip, reward_points, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [username, hash, email, street_address, city, state, zip, reward_points, lat, lng], (err, response) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log('user added');
+              res.sendStatus(201);
+            }
+          });
+
+        })
+        .catch('there was an error getting lat-long data in addNewUser');
+
     });
 
-    // In this example, “myPlaintextPassword” would be the password that is sent up in the URL params or request body.
-    // The hash argument in the callback function is the result of your hashed password. The hashed variable is what you want to store in the database.
-
-
-
-
-
-    // let queryString = 'INSERT INTO reviews (col_1, col_2, col_3) VALUES (?, ?, ?)';
-    // let queryArgs = [req.body.user_id, req.body.text, req.body.roomname, req.body.createdAt];
-
-    // db.query(queryString, queryArgs, (err, dbRes) => {
-    //   if (err) {
-    //     res.status(404).send();
-    //   } else {
-    //     res.status(201).send();
-    //   }
-    // });
   },
 
   addNewReview(req, res) {
@@ -214,8 +208,8 @@ const controllers = {
         const miles_away = req.body.location.milesAway;
         const store_open = req.body.open;
         const store_close = req.body.close;
-        //`http://www.${name.split(' ').join('')}.com`;
-        const url = `abc.com`;
+        // const url = `http://www.${name.split(' ').join('')}.com`;
+        const url = `http://www.${name}.com`;
         const featured_food = JSON.stringify(req.body.featuredFood);
         const featured_drinks = JSON.stringify(req.body.featuredDrinks);
         const food_tag = req.body.foodTag;
