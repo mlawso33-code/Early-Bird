@@ -6,6 +6,18 @@
 
 body {
   margin: 0px;
+  background-image:url('sugar.jpg');
+  background-size: cover;
+  background-repeat:no-repeat;
+  background-position:top;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
+  -ms-content-zooming: none;
+  position:absolute;
+  width:100%;
+  height:100%;
+  overflow: hidden;
 }
 
 .wrapper {
@@ -311,8 +323,8 @@ input:focus, input:focus{
 /* 304 marc */
 .Modal {
   position: fixed;
-  bottom: -150vh;
-  background-color: darkred;
+  bottom: -120vh;
+  background-color: brown;
   width: 100%;
   left: 0;
   padding: 0 1px 12px;
@@ -321,7 +333,7 @@ input:focus, input:focus{
 }
 
 .Modal.Show {
-  bottom: 0;
+  bottom: 5;
 }
 
 .Overlay {
@@ -338,12 +350,44 @@ input:focus, input:focus{
 .Overlay.Show {
   display: block;
 }
-.reviewModalTitle {
+.ModalTitle {
   display:flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: rgba(124, 73, 6, 0.822);
+  background-color: lightsalmon;
   font-size: larger;
   font-weight: bolder;
   padding: 1.25em;
+}
+
+#close:hover {
+  cursor: pointer;
+}
+#paymentIcons {
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+
+#load {
+  width: 3.75em;
+  animation: 2.0s spin ease infinite;
+  position:absolute;
+  top: 25%;
+  left: 45%;
+}
+
+#loadingCoffee {
+  position:absolute;
+  top: 50%;
+  left: 41%;
+  color: white;
+}
+
+
+@keyframes spin {
+  to {
+    transform: rotate(-360deg);
+  }
 }

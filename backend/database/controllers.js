@@ -48,7 +48,6 @@ const controllers = {
         res.status(201).send(dbRes);
       }
     });
-
   },
 
   getStoreMenu(req,res) {
@@ -114,12 +113,12 @@ const controllers = {
     });
   },
 
-  getProductDetails(req,res) {
+  getProductDetails(req, res) {
     console.log('received a new GET request to getProductDetails');
 
   },
 
-  getUserDetails(req,res) {
+  getUserDetails(req, res) {
     let { username, password } = req.params;
     db.query('SELECT * FROM users WHERE username = ?', [username], (err, response) => {
       if (err) {
@@ -208,7 +207,7 @@ const controllers = {
     // generate an address for the store using google api
     axios
       .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.GOOGLE_API_KEY}`)
-      .then( ({data}) => {
+      .then(({ data }) => {
 
         const name = req.body.name;
         const address = data.results[0].formatted_address;
@@ -291,7 +290,7 @@ const controllers = {
         });
 
       })
-      .catch( (err) => {
+      .catch((err) => {
         console.log('there was an error fetching google address API data', err)
       });
   },
@@ -302,12 +301,12 @@ const controllers = {
   // PUT REQUESTS
   // ================================================================
 
-  updateUserRewardsPoints(req,res) {
+  updateUserRewardsPoints(req, res) {
     console.log('received a new PUT request to updateUserRewardsPoints');
 
   },
 
-  updateUserInformation(req,res) {
+  updateUserInformation(req, res) {
     console.log('received a new PUT request to updateUserInformation');
 
   },

@@ -7,49 +7,35 @@ import { FaRegStar, FaStar } from 'react-icons/fa'
 import axios from 'axios'
 
 
-const ReviewList = ({ store, user }) => {
+const ReviewList = ({ store }) => {
   const [totalReviews, setTotalReviews] = useState(0)
 
-  //const [reviews, setReviews] = useState([])
   const [storeReviews, setStoreReviews] = useState([])
-  const [userReviews, setUserReviews] = useState([])
+
   const [addReview, setAddReview] = useState(false)
 
 
   console.log('store id',)
   console.log('store reviews:::', storeReviews)
-  console.log('users reviews:::', userReviews)
 
-  function fetchReviews(id) {
+
+  function fetchStoreReviews(id) {
     axios
-      .get(`/api/stores/${id}/reviews`)
+      .get(`/stores/${id}/reviews`)
       .then(res => setStoreReviews(res.data))
   }
 
-  function fetchUserReviews(id) {
-    axios
-      .get(`/api/users/${id}/reviews`)
-      .then(res => setUserReviews(res.data))
-  }
-
-  // function fetchReviews() {
-  //   axios
-  //   .get('/api/reviews')
-  //   .then(res => setReviews(res.data))
+  // function getMaxRating() {
+  //   const reducer = (previousValue, currentValue) => previousValue + currentValue;
+  //   const rating = storeReviews.map(reviews => reviews.rating)
+  //   const finalRating = rating.reduce(reducer) / storeReviews.length
+  //   setTotalReviews(finalRating.toFixed(1))
   // }
 
-  function getMaxRating() {
-    const reducer = (previousValue, currentValue) => previousValue + currentValue;
-    const rating = storeReviews.map(reviews => reviews.rating)
-    const finalRating = rating.reduce(reducer) / storeReviews.length
-    setTotalReviews(finalRating.toFixed(1))
-  }
-
-
-  console.log(totalReviews)
-
-
   function submitReview() {
+    axios
+    .post()
+    .then()
   }
 
   function handleReview() {
@@ -64,13 +50,9 @@ const ReviewList = ({ store, user }) => {
     setTimeout(() => fetchStoreReviews(store.id), 1)
   }, [store])
 
-  useEffect(() => {
-    setTimeout(() => getMaxRating(), 1)
-  }, [storeReviews])
-
-  useEffect(() => {
-    setTimeout(() => fetchUserReviews(1), 1)
-  }, [])
+  // useEffect(() => {
+  //   setTimeout(() => getMaxRating(), 1)
+  // }, [storeReviews])
 
   return (
     <div className="reviews">
@@ -89,11 +71,11 @@ const ReviewList = ({ store, user }) => {
 
       <button onClick={handleReview}>Add Review</button>
       <div className={`Modal ${addReview ? 'Show' : ''}`}>
-        {addReview ? <ReviewModal toggle={handleReview} submit="submitReview" /> : null}
+        {addReview ? <ReviewModal toggle={handleReview} submit={submitReview} /> : null}
       </div>
       <div className={`Overlay ${addReview ? 'Show' : ''}`} />
 
-      {user.map((person) => (
+      {/* {user.map((person) => (
         userReviews.map((review) => (
           <div className="reviews">
             <div className="review" style={{ background: '#ffffff2e', borderRadius: '21px', padding: '15px', marginTop: '12px' }}>
@@ -111,7 +93,7 @@ const ReviewList = ({ store, user }) => {
             </div>
           </div>
         ))
-      ))}
+      ))} */}
 
     </div>
   )

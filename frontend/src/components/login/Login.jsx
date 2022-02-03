@@ -4,6 +4,7 @@ import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
 import Register from './Register.jsx';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import axios from 'axios';
+
 import DataSimulator from './DataSimulator.jsx';
 
 const Login = () => {
