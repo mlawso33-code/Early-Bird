@@ -17,7 +17,7 @@ const controllers = {
   // get all information on a single store
   getStoreDetails(req, res) {
 
-    let {id} = req.params;
+    let { id } = req.params;
 
     let queryString = 'SELECT * FROM stores WHERE id = ?';
     let queryArgs = [id];
@@ -33,9 +33,9 @@ const controllers = {
   },
 
   // get all reviews for a single store
-  getStoreReviews(req,res) {
+  getStoreReviews(req, res) {
 
-    let {id} = req.params;
+    let { id } = req.params;
 
     let queryString = 'SELECT r.id, u.username, r.rating, r.body, r.date FROM reviews r, users u WHERE r.store_id = ? AND u.id = r.user_id';
     let queryArgs = [id];
@@ -50,9 +50,9 @@ const controllers = {
     });
   },
 
-  getStoreMenu(req,res) {
+  getStoreMenu(req, res) {
 
-    const {id} = req.params;
+    const { id } = req.params;
 
     // get the menu id of the store
     db.query('SELECT menu_id FROM stores WHERE id = ?', [id], (err, dbRes) => {
@@ -75,9 +75,9 @@ const controllers = {
 
   },
 
-  getNearbyStores(req,res) {
+  getNearbyStores(req, res) {
 
-    const {zip} = req.params;
+    const { zip } = req.params;
     const trimmedZip = zip.slice(0, -1);
 
     let queryString = `SELECT * FROM stores WHERE address LIKE "%${trimmedZip}%"`;
@@ -108,7 +108,7 @@ const controllers = {
 
         // after reviews have been added to each nearby store, return the data in the http response
         // **NOTE: setTimeout() is used to give queries in for-loop above time to finish. ya, it's a bad solution, but its almost 1:00am and i'm fkn tired.
-        setTimeout( () => {res.status(200).send(dbRes)}, 500);
+        setTimeout(() => { res.status(200).send(dbRes) }, 500);
       }
     });
   },
@@ -128,13 +128,13 @@ const controllers = {
 
       if (response.length > 0) {
         let hashedPass = response[0].password;
-        bcrypt.compare(password, hashedPass, function(err, result) {
+        bcrypt.compare(password, hashedPass, function (err, result) {
           if (result) {
             res.send(response);
           } else {
             res.send(false);
           }
-      });
+        });
       } else {
         res.send(false);
       }
@@ -149,9 +149,9 @@ const controllers = {
     console.log('received a new POST request to addNewUser');
 
     //implement latitude, longitude
-    let {username, password, email, street_address, city, state, zip, reward_points} = req.body;
+    let { username, password, email, street_address, city, state, zip, reward_points } = req.body;
     // password encrypt function
-    bcrypt.hash(password, saltRounds, function(err, hash) {
+    bcrypt.hash(password, saltRounds, function (err, hash) {
       console.log(hash);
       db.query('INSERT INTO users (username, password, email, street_address, city, state, zip, reward_points, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [username, hash, email, street_address, city, state, zip, reward_points, 1, 1], (err, response) => {
         if (err) {
@@ -229,11 +229,11 @@ const controllers = {
         let menu_id = 1;
 
         if (coffee_tag && tea_tag && food_tag) {
-          menu_id = Math.floor(Math.random()*3 + 11);
+          menu_id = Math.floor(Math.random() * 3 + 11);
         } else if (coffee_tag && tea_tag) {
-          menu_id = Math.floor(Math.random()*3 + 14);
+          menu_id = Math.floor(Math.random() * 3 + 14);
         } else if (coffee_tag && food_tag) {
-          menu_id = Math.floor(Math.random()*3 + 17);
+          menu_id = Math.floor(Math.random() * 3 + 17);
         };
 
         let queryString = 'INSERT INTO stores (name, address, latitude, longitude, miles_away, store_open, store_close, url, featured_foods, featured_drinks, food_tag, tea_tag, coffee_tag, menu_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
@@ -303,14 +303,40 @@ const controllers = {
 
   updateUserRewardsPoints(req, res) {
     console.log('received a new PUT request to updateUserRewardsPoints');
-
+    const { id, reward_points } = req.body;
+    const queryString = `UPDATE users SET reward_points = ? WHERE id = ?`;
+    const queryArgs = [reward_points, id]
+    db.query(queryString, queryArgs, (err, dbRes) => {
+      if (err) {
+        console.log('there was an error adding updating user points');
+        res.status(404).send(err);
+      } else {
+        res.status(201).send(dbRes);
+      }
+    })
   },
 
   updateUserInformation(req, res) {
     console.log('received a new PUT request to updateUserInformation');
+    const { id, username, street_address, city, state, zip } = req.body;
 
+    const queryString = `
+      UPDATE users SET
+        username = ?,
+        street_address = ?,
+        city = ?, state = ?,
+        zip = ?
+        WHERE id = ?`;
+    const queryArgs = [username, street_address, city, zip, id]
+    db.query(queryString, queryArgs, (err, dbRes) => {
+      if (err) {
+        console.log('there was an error adding updating user information');
+        res.status(404).send(err);
+      } else {
+        res.status(201).send(dbRes);
+      }
+    })
   },
-
 
 
 };
