@@ -87,15 +87,18 @@ const controllers = {
         res.sendStatus(500);
       };
 
-      console.log(response);
-      let hashedPass = response[0].password;
-      bcrypt.compare(password, hashedPass, function(err, result) {
-        if (result) {
-          res.send(response);
-        } else {
-          res.send(false);
-        }
-    });
+      if (response.length > 0) {
+        let hashedPass = response[0].password;
+        bcrypt.compare(password, hashedPass, function(err, result) {
+          if (result) {
+            res.send(response);
+          } else {
+            res.send(false);
+          }
+      });
+      } else {
+        res.send(false);
+      }
     })
   },
 

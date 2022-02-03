@@ -4,6 +4,7 @@ import axios from 'axios';
 import { GiCoffeeBeans } from 'react-icons/gi'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
+import DataSimulator from './DataSimulator.jsx';
 
 const Register = () => {
   const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn} = useContext(GlobalContext);
@@ -90,10 +91,12 @@ const Register = () => {
             } else if (userRegister.zip.length !== 5 || hasLetter(userRegister.zip)) {
               alert('Please enter a valid Zipcode')
             } else {
-              Axios.post('/user', userRegister).then(() => {
-                Axios.get(`user/${userRegister.username}/${userRegister.password}`).then((result) => {
+              axios.post('/user', userRegister).then(() => {
+                axios.get(`user/${userRegister.username}/${userRegister.password}`).then(async (result) => {
                   setUserInfo(result.data[0]);
                   setLoggedIn(true);
+                  let value = await DataSimulator(false, result.data[0]);
+                  setStoreData(value);
                   navigate('/Home');
                 })
               })
