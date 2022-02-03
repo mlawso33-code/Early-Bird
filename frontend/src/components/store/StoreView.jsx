@@ -7,8 +7,7 @@ import Menu from './Menu.jsx'
 import LoadingScreen from '../LoadingScreen.jsx'
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { GiCoffeeBeans } from 'react-icons/gi';
-
+import {GiCoffeeBeans} from 'react-icons/gi';
 
 const StoreView = () => {
   const [stores, setStores] = useState([])
@@ -58,8 +57,12 @@ const StoreView = () => {
   if (loggedIn === false) {
     navigate('/');
   } else {
-    console.log(userInfo)
+    console.log('userInfo', userInfo)
   }
+
+  const ConditionalLink = ({ children, to, condition }) => (!!condition && to)
+    ? <Link to={to}>{children}</Link>
+    : <>{children}</>;
 
   return (
     <>

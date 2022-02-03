@@ -4,6 +4,7 @@ import axios from 'axios';
 import { GiCoffeeBeans } from 'react-icons/gi'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
+import DataSimulator from './DataSimulator.jsx';
 
 const Register = () => {
   const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn} = useContext(GlobalContext);
@@ -50,7 +51,7 @@ const Register = () => {
         <input type="text" className="login-input" placeholder="Username" name="username" style={{ marginTop: '44px' }} onChange={handleChange} />
         <input type="text" className="login-input" placeholder="Password" name="password" onChange={handleChange} />
         <input type="email" className="login-input" placeholder="Email" name="email" onChange={handleChange} />
-        <input type="text" className="login-input" placeholder="Address" name="address" onChange={handleChange} />
+        <input type="text" className="login-input" placeholder="Address" name="street_address" onChange={handleChange} />
         <div className="address">
           <input type="text" className="login-input" placeholder="City" name="city" style={{
             width: '50%',
@@ -91,9 +92,11 @@ const Register = () => {
               alert('Please enter a valid Zipcode')
             } else {
               axios.post('/user', userRegister).then(() => {
-                axios.get(`user/${userRegister.username}/${userRegister.password}`).then((result) => {
+                axios.get(`user/${userRegister.username}/${userRegister.password}`).then(async (result) => {
                   setUserInfo(result.data[0]);
                   setLoggedIn(true);
+                  let value = await DataSimulator(false, result.data[0]);
+                  setStoreData(value);
                   navigate('/Home');
                 })
               })

@@ -22,7 +22,7 @@ app.use(express.json());
 // get request routes
 app.get('/stores/:id/details', controllers.getStoreDetails);
 app.get('/stores/:id/reviews', controllers.getStoreReviews);
-app.get('/stores/:id/products', controllers.getStoreProducts);
+app.get('/stores/:id/menu', controllers.getStoreMenu);
 app.get('/stores/nearby/:zip', controllers.getNearbyStores);
 app.get('/product/:id', controllers.getProductDetails);
 app.get('/user/:username/:password', controllers.getUserDetails);
