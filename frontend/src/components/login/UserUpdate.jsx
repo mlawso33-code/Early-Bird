@@ -54,7 +54,7 @@ const UserUpdate = () => {
     <img src="LOGO.png" className="logo"/>
     <div style={{ height: '30px', color: 'white', top: '14px', right: '100px', position: 'absolute' }}>{userInfo.username}</div>
     <GiCoffeeBeans style={{height: '30px', color: 'white', top:'8px', right: '50px', position: 'absolute'}} ></GiCoffeeBeans>
-    <div style={{height: '30px', color: 'white', top:'14px', right: '10px', position: 'absolute'}}>{userInfo.points}</div>
+    <div style={{height: '30px', color: 'white', top:'14px', right: '10px', position: 'absolute'}}>{userInfo.reward_points}</div>
     <div className="register-field">
     <input type="text" className="login-input" value={userInfo.username} name="username" style={{marginTop: '44px'}} readOnly/>
       <input type="email" className="login-input" placeholder={userInfo.email} name="email" onChange={handleChange}/>
@@ -88,7 +88,7 @@ const UserUpdate = () => {
         }}>Update</button>
         <GiCoffeeBeans className="login-input"></GiCoffeeBeans>
 
-        <div className="login-input">Total: {userInfo.points}</div>
+        <div className="login-input">Total: {userInfo.reward_points}</div>
 
       </div>
     </div>

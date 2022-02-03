@@ -73,7 +73,9 @@ const StoreView = () => {
           <img src="LOGO.png" className="logo" />
           <div style={{ height: '30px', color: 'white', top: '14px', right: '100px', position: 'absolute' }}>{userInfo.username}</div>
           <GiCoffeeBeans style={{ height: '30px', color: 'white', top: '8px', right: '50px', position: 'absolute' }} ></GiCoffeeBeans>
-          <div style={{ height: '30px', color: 'white', top: '14px', right: '10px', position: 'absolute' }}>{userInfo.points}</div>
+          <div style={{ height: '30px', color: 'white', top: '14px', right: '10px', position: 'absolute' }}>{userInfo.reward_points}</div>
+          <ConditionalLink to="/userUpdate" condition={loggedIn}><button style={{ height: '25px', top: '32px', right: '50px', position: 'absolute' }}
+          >Update</button></ConditionalLink>
           <div className="nav-bar"></div>
           <div className="portal-container" style={{ height: '100%', width: '100%', fontFamily: 'neue-haas-grotesk-display' }}>
             <div className="shops-module">
