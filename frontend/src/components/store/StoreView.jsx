@@ -58,8 +58,6 @@ const StoreView = () => {
 
   if (loggedIn === false) {
     navigate('/');
-  } else {
-    console.log('userInfo', userInfo)
   }
 
   const ConditionalLink = ({ children, to, condition }) => (!!condition && to)
