@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import GlobalContext from '../../contexts/context.js';
-import Axios from 'axios';
+import axios from 'axios';
 
 let DataSimulator = function (dataAlreadyExists, userInfo) {
   //This function assumes: access to user latitude and longitude, a state to set store info to, multiple routes to handle information being saved
@@ -75,7 +75,7 @@ let DataSimulator = function (dataAlreadyExists, userInfo) {
       coffeeStoreCollection.push(simulatedStore);
     }
 
-    let result = await Axios.post('/stores/details', coffeeStoreCollection)
+    let result = await axios.post('/stores/details', coffeeStoreCollection)
       .catch((err) => {
         console.log('There was an error processing this request.');
         console.log('Error: ', err);

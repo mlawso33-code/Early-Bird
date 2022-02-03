@@ -3,7 +3,7 @@ import GlobalContext from '../../contexts/context.js';
 import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
 import Register from './Register.jsx';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import Axios from 'axios';
+import axios from 'axios';
 import DataSimulator from './DataSimulator.jsx';
 
 const Login = () => {
@@ -18,7 +18,7 @@ const Login = () => {
   let navigate = useNavigate();
 
    function verifyLogin() {
-      Axios.get(`user/${loginCred.username}/${loginCred.password}`).then(async (result) => {
+      axios.get(`user/${loginCred.username}/${loginCred.password}`).then(async (result) => {
       if (!Array.isArray(result.data)) {
         alert('Username or password not valid!');
         return;

@@ -51,7 +51,7 @@ const Register = () => {
         <input type="text" className="login-input" placeholder="Username" name="username" style={{ marginTop: '44px' }} onChange={handleChange} />
         <input type="text" className="login-input" placeholder="Password" name="password" onChange={handleChange} />
         <input type="email" className="login-input" placeholder="Email" name="email" onChange={handleChange} />
-        <input type="text" className="login-input" placeholder="Address" name="address" onChange={handleChange} />
+        <input type="text" className="login-input" placeholder="Address" name="street_address" onChange={handleChange} />
         <div className="address">
           <input type="text" className="login-input" placeholder="City" name="city" style={{
             width: '50%',
