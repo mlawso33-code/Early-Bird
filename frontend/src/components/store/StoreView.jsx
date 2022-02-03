@@ -32,36 +32,50 @@ const StoreView = () => {
 
   useEffect(() => {
     fetchStores()
+    checkLogin()
   }, [])
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 3000)
   }, [])
 
-  // const auth = getAuth();
-  // onAuthStateChanged(auth, (user) => {
-  //   if (!user) {
-  //     // User is signed in, see docs for a list of available properties
-  //     // https://firebase.google.com/docs/reference/js/firebase.User
-  //     const uid = user.uid;
-  //     //const uid = user.uid;
-  //     // ...
-  //     return(
-  //       <div>not logged in</div>
-  //     )
-  //   } else {
-  //     // User is signed out
-  //     // ...
-  //   }
-  // });
 
-  if (loggedIn === false) {
+
+  function checkLogin() {
+    let log = localStorage.getItem('logged')
+    let userLog = localStorage.getItem('username')
+    let userPass = localStorage.getItem('password')
+  if (log === 'false') {
     navigate('/');
+  } else {
+    axios.get(`user/${userLog}/${userPass}`).then(async (result) => {
+      if (!Array.isArray(result.data)) {
+        alert('Username or password not valid!');
+        return;
+      }
+      if (result.data !== false) {
+        setUserInfo(result.data[0]);
+        setLoggedIn(true);
+        var log = localStorage.getItem('logged')
+        axios.get(`/stores/nearby/${result.data[0].zip}`).then((result) => {
+          setStoreData(result);
+        })
+      } else {
+        alert("Username or password was not recognized!");
+      }
+    });
   }
+};
 
   const ConditionalLink = ({ children, to, condition }) => (!!condition && to)
     ? <Link to={to}>{children}</Link>
     : <>{children}</>;
+
+  function logout() {
+    localStorage.setItem('logged', 'false')
+    setLoggedIn(false)
+    navigate('/');
+  }
 
   return (
     <>
@@ -71,8 +85,10 @@ const StoreView = () => {
           <div style={{ height: '30px', color: 'white', top: '14px', right: '100px', position: 'absolute' }}>{userInfo.username}</div>
           <GiCoffeeBeans style={{ height: '30px', color: 'white', top: '8px', right: '50px', position: 'absolute' }} ></GiCoffeeBeans>
           <div style={{ height: '30px', color: 'white', top: '14px', right: '10px', position: 'absolute' }}>{userInfo.reward_points}</div>
-          <ConditionalLink to="/userUpdate" condition={loggedIn}><button style={{ height: '25px', top: '32px', right: '50px', position: 'absolute' }}
+          <ConditionalLink to="/userUpdate" condition={loggedIn}><button style={{ height: '25px', top: '32px', right: '60px', position: 'absolute' }}
           >Update</button></ConditionalLink>
+          <button style={{ height: '25px', top: '32px', right: '10px', position: 'absolute' }} onClick={logout}
+          >Logout</button>
           <div className="nav-bar"></div>
           <div className="portal-container" style={{ height: '100%', width: '100%', fontFamily: 'neue-haas-grotesk-display' }}>
             <div className="shops-module">
