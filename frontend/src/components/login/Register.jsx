@@ -3,18 +3,22 @@ import GlobalContext from '../../contexts/context.js';
 import axios from 'axios';
 import { GiCoffeeBeans } from 'react-icons/gi'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
 
 const Register = () => {
-  const { page, setPage } = useContext(GlobalContext);
+  const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn} = useContext(GlobalContext);
   const [userRegister, setUserRegister] = useState({
     username: '',
     password: '',
     email: '',
-    address: '',
+    street_address: '',
     city: '',
     state: '',
-    zip: ''
+    zip: '',
+    reward_points: 0,
+
   });
+  let navigate = useNavigate();
 
   const handleChange = (event) => {
     setUserRegister({
@@ -63,6 +67,7 @@ const Register = () => {
         </div>
         <div className="buttons">
           <button className="login-button" onClick={(event) => {
+            event.preventDefault();
             if (userRegister.username.length === 0) {
               alert('Please enter a Username')
             } else if (userRegister.password.length === 0) {
@@ -85,9 +90,13 @@ const Register = () => {
             } else if (userRegister.zip.length !== 5 || hasLetter(userRegister.zip)) {
               alert('Please enter a valid Zipcode')
             } else {
-              axios.post('/api/user', userRegister).then(
-                console.log(userRegister)
-              )
+              Axios.post('/user', userRegister).then(() => {
+                Axios.get(`user/${userRegister.username}/${userRegister.password}`).then((result) => {
+                  setUserInfo(result.data[0]);
+                  setLoggedIn(true);
+                  navigate('/Home');
+                })
+              })
             }
           }}>Register</button>
         </div>
