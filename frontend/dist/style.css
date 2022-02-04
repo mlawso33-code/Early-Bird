@@ -320,6 +320,42 @@ input:focus, input:focus{
   cursor: hand;
 }
 
+.profile-info {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.right {
+  display: flex;
+  margin-right: 16px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-link {
+  cursor: hand;
+}
+
+.location-input {
+  font-weight: normal;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid white;
+  font-size: 20px;
+  color: #D2B48C;
+}
+
 
 
 

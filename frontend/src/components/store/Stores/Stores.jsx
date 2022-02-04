@@ -5,7 +5,6 @@ import Store from './Store.jsx';
 
 const Stores = () => {
   const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn, currStore, setCurrStore  } = useContext(GlobalContext);
-  console.log('storeDataare', JSON.parse(storeData[0].featured_drinks));
 
   function getAverageRating(store) {
     let ratings = 0;

@@ -31,7 +31,7 @@ const Login = () => {
         setUserInfo(result.data[0]);
         localStorage.setItem('logged', 'true')
         var log = localStorage.getItem('logged')
-        axios.get(`/stores/nearby/${result.data[0].zip}`).then((result) => {
+        axios.get(`/stores/nearby/${result.data[0].latitude}/${result.data[0].longitude}`).then((result) => {
           console.log('Here is your data:', result.data)
           setStoreData(result.data);
           setLoggedIn(true);

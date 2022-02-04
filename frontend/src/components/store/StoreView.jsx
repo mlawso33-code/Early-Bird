@@ -9,11 +9,14 @@ import Shops from './Stores/Stores.jsx'
 import MapIndex from '../map/MapIndex.js'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { GiCoffeeBeans } from 'react-icons/gi';
+import {HiUserCircle} from 'react-icons/hi'
+import {AiFillEdit} from 'react-icons/ai';
 
 const StoreView = () => {
   const [stores, setStores] = useState([])
   const [menuModal, setMenuModal] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [editLocation, setEditLocation] = useState(false);
 
   const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn, currStore, setCurrStore } = useContext(GlobalContext);
   let navigate = useNavigate();
@@ -59,7 +62,7 @@ const StoreView = () => {
         setLoggedIn(true);
         var log = localStorage.getItem('logged')
         console.log('NOTED ZIP 1:::', result.data[0].zip)
-        axios.get(`/stores/nearby/${result.data[0].zip}`).then((result) => {
+        axios.get(`/stores/nearby/${result.data[0].latitude}/${result.data[0].longitude}`).then((result) => {
           setStoreData(result.data);
         })
       } else {
@@ -81,22 +84,33 @@ const StoreView = () => {
     navigate('/');
   }
 
+  let placeholder = userInfo.city + ', ' + userInfo.state;
+
   return (
     <>
       {loading === false ? (
         <div className="wrapper" style={{ height: '100%', width: '100%' }}>
           <img src="LOGO.png" className="logo" />
-          <div style={{ height: '30px', color: 'white', top: '14px', right: '100px', position: 'absolute' }}>{userInfo.username}</div>
-          <GiCoffeeBeans style={{ height: '30px', color: 'white', top: '8px', right: '50px', position: 'absolute' }} ></GiCoffeeBeans>
-          <div style={{ height: '30px', color: 'white', top: '14px', right: '10px', position: 'absolute' }}>{userInfo.reward_points}</div>
-          <ConditionalLink to="/userUpdate" condition={loggedIn}><button style={{ height: '25px', top: '32px', right: '60px', position: 'absolute' }}
-          >Update</button></ConditionalLink>
-          <button style={{ height: '25px', top: '32px', right: '10px', position: 'absolute' }} onClick={logout}
-          >Logout</button>
-          <div className="nav-bar"></div>
+          <div className="nav-bar">
+          <div className="profile-info">
+            <div className="left">
+            <div style={{color: 'white', fontSize: '20px', fontFamily: 'neue-haas-grotesk-display'}}>{userInfo.username}</div>
+              <div style={{display: 'flex', alignItems: 'center', flexDirection: 'row'}}>
+                <GiCoffeeBeans style={{ height: '25px', width: 'auto', color: '#34220a' }} ></GiCoffeeBeans>
+                <div style={{color: 'white', fontSize: '24px', marginRight: '10px', marginLeft: '6px'}}>{userInfo.reward_points}</div>
+              </div>
+            </div>
+            <div className="right">
+            <ConditionalLink to="/userUpdate" condition={loggedIn}><HiUserCircle style={{color:'white', height: '40px', width: 'auto'}}/></ConditionalLink>
+              <div className="login-link" style={{color: 'white', fontFamily: 'neue-haas-grotesk-display', fontSize: '12px'}} onClick={logout}
+            >Log out</div>
+            </div>
+          </div>
+          </div>
           <div className="portal-container" style={{ height: '100%', width: '100%', fontFamily: 'neue-haas-grotesk-display' }}>
             <div className="shops-module">
-              <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px', fontFamily: 'poppins, sans-serif', marginTop: '15px' }}>RESULTS FROM <span className="location-style" style={{ fontWeight: 'normal', color: '#D2B48C' }}>{userInfo.city}, {userInfo.state}</span></div>
+            {/* onClick={()=>{setEditLocation(!editLocation)}} */}
+              <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px', fontFamily: 'poppins, sans-serif', marginTop: '15px' }}>RESULTS FROM {editLocation === false ? <span className="location-style" onClick={()=>{setEditLocation(!editLocation)}} style={{ fontWeight: 'normal', color: '#D2B48C' }}>{userInfo.city}, {userInfo.state}</span>:<input className="location-input" style={{ fontWeight: 'normal', color: '#D2B48C' }} placeholder={placeholder}/><AiFillEdit/>}</div>
                 <Shops />
             </div>
             <div className="shop-info">
