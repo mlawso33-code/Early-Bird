@@ -50,7 +50,7 @@ const DirectionRenderComponent = (props) => {
   if (directions) {
     originMarker = (
       <Marker
-        icon={{ url: "hummingbird.png", scaledSize: new google.maps.Size(48, 48) }}
+        icon={{ url: "Bird-ReSized.png", scaledSize: new google.maps.Size(48, 48) }}
         position={{
           lat: parseFloat(fromLat),
           lng: parseFloat(fromLng)
