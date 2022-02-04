@@ -4,6 +4,7 @@ import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
 import Register from './Register.jsx';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import axios from 'axios';
+import Facebook from './Facebook.jsx'
 
 import DataSimulator from './DataSimulator.jsx';
 
@@ -68,6 +69,7 @@ const Login = () => {
       <div className="buttons">
         <button className="login-button" onClick={verifyLogin}>LOGIN</button>
         <ConditionalLink to="/register" condition={1===1}><button className="login-button">REGISTER</button></ConditionalLink>
+
       </div>
     </div>
   </div>
