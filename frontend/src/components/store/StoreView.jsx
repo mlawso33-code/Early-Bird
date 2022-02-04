@@ -133,7 +133,7 @@ const StoreView = () => {
 
                   <button onClick={handleMenu}>Order Online</button>
                   <div className={`Modal ${menuModal ? 'Show' : ''}`}>
-                    {menuModal ? <Menu toggle={handleMenu} /> : null}
+                    {menuModal ? <Menu key={currStore.id} store={currStore} toggle={handleMenu} /> : null}
                   </div>
                   <div className={`Overlay ${menuModal ? 'Show' : ''}`} />
 

@@ -3,6 +3,7 @@ import PaymentForm from './PaymentForm.jsx'
 
 import axios from 'axios'
 import { FaCcAmex, FaCcDiscover, FaCcMastercard, FaCcVisa } from 'react-icons/fa'
+import {AiOutlineShoppingCart} from 'react-icons/ai'
 
 const Menu = ({ toggle, store }) => {
   const [total, setTotal] = useState(0)
@@ -69,7 +70,7 @@ const Menu = ({ toggle, store }) => {
 
   return (
     <div>
-      <div className="ModalTitle">STORE NAME
+      <div className="ModalTitle">{store.name}'s Menu
         <span id="close" onClick={toggle}>X</span>
 
       </div>
@@ -101,17 +102,18 @@ const Menu = ({ toggle, store }) => {
       </div>
       <div>
         <h3>Payment</h3>
-        {/* <form onClick={submitPayment}>
-            <input type="text"></input>
-            <br />
-            <input type="text"></input>
-            <br />
-            <input type="text"></input>
-            <br />
-            <input type="text"></input>
-            <br />
-            <input type="submit"></input>
-          </form> */}
+        <div className="productList">
+        {products.filter((val) => {
+          if (val.category === category) {
+            return val
+          }
+        }).map((product) => (
+          <div>
+            <span>{product.name} <button onClick={e => { addCart(e.target.value) }} value={product.name}>Add to Cart</button></span>
+            <div>${product.price}</div>
+          </div>
+        ))}
+      </div>
         <form onClick={submitPayment}>
           <PaymentForm />
           <div>
@@ -129,7 +131,6 @@ const Menu = ({ toggle, store }) => {
         </form>
       </div>
     </div>
-    </div >
   )
 }
 
