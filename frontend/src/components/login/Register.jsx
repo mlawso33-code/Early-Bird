@@ -7,7 +7,7 @@ import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
 import DataSimulator from './DataSimulator.jsx';
 
 const Register = () => {
-  const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn} = useContext(GlobalContext);
+  const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn, currStore, setCurrStore} = useContext(GlobalContext);
   const [userRegister, setUserRegister] = useState({
     username: '',
     password: '',
@@ -17,7 +17,6 @@ const Register = () => {
     state: '',
     zip: '',
     reward_points: 0,
-
   });
   let navigate = useNavigate();
 
@@ -95,7 +94,8 @@ const Register = () => {
                 axios.get(`user/${userRegister.username}/${userRegister.password}`).then(async (result) => {
                   setUserInfo(result.data[0]);
                   setLoggedIn(true);
-                  let value = await DataSimulator(false, result.data[0]);
+                  let value = await DataSimulator(result.data[0]);
+                  console.log('Value:', value);
                   setStoreData(value);
                   navigate('/Home');
                 })

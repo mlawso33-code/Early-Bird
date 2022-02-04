@@ -9,26 +9,35 @@ const G_API_URL = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}
 
 const MapIndex = () => {
   const { userInfo, setUserInfo, storeData, setStoreData } = useContext(GlobalContext);
+  const [fromObj, setFromObj] = useState({});
+  const [toObj, setToObj] = useState({});
   const [defaultZoom, setDefaultZoom] = useState(15);
   const [map, setMap] = useState(null);
-  const [center, setCenter] = useState({ lat: 40.751530, lng: -73.938980 })
+  const [center, setCenter] = useState({ lat: Number(userInfo.latitude), lng: Number(userInfo.longitude) })
 
+  useEffect(() => {
+    setFromObj({ lat: userInfo.latitude, lng: userInfo.longitude, fromTitle: userInfo.state });
+    //settoObj({lat: userInfo.latitude, lng: userInfo.longitude, toTitle: userInfo.state})
+  }, [userInfo])
 
   return (
-    <GoogleMap
-      defaultZoom={defaultZoom}
+    console.log('FROMOBJ::: ', fromObj),
+    < GoogleMap
+      defaultZoom={12}
       center={center}
       defaultCenter={new window.google.maps.LatLng(23.21632, 72.641219)}
     >
+      {Object.keys(fromObj).length ?
+        <DirectionRenderComponent
+          strokeColor={"#921d25"}
+          from={fromObj}
+          to={{ lat: '40.0502', lng: '-105.2892', toTitle: 'NY' }}
+        />
+        : null
+      }
 
-      <DirectionRenderComponent
-        strokeColor={"#f68f54"}
-        from={{ lat: '40.751530', lng: ' -73.938980', fromTitle: 'NY' }}
-        to={{ lat: '40.748720', lng: ' -73.942560', toTitle: 'NY' }}
-      />
 
-
-    </GoogleMap>
+    </GoogleMap >
   );
 }
 

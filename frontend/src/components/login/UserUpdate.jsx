@@ -20,10 +20,9 @@ const UserUpdate = () => {
     reward_points: userInfo.reward_points
   });
 
-  if (loggedIn === false) {
+  var log = localStorage.getItem('logged')
+  if (log === false) {
     navigate('/');
-  } else {
-    console.log(userInfo)
   }
 
   const handleChange = (event) => {

@@ -8,6 +8,8 @@ const ReviewModal = ({ toggle, submit }) => {
   function handleRating(newRate) {
     setValue(newRate)
   }
+
+  console.log('value::::', value)
   return (
     <div className="reviewModal">
       <div className="ModalTitle">STORE NAME
@@ -19,7 +21,7 @@ const ReviewModal = ({ toggle, submit }) => {
           emptySymbol={<FaRegStar />}
           fullSymbol={<FaStar/>}
           onChange={handleRating}
-          value={userRate} />
+          value={value} />
         <input type="text-area" placeholder="Enter your review."></input>
         <button type="submit">Submit Review</button>
       </form>
