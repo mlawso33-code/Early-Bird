@@ -1,14 +1,9 @@
-<<<<<<< HEAD:frontend/src/components/store/Menu/Menu.jsx
 import React, { useState, useEffect } from 'react'
 import PaymentForm from './PaymentForm.jsx'
-=======
-import React, { useState } from 'react'
->>>>>>> parent of b91137f (menu adds to cart, filters based on category selected):frontend/src/components/store/Menu.jsx
 
 import axios from 'axios'
 import { FaCcAmex, FaCcDiscover, FaCcMastercard, FaCcVisa } from 'react-icons/fa'
 
-<<<<<<< HEAD:frontend/src/components/store/Menu/Menu.jsx
 const Menu = ({ toggle, store }) => {
   const [total, setTotal] = useState(0)
   const [cartQuantity, setCartQuantity] = useState(0);
@@ -78,20 +73,12 @@ const Menu = ({ toggle, store }) => {
     setCartQuantity(cart.length)
   }, [cart])
 
-=======
-const Menu = ({ toggle }) => {
-  const [products, setProducts] = useState([])
-
-  function fetchProducts() {
-  }
->>>>>>> parent of b91137f (menu adds to cart, filters based on category selected):frontend/src/components/store/Menu.jsx
   return (
     <div>
       <div className="ModalTitle">STORE NAME
         <span id="close" onClick={toggle}>X</span>
 
       </div>
-<<<<<<< HEAD:frontend/src/components/store/Menu/Menu.jsx
       <div id="categoryMenu">
         <button onClick={e => filterCategory(e.target.value)} value="food">Food</button>
         <button onClick={e => filterCategory(e.target.value)} value="coffee">Coffee</button>
@@ -104,8 +91,6 @@ const Menu = ({ toggle }) => {
         ))}
       </div>
       <hr className="hr" />
-=======
->>>>>>> parent of b91137f (menu adds to cart, filters based on category selected):frontend/src/components/store/Menu.jsx
       <div className="productList">
         <div>Item 1
           < br />
@@ -133,7 +118,6 @@ const Menu = ({ toggle }) => {
         </div>
       </div>
       <div className="cart">
-<<<<<<< HEAD:frontend/src/components/store/Menu/Menu.jsx
         <AiOutlineShoppingCart size={50} />
         {/* //able to delete cart items */}
         {cart.length > 0 && (
@@ -172,19 +156,6 @@ const Menu = ({ toggle }) => {
             </div>
             <input type="submit" value="Submit" />
           </form>
-=======
-        <h3>Your cart</h3>
-        Item1
-        Item2
-        <div>
-          <h3>Payment</h3>
-          <span id="paymentIcons">
-            <FaCcAmex size={50}/>
-            <FaCcVisa size={50}/>
-            <FaCcMastercard size={50}/>
-            <FaCcDiscover size={50}/>
-          </span>
->>>>>>> parent of b91137f (menu adds to cart, filters based on category selected):frontend/src/components/store/Menu.jsx
         </div>
       </div>
     </div>
