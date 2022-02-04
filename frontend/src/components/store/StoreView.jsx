@@ -42,12 +42,13 @@ const StoreView = () => {
 
 
   function checkLogin() {
-    let log = localStorage.getItem('logged')
-    let userLog = localStorage.getItem('username')
-    let userPass = localStorage.getItem('password')
-  if (log === 'false') {
+  let log = localStorage.getItem('logged')
+  let logUser = localStorage.getItem('username') || undefined
+  if (log === 'false' || logUser === undefined) {
     navigate('/');
   } else {
+    let userLog = localStorage.getItem('username')
+    let userPass = localStorage.getItem('password')
     axios.get(`user/${userLog}/${userPass}`).then(async (result) => {
       if (!Array.isArray(result.data)) {
         alert('Username or password not valid!');
@@ -73,6 +74,8 @@ const StoreView = () => {
 
   function logout() {
     localStorage.setItem('logged', 'false')
+    localStorage.removeItem('username')
+    localStorage.removeItem('password')
     setLoggedIn(false)
     navigate('/');
   }
