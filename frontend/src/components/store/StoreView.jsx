@@ -3,7 +3,7 @@ import GlobalContext from '../../contexts/context.js';
 import axios from 'axios'
 import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
 import ReviewList from './Stores/Reviews/ReviewList.jsx'
-import Menu from './Menu.jsx'
+import Menu from './Menu/Menu.jsx'
 import LoadingScreen from '../LoadingScreen.jsx'
 import Shops from './Stores/Stores.jsx'
 import MapIndex from '../map/MapIndex.js'

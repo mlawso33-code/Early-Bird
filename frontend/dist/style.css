@@ -373,7 +373,12 @@ input:focus, input:focus{
   flex-direction: row;
   justify-content: center;
 }
-
+.cardImg{
+  width: 50%;
+  border: solid 2px red;
+  border-radius: 5%;
+  background-color: lightseagreen;
+}
 #close:hover {
   cursor: pointer;
 }
