@@ -31,9 +31,7 @@ const Login = () => {
         setUserInfo(result.data[0]);
         localStorage.setItem('logged', 'true')
         var log = localStorage.getItem('logged')
-        console.log('zipcode:', result.data[0].zip)
-        axios.get(`/stores/nearby/${result.data[0].zip}`).then((result) => {
-          console.log('Here is your data:', result.data)
+        axios.get(`/stores/nearby/${result.data[0].latitude}/${result.data[0].longitude}`).then((result) => {
           setStoreData(result.data);
           setLoggedIn(true);
         })
@@ -70,7 +68,6 @@ const Login = () => {
       <div className="buttons">
         <button className="login-button" onClick={verifyLogin}>LOGIN</button>
         <ConditionalLink to="/register" condition={1===1}><button className="login-button">REGISTER</button></ConditionalLink>
-        <button className="facebook-button">Login with Facebook</button>
       </div>
     </div>
   </div>
