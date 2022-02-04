@@ -34,12 +34,12 @@ const ReviewModal = ({ toggle, fetch, userID, store }) => {
 
   console.log('value::::', value)
   return (
-    <div className="reviewModal">
-      <div className="ModalTitle">{store.name}
+    <div className="reviewModal" style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+      <div className="ModalTitle" style={{width: '100%'}}>{store.name}
         <span id="close" onClick={toggle}>X</span>
 
       </div>
-      <form className="reviewModalBody" onSubmit={submitReview}>
+      <form className="reviewModalBody" onSubmit={submitReview} style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <div>
           <Rating
             name='simple-controlled'
@@ -47,15 +47,14 @@ const ReviewModal = ({ toggle, fetch, userID, store }) => {
             fullSymbol={<FaStar />}
             initialRating={value}
             onClick={newRate => handleRatingChange(newRate)}
+            style={{marginTop: '7px'}}
           />
         </div>
-        <div>
-          <input type='text'
+          <input className="login-input" type='text'
             maxLength='60'
             placeholder='Example: jackson11!'
             onChange={handleBodyChange}
           />
-        </div>
         <input type="submit" value="Submit" />
       </form>
     </div>

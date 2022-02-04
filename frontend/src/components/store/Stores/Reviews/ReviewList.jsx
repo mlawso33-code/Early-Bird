@@ -84,7 +84,8 @@ const ReviewList = ({ store, userID }) => {
                 emptySymbol={<FaRegStar />}
                 fullSymbol={<FaStar />}
                 initialRating={review.rating}
-                readonly />
+                readonly
+                style={{color:'rgb(255, 207, 46)'}}/>
               </div>
             </div>
             <div className="review-comment" style={{ color: 'white', fontSize: '12px', marginLeft: '10px' }}>

@@ -15,11 +15,6 @@ const Menu = ({ toggle, store, user, setUser }) => {
   const [foodCategory, setFood] = useState([])
   const [coffeeCategory, setCoffee] = useState([])
 
-
-  console.log('products:::', products)
-  console.log('current store:::', store)
-  console.log('cart::::', cart)
-
   function fetchProducts(id) {
     axios
       .get(`/stores/${id}/menu`)
@@ -85,10 +80,11 @@ const Menu = ({ toggle, store, user, setUser }) => {
         <span id="close" onClick={toggle}>X</span>
       </div>
       <div id="categoryButtons">
-        <button onClick={e => filterCategory(e.target.value)} value="food">Food</button>
-        <button onClick={e => filterCategory(e.target.value)} value="coffee">Coffee</button>
-        <button onClick={e => filterCategory(e.target.value)} value="tea">Tea</button>
+        <button className="order-button" onClick={e => filterCategory(e.target.value)} value="food">Food</button>
+        <button className="order-button" onClick={e => filterCategory(e.target.value)} value="coffee">Coffee</button>
+        <button className="order-button" onClick={e => filterCategory(e.target.value)} value="tea">Tea</button>
       </div>
+      <div className="section-one">
       <div>
         <h4>Featured Items</h4>
         {JSON.parse(store.featured_drinks).map((item) => (
@@ -102,9 +98,12 @@ const Menu = ({ toggle, store, user, setUser }) => {
             return val
           }
         }).map((product) => (
-          <div>
-            <span>{product.name} <button onClick={e => { addCart(e.target.value) }} value={product.name}>Add to Cart</button></span>
-            <div>${product.price}</div>
+          <div style={{marginBottom: '5px'}}>
+            <div style={{display: 'flex', flexDirection: 'row'}}>
+              <span style={{fontWeight: 'bold'}}>{product.name}</span>
+              <div> - ${product.price}</div>
+          </div>
+          <button onClick={e => { addCart(e.target.value) }} value={product.name}>Add to Cart</button>
           </div>
         ))}
       </div>
@@ -119,12 +118,14 @@ const Menu = ({ toggle, store, user, setUser }) => {
         <br />
         ${total}
       </div>
+      </div>
       <div>
         <h3>Payment</h3>
         <PaymentForm />
         <form >
-          <div>
+          <div className="bottom-section" style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
             <h4>You've gained {cartQuantity} beans!!</h4>
+            <button style={{height: '24px', marginLeft: '10px'}} onClick={e => submitPayment(e.target.value)} value={cartQuantity}>Submit</button>
           </div>
           <div>
             <span id="paymentIcons">
@@ -135,7 +136,6 @@ const Menu = ({ toggle, store, user, setUser }) => {
             </span>
           </div>
         </form >
-          <button onClick={e => submitPayment(e.target.value)} value={cartQuantity}>Submit</button>
       </div >
     </div >
   )
