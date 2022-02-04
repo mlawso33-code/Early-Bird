@@ -10,6 +10,7 @@ const StarRating = ({ total }) => {
       fullSymbol={<FaStar />}
       initialRating={total}
       readonly
+      style={{color:'rgb(255, 207, 46)'}}
     />
   )
 }
