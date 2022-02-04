@@ -3,7 +3,7 @@ import GlobalContext from '../../contexts/context.js';
 import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
 import Register from './Register.jsx';
 import axios from 'axios';
-import Facebook from './Facebook.jsx'
+import Facebook from './Facebook.jsx';
 import DataSimulator from './DataSimulator.jsx';
 
 const Login = () => {
