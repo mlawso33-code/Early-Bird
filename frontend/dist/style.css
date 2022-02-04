@@ -253,8 +253,10 @@ input:focus, input:focus{
 }
 
 .reviews {
+  max-height: 55vh;
+  overflow-y: scroll;
   height: 300px;
-  width: 90%;
+  width: 100%;
   margin-bottom: 25px;
 }
 
@@ -364,6 +366,12 @@ input:focus, input:focus{
   font-size: larger;
   font-weight: bolder;
   padding: 1.25em;
+}
+
+.reviewButtons{
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 #close:hover {
