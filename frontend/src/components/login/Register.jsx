@@ -7,7 +7,7 @@ import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
 import DataSimulator from './DataSimulator.jsx';
 
 const Register = () => {
-  const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn, currStore, setCurrStore} = useContext(GlobalContext);
+  const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn, currStore, setCurrStore } = useContext(GlobalContext);
   const [userRegister, setUserRegister] = useState({
     username: '',
     password: '',
@@ -95,6 +95,8 @@ const Register = () => {
                   setUserInfo(result.data[0]);
                   setLoggedIn(true);
                   localStorage.setItem('logged', 'true')
+                  localStorage.setItem('username', userRegister.username)
+                  localStorage.setItem('password', userRegister.password)
                   let value = await DataSimulator(result.data[0]);
                   console.log('Value:', value);
                   setStoreData(value);
