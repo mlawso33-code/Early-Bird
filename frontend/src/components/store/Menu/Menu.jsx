@@ -98,9 +98,10 @@ const Menu = ({ toggle, store }) => {
         {cart.length === 0 && ("Your cart is empty!!")}
         <br />
         ${total}
-        <div>
-          <h3>Payment</h3>
-          {/* <form onClick={submitPayment}>
+      </div>
+      <div>
+        <h3>Payment</h3>
+        {/* <form onClick={submitPayment}>
             <input type="text"></input>
             <br />
             <input type="text"></input>
@@ -111,24 +112,24 @@ const Menu = ({ toggle, store }) => {
             <br />
             <input type="submit"></input>
           </form> */}
-          <form onClick={submitPayment}>
-            <PaymentForm />
-            <div>
-              <h4>Apply rewards!!</h4>
-            </div>
-            <div>
-              <span id="paymentIcons">
-                <FaCcAmex size={50} />
-                <FaCcVisa size={50} />
-                <FaCcMastercard size={50} />
-                <FaCcDiscover size={50} />
-              </span>
-            </div>
-            <input type="submit" value="Submit" />
-          </form>
-        </div>
+        <form onClick={submitPayment}>
+          <PaymentForm />
+          <div>
+            <h4>Apply rewards!!</h4>
+          </div>
+          <div>
+            <span id="paymentIcons">
+              <FaCcAmex size={50} />
+              <FaCcVisa size={50} />
+              <FaCcMastercard size={50} />
+              <FaCcDiscover size={50} />
+            </span>
+          </div>
+          <input type="submit" value="Submit" />
+        </form>
       </div>
     </div>
+    </div >
   )
 }
 
