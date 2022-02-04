@@ -3,7 +3,6 @@ import PaymentForm from './PaymentForm.jsx'
 
 import axios from 'axios'
 import { FaCcAmex, FaCcDiscover, FaCcMastercard, FaCcVisa } from 'react-icons/fa'
-import { AiOutlineShoppingCart } from 'react-icons/ai'
 
 const Menu = ({ toggle, store }) => {
   const [total, setTotal] = useState(0)
@@ -76,8 +75,9 @@ const Menu = ({ toggle, store }) => {
 
   return (
     <div>
-      <div className="ModalTitle">{store.name}'s Menu
+      <div className="ModalTitle">STORE NAME
         <span id="close" onClick={toggle}>X</span>
+
       </div>
       <div id="categoryMenu">
         <button onClick={e => filterCategory(e.target.value)} value="food">Food</button>
@@ -92,16 +92,30 @@ const Menu = ({ toggle, store }) => {
       </div>
       <hr className="hr" />
       <div className="productList">
-        {products.filter((val) => {
-          if (val.category === category) {
-            return val
-          }
-        }).map((product) => (
-          <div>
-            <span>{product.name} <button onClick={e => { addCart(e.target.value) }} value={product.name}>Add to Cart</button></span>
-            <div>${product.price}</div>
-          </div>
-        ))}
+        <div>Item 1
+          < br />
+          <span>$100</span>
+        </div>
+        <div>Item 2
+          < br />
+          <span>$10</span>
+        </div>
+        <div>Item 3
+          <br />
+          <span>$1</span>
+        </div>
+        <div>Item 4
+          <br />
+          <span>$15</span>
+        </div>
+        <div>Item 5
+          < br />
+          <span>$52</span>
+        </div>
+        <div>Item 6
+          <br />
+          <span>$1921</span>
+        </div>
       </div>
       <div className="cart">
         <AiOutlineShoppingCart size={50} />
