@@ -6,16 +6,11 @@ const Facebook = () => {
   const [data, setData] = useState({});
   const [picture, setPicture] = useState('');
   const {
-    page,
-    setPage,
     userInfo,
     setUserInfo,
-    storeData,
-    setStoreData,
     loggedIn,
     setLoggedIn,
-    currStore,
-    setCurrStore } = useContext(GlobalContext);
+  } = useContext(GlobalContext);
 
   const responseFacebook = (response) => {
     console.log('facebook login only works on deployment', response);
