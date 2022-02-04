@@ -94,8 +94,8 @@ const Register = () => {
                 axios.get(`user/${userRegister.username}/${userRegister.password}`).then(async (result) => {
                   setUserInfo(result.data[0]);
                   setLoggedIn(true);
+                  console.log('USERINFO:::', result.data[0]);
                   let value = await DataSimulator(result.data[0]);
-                  console.log('Value:', value);
                   setStoreData(value);
                   navigate('/Home');
                 })

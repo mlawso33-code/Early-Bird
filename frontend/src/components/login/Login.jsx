@@ -29,7 +29,7 @@ const Login = () => {
         setUserInfo(result.data[0]);
         localStorage.setItem('logged', 'true')
         var log = localStorage.getItem('logged')
-        console.log('zipcode:', result.data[0].zip)
+        console.log('NOTED ZIP 2:', result.data[0].zip)
         axios.get(`/stores/nearby/${result.data[0].zip}`).then((result) => {
           console.log('Here is your data:', result.data)
           setStoreData(result.data);

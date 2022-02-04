@@ -48,6 +48,7 @@ const StoreView = () => {
   if (log === 'false') {
     navigate('/');
   } else {
+    console.log('LOGS?', userLog, userPass)
     axios.get(`user/${userLog}/${userPass}`).then(async (result) => {
       if (!Array.isArray(result.data)) {
         alert('Username or password not valid!');
@@ -57,6 +58,7 @@ const StoreView = () => {
         setUserInfo(result.data[0]);
         setLoggedIn(true);
         var log = localStorage.getItem('logged')
+        console.log('NOTED ZIP 1:::', result.data[0].zip)
         axios.get(`/stores/nearby/${result.data[0].zip}`).then((result) => {
           setStoreData(result.data);
         })
@@ -92,7 +94,7 @@ const StoreView = () => {
           <div className="nav-bar"></div>
           <div className="portal-container" style={{ height: '100%', width: '100%', fontFamily: 'neue-haas-grotesk-display' }}>
             <div className="shops-module">
-              <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px', fontFamily: 'poppins, sans-serif', marginTop: '15px' }}>RESULTS FROM <span className="location-style" style={{ fontWeight: 'normal', color: '#D2B48C' }}>NEW YORK, NEW YORK</span></div>
+              <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px', fontFamily: 'poppins, sans-serif', marginTop: '15px' }}>RESULTS FROM <span className="location-style" style={{ fontWeight: 'normal', color: '#D2B48C' }}>{userInfo.city}, {userInfo.state}</span></div>
                 <Shops />
             </div>
             <div className="shop-info">

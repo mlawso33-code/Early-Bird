@@ -18,8 +18,18 @@ const Store = (props) => {
     }
   }
 
+  function setSelectedStore() {
+    setCurrStore(props.data);
+  }
+
+  if (currStore.id !== props.data.id) {
+    props.selected = false;
+  } else {
+    props.selected = true;
+  }
+
   if (props.selected) {
-    return (<div className="shop-entry" onClick={{}} style={{ backgroundColor: 'white', paddingLeft: '7px', paddingTop: '7px', background: 'linear-gradient(180deg, #6b5a55 86%, #00ffff00 50%)' }}>
+    return (<div className="shop-entry" onClick={{setSelectedStore}} style={{ backgroundColor: 'white', paddingLeft: '7px', paddingTop: '7px', background: 'linear-gradient(180deg, #6b5a55 86%, #00ffff00 50%)' }}>
       <div style={{ color: 'white' }}>{name}</div>
       <div className="rating">
         <div style={{ marginRight: '10px', color: '#fff' }}>{getAverageRating(props.data)}</div>
