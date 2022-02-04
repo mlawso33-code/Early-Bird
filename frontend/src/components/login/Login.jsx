@@ -69,8 +69,8 @@ const Login = () => {
       <div className="buttons">
         <button className="login-button" onClick={verifyLogin}>LOGIN</button>
         <ConditionalLink to="/register" condition={1===1}><button className="login-button">REGISTER</button></ConditionalLink>
-
       </div>
+      <div class="fb-login-button" style={{display: 'flex', alignItems: 'center', marginTop: '10px'}} data-width="" data-size="large" data-button-type="login_with" data-layout="rounded" data-auto-logout-link="false" data-use-continue-as="false"></div>
     </div>
   </div>
   );
