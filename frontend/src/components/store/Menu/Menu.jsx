@@ -1,10 +1,14 @@
+<<<<<<< HEAD:frontend/src/components/store/Menu/Menu.jsx
 import React, { useState, useEffect } from 'react'
 import PaymentForm from './PaymentForm.jsx'
+=======
+import React, { useState } from 'react'
+>>>>>>> parent of b91137f (menu adds to cart, filters based on category selected):frontend/src/components/store/Menu.jsx
 
 import axios from 'axios'
 import { FaCcAmex, FaCcDiscover, FaCcMastercard, FaCcVisa } from 'react-icons/fa'
-import { AiOutlineShoppingCart } from 'react-icons/ai'
 
+<<<<<<< HEAD:frontend/src/components/store/Menu/Menu.jsx
 const Menu = ({ toggle, store }) => {
   const [total, setTotal] = useState(0)
   const [cartQuantity, setCartQuantity] = useState(0);
@@ -74,11 +78,20 @@ const Menu = ({ toggle, store }) => {
     setCartQuantity(cart.length)
   }, [cart])
 
+=======
+const Menu = ({ toggle }) => {
+  const [products, setProducts] = useState([])
+
+  function fetchProducts() {
+  }
+>>>>>>> parent of b91137f (menu adds to cart, filters based on category selected):frontend/src/components/store/Menu.jsx
   return (
     <div>
-      <div className="ModalTitle">{store.name}'s Menu
+      <div className="ModalTitle">STORE NAME
         <span id="close" onClick={toggle}>X</span>
+
       </div>
+<<<<<<< HEAD:frontend/src/components/store/Menu/Menu.jsx
       <div id="categoryMenu">
         <button onClick={e => filterCategory(e.target.value)} value="food">Food</button>
         <button onClick={e => filterCategory(e.target.value)} value="coffee">Coffee</button>
@@ -91,19 +104,36 @@ const Menu = ({ toggle, store }) => {
         ))}
       </div>
       <hr className="hr" />
+=======
+>>>>>>> parent of b91137f (menu adds to cart, filters based on category selected):frontend/src/components/store/Menu.jsx
       <div className="productList">
-        {products.filter((val) => {
-          if (val.category === category) {
-            return val
-          }
-        }).map((product) => (
-          <div>
-            <span>{product.name} <button onClick={e => { addCart(e.target.value) }} value={product.name}>Add to Cart</button></span>
-            <div>${product.price}</div>
-          </div>
-        ))}
+        <div>Item 1
+          < br />
+          <span>$100</span>
+        </div>
+        <div>Item 2
+          < br />
+          <span>$10</span>
+        </div>
+        <div>Item 3
+          <br />
+          <span>$1</span>
+        </div>
+        <div>Item 4
+          <br />
+          <span>$15</span>
+        </div>
+        <div>Item 5
+          < br />
+          <span>$52</span>
+        </div>
+        <div>Item 6
+          <br />
+          <span>$1921</span>
+        </div>
       </div>
       <div className="cart">
+<<<<<<< HEAD:frontend/src/components/store/Menu/Menu.jsx
         <AiOutlineShoppingCart size={50} />
         {/* //able to delete cart items */}
         {cart.length > 0 && (
@@ -142,6 +172,19 @@ const Menu = ({ toggle, store }) => {
             </div>
             <input type="submit" value="Submit" />
           </form>
+=======
+        <h3>Your cart</h3>
+        Item1
+        Item2
+        <div>
+          <h3>Payment</h3>
+          <span id="paymentIcons">
+            <FaCcAmex size={50}/>
+            <FaCcVisa size={50}/>
+            <FaCcMastercard size={50}/>
+            <FaCcDiscover size={50}/>
+          </span>
+>>>>>>> parent of b91137f (menu adds to cart, filters based on category selected):frontend/src/components/store/Menu.jsx
         </div>
       </div>
     </div>
