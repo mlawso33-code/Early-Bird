@@ -22,9 +22,10 @@ const MapIndex = () => {
     setFromObj({ lat: fromLat, lng: fromLng, fromTitle: fromState });
     setToObj({ lat: toLat, lng: toLng, toTitle: toState });
 
-    let centerLat = ((Number(fromLat) + Number(fromLng)) / 2);
-    let centerLng = ((Number(toLat) + Number(toLng)) / 2);
+    let centerLat = ((Number(fromLat) + Number(toLat)) / 2);
+    let centerLng = ((Number(fromLng) + Number(toLng)) / 2);
     setCenter({ lat: centerLat, lng: centerLng })
+    console.log('CENTER LAT & LNG:::', centerLat, ' ::: ', centerLng);
 
   }, [userInfo, currStore])
 
@@ -42,8 +43,6 @@ const MapIndex = () => {
         />
         : null
       }
-
-
     </GoogleMap >
   );
 }
@@ -53,7 +52,7 @@ export default compose(
   withProps({
     googleMapURL: G_API_URL,
     loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `300px` }} />,
+    containerElement: <div style={{ height: `300px`, border: '6px ridge #8B442F' }} />,
     mapElement: <div style={{ height: `100%` }} />
   }),
   withScriptjs,
