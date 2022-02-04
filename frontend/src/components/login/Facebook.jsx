@@ -24,6 +24,11 @@ const Facebook = () => {
     if (response.accessToken) {
       setLoggedin(true);
       localStorage.setItem('logged', 'true')
+      setUserInfo({
+        ...userInfo,
+        username: response.data.name,
+        email: response.data.email
+      })
     } else {
       setLoggedin(false);
       localStorage.setItem('logged', 'false')
@@ -49,7 +54,7 @@ const Facebook = () => {
       </div>
       {loggedIn &&
       <div>
-        {data.name}{data.email}
+        {response.data.name}{response.data.email}
       </div>
         }
         </div>
