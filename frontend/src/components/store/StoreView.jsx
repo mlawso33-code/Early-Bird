@@ -73,9 +73,9 @@ const StoreView = () => {
     : <>{children}</>;
 
   function logout() {
-    localStorage.setItem('logged', 'false');
-    localStorage.removeItem('username');
-    localStorage.removeItem('password');
+    localStorage.setItem('logged', 'false')
+    localStorage.removeItem('username')
+    localStorage.removeItem('password')
     setLoggedIn(false)
     navigate('/');
   }

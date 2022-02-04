@@ -53,6 +53,9 @@ const Login = () => {
         [event.target.name]: event.target.value
       })
     };
+    //switch these for lines 23 and 24 if we want returning to login page to auto log out
+    // localStorage.setItem('username', loginCred.username)
+    // localStorage.setItem('password', loginCred.password)
     if (loggedIn) {
       navigate('/Home')
     }
