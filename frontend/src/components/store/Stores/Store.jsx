@@ -18,8 +18,13 @@ const Store = (props) => {
     }
   }
 
-  if (props.selected) {
-    return (<div className="shop-entry" onClick={{}} style={{ backgroundColor: 'white', paddingLeft: '7px', paddingTop: '7px', background: 'linear-gradient(180deg, #6b5a55 86%, #00ffff00 50%)' }}>
+  function setSelectedStore() {
+    console.log('PROPS DATA:', props.data);
+    setCurrStore(props.data);
+  }
+
+  if (currStore.id === props.data.id) {
+    return (<div className="shop-entry" onClick={setSelectedStore} style={{ backgroundColor: 'white', paddingLeft: '7px', paddingTop: '7px', background: 'linear-gradient(180deg, #6b5a55 86%, #00ffff00 50%)' }}>
       <div style={{ color: 'white' }}>{name}</div>
       <div className="rating">
         <div style={{ marginRight: '10px', color: '#fff' }}>{getAverageRating(props.data)}</div>
@@ -34,7 +39,7 @@ const Store = (props) => {
       <hr style={{ border: '1px solid rgb(190, 166, 159)' }} />
     </div>)
   } else {
-    return (<div className="shop-entry">
+    return (<div className="shop-entry" onClick={setSelectedStore}>
       <div style={{ color: 'white' }}>{name}</div>
       <div className="rating">
         <div style={{ marginRight: '10px', color: '#fff' }}>{getAverageRating(props.data)}</div>

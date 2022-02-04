@@ -46,7 +46,7 @@ let DataSimulator = function (userInfo) {
         reviews: []
       };
 
-      //Build pieces of individual simulated store 
+      //Build pieces of individual simulated store
       simulatedStore.name = createSimulatedStoreName();
       simulatedStore.open = createOpenTime();
       simulatedStore.close = createCloseTime();
@@ -64,12 +64,13 @@ let DataSimulator = function (userInfo) {
 
     let data = [];
     coffeeStoreCollection.forEach(async store => {
+      console.log('ACTUAL STORE:::', store);
       let result = await axios.post('/store/details', store)
         .catch((err) => {
           console.log('There was an error processing this request.');
           console.log('Error: ', err);
         });
-
+      console.log('POST REQUEST GENERATED:::', result.data);
       data.push(result.data);
     });
     return data;
@@ -124,12 +125,17 @@ let DataSimulator = function (userInfo) {
 
     //While-loop that executes until location produced is within 5 miles
     while (miles > 5) {
+      console.log('userLat:::', userLat);
+      console.log('userLong:::', userLon);
       let ranLat = Math.random() * ((userLat) - (userLat - .25)) + (userLat - .25);
       let ranLon = Math.random() * ((userLon) - (userLon - .25)) + (userLon - .25);
       miles = findMilesAway(userLat, ranLat, userLon, ranLon);
       simulatedLat = ranLat;
       simulatedLon = ranLon;
     }
+
+    console.log('simulatedLat:::', simulatedLat);
+    console.log('simulatedLon:::', simulatedLon);
     return {
       latitude: simulatedLat,
       longitude: simulatedLon,

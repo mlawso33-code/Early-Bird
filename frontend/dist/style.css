@@ -90,6 +90,7 @@ body {
 .login-input::placeholder {
   color: rgba(255, 255, 255, 0.731);
   font-size: 20px;
+  background: none;
 }
 
 .login-button {
@@ -135,6 +136,7 @@ body {
 
 input:focus, input:focus{
   outline: none;
+  background: none;
 }
 
 .logo {
@@ -282,11 +284,14 @@ input:focus, input:focus{
   flex-direction: row;
 }
 
-.featured-item {
-  margin: 7px;
-  border: 1px solid white;
-  height: 109px;
-  width: 109px;
+.featured-columns {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 390px;
+  height: 179px;
+  justify-content: space-evenly;
+  margin-top: 10px;
 }
 
 .hr {
@@ -322,6 +327,55 @@ input:focus, input:focus{
   cursor: hand;
 }
 
+.profile-info {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.right {
+  display: flex;
+  margin-right: 16px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-link {
+  cursor: hand;
+}
+
+.location-input {
+  font-weight: normal;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid white;
+  font-size: 20px;
+  color: #D2B48C;
+}
+
+.featured-foods {
+  display: flex;
+  flex-direction: column;
+  color: tan;
+  font-weight: bold;
+}
+
+.featured-drinks {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-weight: bold;
+}
 
 
 

@@ -98,7 +98,6 @@ const Register = () => {
                   localStorage.setItem('username', userRegister.username)
                   localStorage.setItem('password', userRegister.password)
                   let value = await DataSimulator(result.data[0]);
-                  console.log('Value:', value);
                   setStoreData(value);
                   navigate('/Home');
                 })

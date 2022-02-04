@@ -77,18 +77,22 @@ const controllers = {
 
   getNearbyStores(req, res) {
 
-    const { zip } = req.params;
-    const trimmedZip = zip.slice(0, -1);
+    const { lat, lng } = req.params;
 
-    let queryString = `SELECT * FROM stores WHERE address LIKE "%${trimmedZip}%"`;
-    let queryArgs = [trimmedZip];
+    let margin = 0.093;
+    lat_min = lat - margin;
+    lat_max = lat + margin;
+    lng_min = lng - margin;
+    lng_max = lng + margin;
+
+    let queryString = `SELECT * FROM stores WHERE (latitude BETWEEN ? AND ?) AND (longitude BETWEEN ? AND ?)`;
+    let queryArgs = [lat_min, lat_max, lng_min, lng_max];
 
     db.query(queryString, queryArgs, (err, dbRes) => {
       if (err) {
         console.log('there was an error getting nearby stores');
         res.status(404).send(err);
       } else {
-
         // iterate through list of nearby stores
         for (let i = 0; i < dbRes.length; i++) {
 
@@ -200,7 +204,6 @@ const controllers = {
     axios
       .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.GOOGLE_API_KEY}`)
       .then(({ data }) => {
-
         const name = req.body.name;
         const address = data.results[0].formatted_address;
         const latitude = JSON.stringify(req.body.location.latitude);
@@ -208,14 +211,20 @@ const controllers = {
         const miles_away = req.body.location.milesAway;
         const store_open = req.body.open;
         const store_close = req.body.close;
-        // const url = `http://www.${name.split(' ').join('')}.com`;
-        const url = `http://www.${name}.com`;
         const featured_food = JSON.stringify(req.body.featuredFood);
         const featured_drinks = JSON.stringify(req.body.featuredDrinks);
         const food_tag = req.body.foodTag;
         const tea_tag = req.body.teaTag;
         const coffee_tag = req.body.coffeeTag;
         const reviews = req.body.reviews;
+
+        // create url based on store name (remove spaces)
+        let url;
+        if (name.includes(' ')) {
+          url = `http://www.${name.split(' ').join('')}.com`;
+        } else {
+          url = `http://www.${name}.com`;
+        }
 
         // generate a menu number based on coffee, tea, food tags
         // menu 11-13 -- coffee, tea, food // menu 14-16 -- coffee, tea // menu 17-19 -- coffee, food
@@ -304,7 +313,7 @@ const controllers = {
   // ================================================================
 
   updateUserRewardsPoints(req, res) {
-    console.log('received a new PUT request to updateUserRewardsPoints');
+
     const { id, reward_points } = req.body;
     const queryString = `UPDATE users SET reward_points = ? WHERE id = ?`;
     const queryArgs = [reward_points, id]
@@ -320,9 +329,9 @@ const controllers = {
 
   updateUserInformation(req, res) {
 
-    const { username, password, email, street_address, city, state, zip, reward_points } = req.body;
+    const { username, password, email, street_address, city, state, zip} = req.body;
 
-    // get lat, lng from user address
+    // hash the updated password
     bcrypt.hash(password, saltRounds, function (err, hash) {
 
       // get lat, lng from user address
@@ -335,17 +344,15 @@ const controllers = {
           const queryString = `
             UPDATE users SET
               username = ?,
-              password = ?,
               email = ?,
               street_address = ?,
               city = ?,
               state = ?,
               zip = ?,
-              reward_points = ?,
               latitude = ?,
               longitude = ?
               WHERE username = ?`;
-          const queryArgs = [username, hash, email, street_address, city, state, zip, reward_points, lat, lng, username];
+          const queryArgs = [username, email, street_address, city, state, zip, lat, lng, username];
 
           db.query(queryString, queryArgs, (err, dbRes) => {
             if (err) {

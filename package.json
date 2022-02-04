@@ -6,7 +6,8 @@
   "scripts": {
     "react-dev": "webpack --config ./webpack.config.js --mode development -w",
     "react-prod": "webpack --config ./webpack.config.js --mode production",
-    "start": "nodemon ./backend/server/index.js"
+    "start": "nodemon ./backend/server/index.js",
+    "startfb": "HTTPS=true nodemon ./backend/server/index.js"
   },
   "repository": {
     "type": "git",
@@ -48,12 +49,14 @@
     "react": "^16.0.0",
     "react-credit-cards": "^0.8.3",
     "react-dom": "^16.0.0",
+    "react-facebook-login": "^4.1.1",
     "react-google-maps": "^9.4.5",
     "react-icons": "^4.3.1",
     "react-rating": "^2.0.5",
     "react-router": "^6.2.1",
     "react-router-dom": "^6.2.1",
     "react-router-native": "^6.2.1",
+    "react-scripts": "^5.0.0",
     "recompose": "^0.30.0"
   }
 }
