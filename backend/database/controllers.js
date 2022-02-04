@@ -146,7 +146,6 @@ const controllers = {
   // ================================================================
 
   addNewUser(req, res) {
-    console.log('received a new POST request to addNewUser');
 
     //implement latitude, longitude
     let { username, password, email, street_address, city, state, zip, reward_points } = req.body;
@@ -201,8 +200,7 @@ const controllers = {
     axios
       .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.GOOGLE_API_KEY}`)
       .then(({ data }) => {
-        console.log('long-lat', lng, ' ', lat)
-        console.log('data', data);
+
         const name = req.body.name;
         const address = data.results[0].formatted_address;
         const latitude = JSON.stringify(req.body.location.latitude);
@@ -243,7 +241,7 @@ const controllers = {
 
 
             // once store has been added, get the id of the store that was added (to post reviews) and all other data (to return in responses)
-            db.query('SELECT * FROM stores WHERE name = ?', [name], (err, dbRes) => {
+            db.query('SELECT * FROM stores WHERE name = ? AND latitude = ? AND longitude = ?', [name, latitude, longitude], (err, dbRes) => {
               if (err) {
                 console.log('there was an error getting the store id within the addNewStore function');
                 res.status(404).send(err);
@@ -265,18 +263,27 @@ const controllers = {
                   });
                 }
 
-                // gather all the reviews (with usernames) associated with the store to return
-                let queryString3 = 'SELECT r.id, u.username, r.rating, r.body, r.date FROM reviews r, users u WHERE r.store_id = ? AND r.user_id = u.id';
-                let queryArgs3 = [store_data.id];
-                db.query(queryString3, queryArgs3, (err, dbRes3) => {
-                  if (err) {
-                    console.log('there was an error fetching reviews within the addNewStore function');
-                    res.status(404).send(err);
-                  } else {
-                    store_data.reviews = dbRes3;
-                    res.status(200).send(store_data);
-                  }
-                });
+
+                // use setTimeout() so reviews inserted in function above have time to be inserted before being fetched in function below
+                setTimeout( () => {
+
+                  // gather all the reviews (with usernames) associated with the store to return
+                  let queryString3 = 'SELECT r.id, u.username, r.rating, r.body, r.date FROM reviews r, users u WHERE r.store_id = ? AND r.user_id = u.id';
+                  let queryArgs3 = [store_data.id];
+                  db.query(queryString3, queryArgs3, (err, dbRes3) => {
+                    if (err) {
+                      console.log('there was an error fetching reviews within the addNewStore function');
+                      res.status(404).send(err);
+                    } else {
+                      store_data.reviews = dbRes3;
+                      res.status(200).send(store_data);
+                    }
+                  });
+
+                }, 100);
+
+
+
 
               }
             });
@@ -286,7 +293,7 @@ const controllers = {
 
       })
       .catch((err) => {
-        console.log('there was an error fetching google address API data', err)
+        console.log('there was an error fetching google address API data within addNewStore()', err)
       });
   },
 
@@ -312,25 +319,48 @@ const controllers = {
   },
 
   updateUserInformation(req, res) {
-    console.log('received a new PUT request to updateUserInformation');
-    const { id, username, street_address, city, state, zip } = req.body;
 
-    const queryString = `
-      UPDATE users SET
-        username = ?,
-        street_address = ?,
-        city = ?, state = ?,
-        zip = ?
-        WHERE id = ?`;
-    const queryArgs = [username, street_address, city, zip, id]
-    db.query(queryString, queryArgs, (err, dbRes) => {
-      if (err) {
-        console.log('there was an error adding updating user information');
-        res.status(404).send(err);
-      } else {
-        res.status(201).send(dbRes);
-      }
-    })
+    const { username, password, email, street_address, city, state, zip, reward_points } = req.body;
+
+    // get lat, lng from user address
+    bcrypt.hash(password, saltRounds, function (err, hash) {
+
+      // get lat, lng from user address
+      axios
+        .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${street_address},+${city},+${state}&key=${process.env.GOOGLE_API_KEY}`)
+        .then( ({data}) => {
+
+          let {lat, lng} = data.results[0].geometry.location;
+
+          const queryString = `
+            UPDATE users SET
+              username = ?,
+              password = ?,
+              email = ?,
+              street_address = ?,
+              city = ?,
+              state = ?,
+              zip = ?,
+              reward_points = ?,
+              latitude = ?,
+              longitude = ?
+              WHERE username = ?`;
+          const queryArgs = [username, hash, email, street_address, city, state, zip, reward_points, lat, lng, username];
+
+          db.query(queryString, queryArgs, (err, dbRes) => {
+            if (err) {
+              console.log('there was an error adding updating user information');
+              res.status(404).send(err);
+            } else {
+              res.status(201).send('user info updated');
+            }
+          })
+
+        })
+        .catch('there was an error getting lat-long data in addNewUser');
+
+    });
+
   },
 
 
