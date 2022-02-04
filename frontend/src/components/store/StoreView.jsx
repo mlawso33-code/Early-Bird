@@ -7,7 +7,6 @@ import Menu from './Menu/Menu.jsx'
 import LoadingScreen from '../LoadingScreen.jsx'
 import Shops from './Stores/Stores.jsx'
 import MapIndex from '../map/MapIndex.js'
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { GiCoffeeBeans, GiBreadSlice, GiCoffeeMug } from 'react-icons/gi';
 import {HiUserCircle} from 'react-icons/hi'
 import {AiFillEdit} from 'react-icons/ai';

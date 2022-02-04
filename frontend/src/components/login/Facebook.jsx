@@ -6,16 +6,11 @@ const Facebook = () => {
   const [data, setData] = useState({});
   const [picture, setPicture] = useState('');
   const {
-    page,
-    setPage,
     userInfo,
     setUserInfo,
-    storeData,
-    setStoreData,
     loggedIn,
     setLoggedIn,
-    currStore,
-    setCurrStore } = useContext(GlobalContext);
+  } = useContext(GlobalContext);
 
   const responseFacebook = (response) => {
     console.log('facebook login only works on deployment', response);
@@ -24,6 +19,11 @@ const Facebook = () => {
     if (response.accessToken) {
       setLoggedin(true);
       localStorage.setItem('logged', 'true')
+      setUserInfo({
+        ...userInfo,
+        username: response.data.name,
+        email: response.data.email
+      })
     } else {
       setLoggedin(false);
       localStorage.setItem('logged', 'false')
@@ -42,16 +42,16 @@ const Facebook = () => {
         callback={responseFacebook}
         icon="fa-facebook" />
         }
-        {
+        {/* {
           loggedIn &&
           <Image src={picture} roundedCircle />
-        }
+        } */}
       </div>
-      {loggedIn &&
+      {/* {loggedIn &&
       <div>
-        {data.name}{data.email}
+        {response.data.name}{response.data.email}
       </div>
-        }
+        } */}
         </div>
   );
 };
