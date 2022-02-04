@@ -433,6 +433,11 @@ input:focus, input:focus{
   border-radius: 5%;
   background-color: lightseagreen;
 }
+#categoryButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 #close:hover {
   cursor: pointer;
 }

@@ -3,9 +3,9 @@ import PaymentForm from './PaymentForm.jsx'
 
 import axios from 'axios'
 import { FaCcAmex, FaCcDiscover, FaCcMastercard, FaCcVisa } from 'react-icons/fa'
-import {AiOutlineShoppingCart} from 'react-icons/ai'
+import { AiOutlineShoppingCart } from 'react-icons/ai'
 
-const Menu = ({ toggle, store }) => {
+const Menu = ({ toggle, store, user, setUser }) => {
   const [total, setTotal] = useState(0)
   const [cartQuantity, setCartQuantity] = useState(0);
   const [category, setCategory] = useState('')
@@ -44,15 +44,26 @@ const Menu = ({ toggle, store }) => {
   }
 
   function deleteItem(name) {
-    var currIndex = cart.map((item) => {
-      cart.indexOf(item.name === name)
+    var cartCopy = Array.from(cart)
+    var index = 0;
+    cartCopy.map((item) => {
+      if (item.name === name) {
+        index = cartCopy.indexOf(item)
+      }
     })
-    setCart(cart.splice(currIndex, 1))
+    cartCopy.splice(index, 1)
+    setCart(cartCopy)
   }
 
   function submitPayment() {
+    var userObj = {
+      'id': user.id,
+      'reward_points': user.reward_points + cartQuantity
+    }
+    axios
+    .put(`/users/rewards`, userObj)
+    .then(setUser({...user, reward_points: user.reward_points + cartQuantity}))
     alert("Order sent!")
-      .then()
   }
 
   function filterCategory(e) {
@@ -72,9 +83,8 @@ const Menu = ({ toggle, store }) => {
     <div>
       <div className="ModalTitle">{store.name}'s Menu
         <span id="close" onClick={toggle}>X</span>
-
       </div>
-      <div id="categoryMenu">
+      <div id="categoryButtons">
         <button onClick={e => filterCategory(e.target.value)} value="food">Food</button>
         <button onClick={e => filterCategory(e.target.value)} value="coffee">Coffee</button>
         <button onClick={e => filterCategory(e.target.value)} value="tea">Tea</button>
@@ -87,22 +97,6 @@ const Menu = ({ toggle, store }) => {
       </div>
       <hr className="hr" />
       <div className="productList">
-      <div className="cart">
-        </div>
-        <AiOutlineShoppingCart size={50} />
-        {/* //able to delete cart items */}
-        {cart.length > 0 && (
-          <div>{cart.map((item) => (
-            <span>{item.name}<button onClick={deleteItem} value={item.name}>Delete</button></span>
-            ))} </div>)}
-        <br />
-        {cart.length === 0 && ("Your cart is empty!!")}
-        <br />
-        ${total}
-      </div>
-      <div>
-        <h3>Payment</h3>
-        <div className="productList">
         {products.filter((val) => {
           if (val.category === category) {
             return val
@@ -114,10 +108,23 @@ const Menu = ({ toggle, store }) => {
           </div>
         ))}
       </div>
-        <form onClick={submitPayment}>
-          <PaymentForm />
+      <div className="cart">
+        <AiOutlineShoppingCart size={50} />
+        {cart.length > 0 && (
+          <div>{cart.map((item) => (
+            <span>{item.name}<button onClick={e => deleteItem(e.target.value)} value={item.name}>Delete</button></span>
+          ))} </div>)}
+        <br />
+        {cart.length === 0 && ("Your cart is empty!!")}
+        <br />
+        ${total}
+      </div>
+      <div>
+        <h3>Payment</h3>
+        <PaymentForm />
+        <form >
           <div>
-            <h4>Apply rewards!!</h4>
+            <h4>You've gained {cartQuantity} beans!!</h4>
           </div>
           <div>
             <span id="paymentIcons">
@@ -127,10 +134,10 @@ const Menu = ({ toggle, store }) => {
               <FaCcDiscover size={50} />
             </span>
           </div>
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
-    </div>
+        </form >
+          <button onClick={e => submitPayment(e.target.value)} value={cartQuantity}>Submit</button>
+      </div >
+    </div >
   )
 }
 
