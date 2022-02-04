@@ -5,7 +5,6 @@ import axios from 'axios';
 const Store = (props) => {
   const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn, currStore, setCurrStore } = useContext(GlobalContext);
   let { name, address, city, state, zip, latitude, longitude, miles_away, store_open, store_close, url, food_tag, tea_tag, coffee_tag } = props.data;
-
   function getAverageRating(store) {
     let ratings = 0;
     if (Array.isArray(store.reviews) && store.reviews.length > 0) {
@@ -32,9 +31,9 @@ const Store = (props) => {
       </div>
       <div style={{ color: '#ffffffa6' }}>{miles_away} Miles from your location.</div>
       <div className="tags">
-        {coffee_tag ? <div className="tag" display="active">COFEE</div>:<div className="tag" display="none">COFEE</div>}
-        {tea_tag ? <div className="tag" display="active">TEA</div>:<div className="tag" display="none">TEA</div>}
-        {food_tag ? <div className="tag" display="active">FOOD</div>:<div className="tag" display="none">FOOD</div>}
+        {props.data.coffee_tag === 1 ? <div className="tag" display="active">COFFEE</div>:<div className="tag" style={{display:"none"}}>COFFEE</div>}
+        {props.data.tea_tag === 1 ? <div className="tag" display="active">TEA</div>:<div className="tag" style={{display:"none"}}>TEA</div>}
+        {props.data.food_tag === 1 ? <div className="tag" display="active">FOOD</div>:<div className="tag" style={{display:"none"}}>FOOD</div>}
       </div>
       <hr style={{ border: '1px solid rgb(190, 166, 159)' }} />
     </div>)
@@ -47,9 +46,9 @@ const Store = (props) => {
       </div>
       <div style={{ color: '#ffffffa6' }}>{miles_away} Miles from your location.</div>
       <div className="tags">
-        {coffee_tag === 1 ? <div className="tag" display="active">COFEE</div>:<div className="tag" style={{display:"none"}}>COFEE</div>}
-        {tea_tag === 1 ? <div className="tag" display="active">TEA</div>:<div className="tag" style={{display:"none"}}>TEA</div>}
-        {food_tag === 1 ? <div className="tag" display="active">FOOD</div>:<div className="tag" style={{display:"none"}}>FOOD</div>}
+        {props.data.coffee_tag === 1 ? <div className="tag" display="active">COFFEE</div>:<div className="tag" style={{display:"none"}}>COFFEE</div>}
+        {props.data.tea_tag === 1 ? <div className="tag" display="active">TEA</div>:<div className="tag" style={{display:"none"}}>TEA</div>}
+        {props.data.food_tag === 1 ? <div className="tag" display="active">FOOD</div>:<div className="tag" style={{display:"none"}}>FOOD</div>}
       </div>
       <hr style={{ border: '1px solid rgb(190, 166, 159)' }} />
     </div>)

@@ -78,7 +78,7 @@ body {
   border-bottom: 1px white solid;
   background: none;
   width: 80%;
-  margin-bottom: 37px;
+  margin-bottom: 20px;
   height: 31px;
   color: white;
   font-size: 20px;
@@ -111,21 +111,6 @@ body {
 .login-button:hover {
   background-color: white;
   color: #56423C;
-  cursor: hand;
-}
-
-.facebook-button {
-  height: 45px;
-  width: 158px;
-  border: 1px solid white;
-  background: #3A559F;
-  color: white;
-  font-weight: bold;
-  font-size: 12px;
-}
-
-.facebook-button:hover {
-  background-color: #4a64ab;
   cursor: hand;
 }
 
@@ -179,7 +164,6 @@ input:focus, input:focus{
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   height: 75%;
   width: 60%;
   background: #56423C;
