@@ -20,7 +20,8 @@ CREATE TABLE users (
   reward_points INT DEFAULT 0,
   latitude VARCHAR(50) NOT NULL,
   longitude VARCHAR(50) NOT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  INDEX (username)
 );
 
 CREATE TABLE payment_info (
@@ -40,7 +41,8 @@ CREATE TABLE products (
   price DECIMAL(3,2) NOT NULL,
   category VARCHAR(20) NOT NULL,
   menu_categories VARCHAR(20),
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  INDEX (menu_categories)
 );
 
 
@@ -60,8 +62,8 @@ CREATE TABLE stores (
   tea_tag BOOLEAN DEFAULT 0,
   coffee_tag BOOLEAN DEFAULT 0,
   menu_id INT NOT NULL,
-  PRIMARY KEY (id)
-
+  PRIMARY KEY (id),
+  INDEX (name, latitude, longitude, menu_id)
 );
 
 CREATE TABLE reviews (
@@ -73,7 +75,8 @@ CREATE TABLE reviews (
   date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (store_id) REFERENCES stores(id)
+  FOREIGN KEY (store_id) REFERENCES stores(id),
+  INDEX (user_id, store_id)
 );
 
 
