@@ -381,6 +381,13 @@ input:focus, input:focus{
   display:flex;
   flex-direction: row;
   justify-content: center;
+  margin-right: 10%;
+}
+
+#categoryMenu {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 
