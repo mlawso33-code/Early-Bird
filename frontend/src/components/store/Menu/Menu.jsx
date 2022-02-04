@@ -43,12 +43,6 @@ const Menu = ({ toggle, store }) => {
   }
 
   function deleteItem(name) {
-    // var newCart = cart
-    // for (var i = 0; i < cart.length; i++) {
-    //   if(cart[i].name === name) {
-    //     newCart.splice(i, 1)
-    //   }
-    // }
     var currIndex = cart.map((item) => {
       cart.indexOf(item.name === name)
     })
@@ -92,38 +86,14 @@ const Menu = ({ toggle, store }) => {
       </div>
       <hr className="hr" />
       <div className="productList">
-        <div>Item 1
-          < br />
-          <span>$100</span>
-        </div>
-        <div>Item 2
-          < br />
-          <span>$10</span>
-        </div>
-        <div>Item 3
-          <br />
-          <span>$1</span>
-        </div>
-        <div>Item 4
-          <br />
-          <span>$15</span>
-        </div>
-        <div>Item 5
-          < br />
-          <span>$52</span>
-        </div>
-        <div>Item 6
-          <br />
-          <span>$1921</span>
-        </div>
-      </div>
       <div className="cart">
+        </div>
         <AiOutlineShoppingCart size={50} />
         {/* //able to delete cart items */}
         {cart.length > 0 && (
           <div>{cart.map((item) => (
             <span>{item.name}<button onClick={deleteItem} value={item.name}>Delete</button></span>
-          ))} </div>)}
+            ))} </div>)}
         <br />
         {cart.length === 0 && ("Your cart is empty!!")}
         <br />

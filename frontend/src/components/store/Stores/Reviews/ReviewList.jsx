@@ -76,7 +76,7 @@ const ReviewList = ({ store, userID }) => {
 
       <div className="reviews">
         {displayedReviews.map((review) => (
-          <div className="review" style={{ background: '#ffffff2e', borderRadius: '21px', padding: '15px', marginTop: '12px' }}>
+          <div className="review" style={{ background: '#ffffff2e', borderRadius: '21px', padding: '15px', marginTop: '12px', minWidth:'686px'}}>
             <div className="review-header" style={{ marginBottom: '6px' }}>
               <div style={{ color: 'white', marginRight: '5px', marginLeft: '10px' }}>{review.username}</div>
               <div><Rating
