@@ -88,7 +88,6 @@ const controllers = {
         console.log('there was an error getting nearby stores');
         res.status(404).send(err);
       } else {
-
         // iterate through list of nearby stores
         for (let i = 0; i < dbRes.length; i++) {
 
@@ -200,7 +199,6 @@ const controllers = {
     axios
       .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.GOOGLE_API_KEY}`)
       .then(({ data }) => {
-
         const name = req.body.name;
         const address = data.results[0].formatted_address;
         const latitude = JSON.stringify(req.body.location.latitude);

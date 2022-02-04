@@ -47,12 +47,8 @@ const StoreView = () => {
   if (log === 'false' || logUser === undefined) {
     navigate('/');
   } else {
-<<<<<<< HEAD
-    console.log('LOGS?', userLog, userPass)
-=======
     let userLog = localStorage.getItem('username')
     let userPass = localStorage.getItem('password')
->>>>>>> 074ea55ddf27ff7ac02ca91a128e5a44ecdce743
     axios.get(`user/${userLog}/${userPass}`).then(async (result) => {
       if (!Array.isArray(result.data)) {
         alert('Username or password not valid!');
