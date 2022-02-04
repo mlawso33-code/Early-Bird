@@ -107,7 +107,7 @@ const UserUpdate = () => {
           } else if (currentUser.zip.length === 0 || hasLetter(currentUser.zip)) {
             alert('Please enter a valid Zipcode')
           } else {
-            alert('put request attempted')
+            alert('User information updated')
             axios.put('/user/details', currentUser).then(
               navigate('/Home')
             )

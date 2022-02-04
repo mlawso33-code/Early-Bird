@@ -47,16 +47,16 @@ const Facebook = () => {
         callback={responseFacebook}
         icon="fa-facebook" />
         }
-        {
+        {/* {
           loggedIn &&
           <Image src={picture} roundedCircle />
-        }
+        } */}
       </div>
-      {loggedIn &&
+      {/* {loggedIn &&
       <div>
         {response.data.name}{response.data.email}
       </div>
-        }
+        } */}
         </div>
   );
 };
