@@ -43,12 +43,6 @@ const Menu = ({ toggle, store }) => {
   }
 
   function deleteItem(name) {
-    // var newCart = cart
-    // for (var i = 0; i < cart.length; i++) {
-    //   if(cart[i].name === name) {
-    //     newCart.splice(i, 1)
-    //   }
-    // }
     var currIndex = cart.map((item) => {
       cart.indexOf(item.name === name)
     })
@@ -92,30 +86,16 @@ const Menu = ({ toggle, store }) => {
       </div>
       <hr className="hr" />
       <div className="productList">
-        <div>Item 1
-          < br />
-          <span>$100</span>
-        </div>
-        <div>Item 2
-          < br />
-          <span>$10</span>
-        </div>
-        <div>Item 3
-          <br />
-          <span>$1</span>
-        </div>
-        <div>Item 4
-          <br />
-          <span>$15</span>
-        </div>
-        <div>Item 5
-          < br />
-          <span>$52</span>
-        </div>
-        <div>Item 6
-          <br />
-          <span>$1921</span>
-        </div>
+        {products.filter((val) => {
+          if (val.category === category) {
+            return val
+          }
+        }).map((product) => (
+          <div>
+            <span>{product.name} <button onClick={e => { addCart(e.target.value) }} value={product.name}>Add to Cart</button></span>
+            <div>${product.price}</div>
+          </div>
+        ))}
       </div>
       <div className="cart">
         <AiOutlineShoppingCart size={50} />
@@ -128,9 +108,10 @@ const Menu = ({ toggle, store }) => {
         {cart.length === 0 && ("Your cart is empty!!")}
         <br />
         ${total}
-        <div>
-          <h3>Payment</h3>
-          {/* <form onClick={submitPayment}>
+      </div>
+      <div>
+        <h3>Payment</h3>
+        {/* <form onClick={submitPayment}>
             <input type="text"></input>
             <br />
             <input type="text"></input>
@@ -141,24 +122,24 @@ const Menu = ({ toggle, store }) => {
             <br />
             <input type="submit"></input>
           </form> */}
-          <form onClick={submitPayment}>
-            <PaymentForm />
-            <div>
-              <h4>Apply rewards!!</h4>
-            </div>
-            <div>
-              <span id="paymentIcons">
-                <FaCcAmex size={50} />
-                <FaCcVisa size={50} />
-                <FaCcMastercard size={50} />
-                <FaCcDiscover size={50} />
-              </span>
-            </div>
-            <input type="submit" value="Submit" />
-          </form>
-        </div>
+        <form onClick={submitPayment}>
+          <PaymentForm />
+          <div>
+            <h4>Apply rewards!!</h4>
+          </div>
+          <div>
+            <span id="paymentIcons">
+              <FaCcAmex size={50} />
+              <FaCcVisa size={50} />
+              <FaCcMastercard size={50} />
+              <FaCcDiscover size={50} />
+            </span>
+          </div>
+          <input type="submit" value="Submit" />
+        </form>
       </div>
     </div>
+    </div >
   )
 }
 
