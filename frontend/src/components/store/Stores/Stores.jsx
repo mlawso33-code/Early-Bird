@@ -31,7 +31,8 @@ const Stores = () => {
 
   if (Object.keys(currStore).length === 0) {
     setCurrStore(stores[0].props.data);
-  }
+    console.log(stores[0].props.data);
+;  }
 
   return (
     <div className="shop-container">

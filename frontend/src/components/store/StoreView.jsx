@@ -8,7 +8,7 @@ import LoadingScreen from '../LoadingScreen.jsx'
 import Shops from './Stores/Stores.jsx'
 import MapIndex from '../map/MapIndex.js'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { GiCoffeeBeans } from 'react-icons/gi';
+import { GiCoffeeBeans, GiBreadSlice, GiCoffeeMug } from 'react-icons/gi';
 import {HiUserCircle} from 'react-icons/hi'
 import {AiFillEdit} from 'react-icons/ai';
 
@@ -61,7 +61,6 @@ const StoreView = () => {
         setUserInfo(result.data[0]);
         setLoggedIn(true);
         var log = localStorage.getItem('logged')
-        console.log('NOTED ZIP 1:::', result.data[0].zip)
         axios.get(`/stores/nearby/${result.data[0].latitude}/${result.data[0].longitude}`).then((result) => {
           setStoreData(result.data);
         })
@@ -85,6 +84,16 @@ const StoreView = () => {
   }
 
   let placeholder = userInfo.city + ', ' + userInfo.state;
+  if (Object.keys(currStore).length > 0) {
+    var drinks = JSON.parse(currStore.featured_drinks).map(drink => {
+      return <div className="featured-drink">{drink}</div>
+    });
+
+    var foods = JSON.parse(currStore.featured_foods).map(food => {
+      return <div className="featured-food">{food}</div>
+    });
+  }
+
 
   return (
     <>
@@ -110,17 +119,17 @@ const StoreView = () => {
           <div className="portal-container" style={{ height: '100%', width: '100%', fontFamily: 'neue-haas-grotesk-display' }}>
             <div className="shops-module">
             {/* onClick={()=>{setEditLocation(!editLocation)}} */}
-              <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px', fontFamily: 'poppins, sans-serif', marginTop: '15px' }}>RESULTS FROM {editLocation === false ? <span className="location-style" onClick={()=>{setEditLocation(!editLocation)}} style={{ fontWeight: 'normal', color: '#D2B48C' }}>{userInfo.city}, {userInfo.state}</span>:<input className="location-input" style={{ fontWeight: 'normal', color: '#D2B48C' }} placeholder={placeholder}/><AiFillEdit/>}</div>
+              <div style={{ color: 'white', fontWeight: 'bold', fontSize: '25px', fontFamily: 'poppins, sans-serif', marginTop: '15px' }}>RESULTS FROM <span className="location-style" style={{ fontWeight: 'normal', color: '#D2B48C' }}>{userInfo.city}, {userInfo.state}</span></div>
                 <Shops />
             </div>
             <div className="shop-info">
               <div className="details">
                 <div className="column-a">
                   <div className="shop-website">
-                    <div style={{ color: 'white', fontSize: '30px', marginRight: '14px' }}>COFFEE SHOP</div>
-                    <div style={{ fontSize: '12px', color: 'white' }}>Visit Website</div>
+                    <div style={{ color: 'white', fontSize: '30px', marginRight: '14px' }}>{currStore.name}</div>
+                    <a style={{ fontSize: '12px', color: 'white' }} href={currStore.url}>Visit Website</a>
                   </div>
-                  <div style={{ color: '#D2B48C' }}>MON-FRI 09:00 AM - 07:00 PM</div>
+                  <div style={{ color: '#D2B48C' }}>MON-FRI {Object.keys(currStore).length > 0 ? currStore.store_open.slice(0, -3):''} AM - {Object.keys(currStore).length > 0 ? currStore.store_close.slice(0, -3):''} PM</div>
 
                   <button onClick={handleMenu}>Order Online</button>
                   <div className={`Modal ${menuModal ? 'Show' : ''}`}>
@@ -131,10 +140,17 @@ const StoreView = () => {
                   <div className="featured" style={{ marginTop: '10px' }}>
                     <div style={{ color: 'white', fontSize: '30px' }}>Featured Items</div>
                     <hr className="hr" style={{ color: '#BEA69F', margin: '1px', size: '3px', width: '97%' }} />
-                    <div className="featured-items" style={{ display: 'flex', flexDirection: 'row', flexjustifyContent: 'flex-start' }}>
-                      <div className="featured-item">Item</div>
-                      <div className="featured-item">Item</div>
-                      <div className="featured-item">Item</div>
+                    <div className="featured-columns" style={{ display: 'flex', flexDirection: 'row', flexjustifyContent: 'flex-start' }}>
+                      <div className="featured-foods">
+                        <GiBreadSlice style ={{height: '33px', width: 'auto'}}/>
+                        <hr style={{width: '124px'}}/>
+                        {foods}
+                      </div>
+                      <div className="featured-drinks">
+                      <GiCoffeeMug style ={{height: '33px', width: 'auto'}}/>
+                        <hr style={{width: '124px'}}/>
+                        {drinks}
+                      </div>
                     </div>
                   </div>
                 </div>
