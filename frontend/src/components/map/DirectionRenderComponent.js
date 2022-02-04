@@ -4,10 +4,6 @@ import GlobalContext from '../../contexts/context.js';
 
 
 const DirectionRenderComponent = (props) => {
-  // const [fromLat, setFromLat] = useState(props.from.lat);
-  // const [fromLng, setFromLng] = useState(props.from.lng);
-  // const [toLat, setToLat] = useState(props.to.lat);
-  // const [toLng, setToLng] = useState(props.to.lng);
   const [directions, setDirections] = useState();
   const { userInfo, setUserInfo, currStore, setCurrStore } = useContext(GlobalContext);
 
@@ -26,7 +22,7 @@ const DirectionRenderComponent = (props) => {
       {
         origin: startLoc,
         destination: destinationLoc,
-        travelMode: window.google.maps.TravelMode.DRIVING
+        travelMode: window.google.maps.TravelMode.WALKING
       },
       (result, status) => {
         if (status === window.google.maps.DirectionsStatus.OK) {
@@ -72,15 +68,6 @@ const DirectionRenderComponent = (props) => {
     <div>
       {originMarker}
       {destinationMarker}
-      {/* {currStore && (
-        <Marker
-          icon={{ url: "coffee-cup.png", scaledSize: new google.maps.Size(48, 48) }}
-          position={{
-            lat: Number(currStore.latitude),
-            lng: Number(currStore.longitude)
-          }}
-        />
-      )} */}
       {directions && (
         <DirectionsRenderer
           directions={directions}
@@ -89,9 +76,8 @@ const DirectionRenderComponent = (props) => {
               strokeColor: '#921d25',
               strokeWeight: 4
             },
-            preserveViewport: true,
+            preserveViewport: false,
             suppressMarkers: true,
-            icon: { scale: 3 }
           }}
         />
       )}
