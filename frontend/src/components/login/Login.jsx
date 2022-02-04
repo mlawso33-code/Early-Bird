@@ -69,7 +69,7 @@ const Login = () => {
       <div className="buttons">
         <button className="login-button" onClick={verifyLogin}>LOGIN</button>
         <ConditionalLink to="/register" condition={1===1}><button className="login-button">REGISTER</button></ConditionalLink>
-
+        <Facebook />
       </div>
     </div>
   </div>
