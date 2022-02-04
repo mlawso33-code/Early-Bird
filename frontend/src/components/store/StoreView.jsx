@@ -36,7 +36,7 @@ const StoreView = () => {
   }, [])
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 3000)
+    setTimeout(() => setLoading(false), 2000)
   }, [])
 
 
@@ -125,7 +125,7 @@ const StoreView = () => {
                 </div>
                 <hr className="hr" />
               </div>
-              <ReviewList key={currStore.id} store={currStore} />
+              <ReviewList key={currStore.id} store={currStore} userID={userInfo.id} />
             </div>
           </div>
         </div>)

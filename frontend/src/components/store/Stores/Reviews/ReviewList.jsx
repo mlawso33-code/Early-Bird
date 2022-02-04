@@ -7,14 +7,12 @@ import { FaRegStar, FaStar } from 'react-icons/fa'
 import axios from 'axios'
 
 
-const ReviewList = ({ store }) => {
+const ReviewList = ({ store, userID }) => {
   const [totalReviews, setTotalReviews] = useState(0)
   const [storeReviews, setStoreReviews] = useState([])
   const [addReview, setAddReview] = useState(false)
 
-  const[value, setValue] = useState(0)
-  const[reviewBody, setReviewBody] = useState('')
-
+  console.log('store:::', store)
   console.log('store reviews:::', storeReviews)
 
   function fetchStoreReviews(id) {
@@ -30,28 +28,8 @@ const ReviewList = ({ store }) => {
     setTotalReviews(finalRating.toFixed(1))
   }
 
-  function submitReview() {
-    const userObj = {
-      'user_id': storeReviews.id,
-      'store_id': store.id,
-      'rating': value,
-      'body': reviewBody,
-    }
-    axios
-      .post(`/user/review`, userObj)
-      .then(fetchStoreReviews())
-  }
-
   function handleReview() {
     setAddReview(!addReview)
-  }
-
-  function handleReviewBody(newBody){
-    setReviewBody(newBody)
-  }
-
-  function handleRatingChange(newRate) {
-    setValue(newRate)
   }
 
   useEffect(() => {
@@ -79,8 +57,7 @@ const ReviewList = ({ store }) => {
 
       <button onClick={handleReview}>Add Review</button>
       <div className={`Modal ${addReview ? 'Show' : ''}`}>
-        {addReview ? <ReviewModal toggle={handleReview} submit={submitReview} value={value} change={handleRatingChange}
-          changeBody={handleReviewBody} reviewBody={reviewBody}/> : null}
+        {addReview ? <ReviewModal toggle={handleReview} fetch={fetchStoreReviews} store={store} userID={userID}/> : null}
       </div>
       <div className={`Overlay ${addReview ? 'Show' : ''}`} />
 
