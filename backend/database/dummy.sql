@@ -1,11 +1,11 @@
 /*DUMMY USERS */
 INSERT INTO users (username, password, email, street_address, city, state, zip, reward_points, latitude, longitude)
 VALUES
-('testMan111', '1234', 'testuser1@test.com', '111 Test Street', 'TestCity', 'TS', '12345', 0, '11.123', '116.234'),
-('testMan222', '1234', 'testuser@test.com', '123 Test Street', 'TestCity', 'TS', '12345', 0, '21.123', '126.234'),
-('testMan333', '1234', 'testuser@test.com', '123 Test Street', 'TestCity', 'TS', '12345', 0, '31.123', '136.234'),
-('testMan444', '1234', 'testuser@test.com', '123 Test Street', 'TestCity', 'TS', '12345', 0, '41.123', '146.234'),
-('testMan555', '1234', 'testuser@test.com', '123 Test Street', 'TestCity', 'TS', '12345', 0, '51.123', '156.234');
+('John', '1234', 'testuser1@test.com', '111 Test Street', 'TestCity', 'TS', '12345', 0, '11.123', '116.234'),
+('Joseph', '1234', 'testuser@test.com', '123 Test Street', 'TestCity', 'TS', '12345', 0, '21.123', '126.234'),
+('Jenny', '1234', 'testuser@test.com', '123 Test Street', 'TestCity', 'TS', '12345', 0, '31.123', '136.234'),
+('Jeremy', '1234', 'testuser@test.com', '123 Test Street', 'TestCity', 'TS', '12345', 0, '41.123', '146.234'),
+('Jacob', '1234', 'testuser@test.com', '123 Test Street', 'TestCity', 'TS', '12345', 0, '51.123', '156.234');
 
 
 /* DUMMY PRODUCTS */

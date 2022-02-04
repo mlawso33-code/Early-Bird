@@ -20,6 +20,8 @@ const Login = () => {
 
 
    function verifyLogin() {
+    localStorage.setItem('username', loginCred.username)
+    localStorage.setItem('password', loginCred.password)
       axios.get(`user/${loginCred.username}/${loginCred.password}`).then(async (result) => {
       if (!Array.isArray(result.data)) {
         alert('Username or password not valid!');
@@ -51,8 +53,9 @@ const Login = () => {
         [event.target.name]: event.target.value
       })
     };
-    localStorage.setItem('username', loginCred.username)
-    localStorage.setItem('password', loginCred.password)
+    //switch these for lines 23 and 24 if we want returning to login page to auto log out
+    // localStorage.setItem('username', loginCred.username)
+    // localStorage.setItem('password', loginCred.password)
     if (loggedIn) {
       navigate('/Home')
     }

@@ -25,6 +25,34 @@ const UserUpdate = () => {
     navigate('/');
   }
 
+  useEffect(() => {
+    checkLogin()
+  }, [])
+
+  function checkLogin() {
+    let log = localStorage.getItem('logged')
+    let logUser = localStorage.getItem('username') || undefined
+    if (log === 'false' || logUser === undefined) {
+      navigate('/');
+    } else {
+      let userLog = localStorage.getItem('username')
+      let userPass = localStorage.getItem('password')
+      axios.get(`user/${userLog}/${userPass}`).then(async (result) => {
+        if (!Array.isArray(result.data)) {
+          alert('Username or password not valid!');
+          return;
+        }
+        if (result.data !== false) {
+          setUserInfo(result.data[0]);
+          setLoggedIn(true);
+          var log = localStorage.getItem('logged')
+        } else {
+          alert("Username or password was not recognized!");
+        }
+      });
+    }
+  };
+
   const handleChange = (event) => {
     setCurrentUser({
       ...currentUser,
@@ -80,7 +108,7 @@ const UserUpdate = () => {
             alert('Please enter a valid Zipcode')
           } else {
             alert('put request attempted')
-            axios.put('/user', currentUser).then(
+            axios.put('/user/details', currentUser).then(
               navigate('/Home')
             )
           }

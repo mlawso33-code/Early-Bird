@@ -36,19 +36,23 @@ const StoreView = () => {
   }, [])
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 3000)
+    setTimeout(() => setLoading(false), 2000)
   }, [])
 
 
 
   function checkLogin() {
-    let log = localStorage.getItem('logged')
-    let userLog = localStorage.getItem('username')
-    let userPass = localStorage.getItem('password')
-  if (log === 'false') {
+  let log = localStorage.getItem('logged')
+  let logUser = localStorage.getItem('username') || undefined
+  if (log === 'false' || logUser === undefined) {
     navigate('/');
   } else {
+<<<<<<< HEAD
     console.log('LOGS?', userLog, userPass)
+=======
+    let userLog = localStorage.getItem('username')
+    let userPass = localStorage.getItem('password')
+>>>>>>> 074ea55ddf27ff7ac02ca91a128e5a44ecdce743
     axios.get(`user/${userLog}/${userPass}`).then(async (result) => {
       if (!Array.isArray(result.data)) {
         alert('Username or password not valid!');
@@ -75,6 +79,8 @@ const StoreView = () => {
 
   function logout() {
     localStorage.setItem('logged', 'false')
+    localStorage.removeItem('username')
+    localStorage.removeItem('password')
     setLoggedIn(false)
     navigate('/');
   }
@@ -127,7 +133,7 @@ const StoreView = () => {
                 </div>
                 <hr className="hr" />
               </div>
-              <ReviewList store={stores[0]} />
+              <ReviewList key={currStore.id} store={currStore} userID={userInfo.id} />
             </div>
           </div>
         </div>)
