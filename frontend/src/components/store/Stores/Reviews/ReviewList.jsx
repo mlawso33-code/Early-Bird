@@ -9,8 +9,11 @@ import axios from 'axios'
 
 const ReviewList = ({ store, userID }) => {
   const [totalReviews, setTotalReviews] = useState(0)
+  const [numOfReviews, setNumOfReviews] = useState(4)
   const [storeReviews, setStoreReviews] = useState([])
   const [addReview, setAddReview] = useState(false)
+
+  var displayedReviews = storeReviews.slice(0, numOfReviews)
 
   console.log('store:::', store)
   console.log('store reviews:::', storeReviews)
@@ -32,6 +35,10 @@ const ReviewList = ({ store, userID }) => {
     setAddReview(!addReview)
   }
 
+  const handleMoreReviews = () => {
+    setNumOfReviews(numOfReviews === storeReviews.length ? 3 : storeReviews.length)
+  }
+
   useEffect(() => {
     fetchStoreReviews(store.id)
   }, [store])
@@ -41,7 +48,7 @@ const ReviewList = ({ store, userID }) => {
   }, [storeReviews])
 
   return (
-    <div className="reviews">
+    <div className="reviewsList">
       <div className="reviews-header">
         <div style={{ fontSize: '30px', color: 'white', marginRight: '16px' }}>Reviews</div>
         <div style={{ display: 'flex', alignItems: 'flex-end', height: '32px' }}>
@@ -54,15 +61,21 @@ const ReviewList = ({ store, userID }) => {
         </div>
       </div>
       <hr className="hr" />
-
-      <button onClick={handleReview}>Add Review</button>
+      <div className="reviewButtons">
+        {storeReviews.length > 2 && (
+          <div>
+            <button className="reviewButton" onClick={handleMoreReviews}>
+              {numOfReviews === storeReviews.length ? 'Hide' : 'More'} Reviews</button>
+          </div>)}
+        <button onClick={handleReview}>Add Review</button>
+      </div>
       <div className={`Modal ${addReview ? 'Show' : ''}`}>
-        {addReview ? <ReviewModal toggle={handleReview} fetch={fetchStoreReviews} store={store} userID={userID}/> : null}
+        {addReview ? <ReviewModal toggle={handleReview} fetch={fetchStoreReviews} store={store} userID={userID} /> : null}
       </div>
       <div className={`Overlay ${addReview ? 'Show' : ''}`} />
 
       <div className="reviews">
-        {storeReviews.map((review) => (
+        {displayedReviews.map((review) => (
           <div className="review" style={{ background: '#ffffff2e', borderRadius: '21px', padding: '15px', marginTop: '12px' }}>
             <div className="review-header" style={{ marginBottom: '6px' }}>
               <div style={{ color: 'white', marginRight: '5px', marginLeft: '10px' }}>{review.username}</div>
@@ -70,7 +83,8 @@ const ReviewList = ({ store, userID }) => {
                 key={review.id}
                 emptySymbol={<FaRegStar />}
                 fullSymbol={<FaStar />}
-                initialRating={review.rating} readonly />
+                initialRating={review.rating}
+                readonly />
               </div>
             </div>
             <div className="review-comment" style={{ color: 'white', fontSize: '12px', marginLeft: '10px' }}>

@@ -255,8 +255,10 @@ input:focus, input:focus{
 }
 
 .reviews {
+  max-height: 55vh;
+  overflow-y: scroll;
   height: 300px;
-  width: 90%;
+  width: 100%;
   margin-bottom: 25px;
 }
 
@@ -420,6 +422,17 @@ input:focus, input:focus{
   padding: 1.25em;
 }
 
+.reviewButtons{
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.cardImg{
+  width: 50%;
+  border: solid 2px red;
+  border-radius: 5%;
+  background-color: lightseagreen;
+}
 #close:hover {
   cursor: pointer;
 }
@@ -427,6 +440,13 @@ input:focus, input:focus{
   display:flex;
   flex-direction: row;
   justify-content: center;
+  margin-right: 10%;
+}
+
+#categoryMenu {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 
