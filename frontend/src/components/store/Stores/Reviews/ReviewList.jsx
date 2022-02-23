@@ -4,88 +4,96 @@ import ReviewModal from './ReviewModal.jsx'
 import StarRating from './StarRating.jsx'
 import Rating from 'react-rating'
 import { FaRegStar, FaStar } from 'react-icons/fa'
+import axios from 'axios'
 
-import Axios from 'Axios'
 
-const ReviewList = ({ store }) => {
-  const [rate, setRate] = useState(0)
-  const [reviews, setReviews] = useState([])
-  const [displayModal, setDisplayModal] = useState(false);
+const ReviewList = ({ store, userID }) => {
+  const [totalReviews, setTotalReviews] = useState(0)
+  const [numOfReviews, setNumOfReviews] = useState(4)
+  const [storeReviews, setStoreReviews] = useState([])
   const [addReview, setAddReview] = useState(false)
-  console.log('store:::', store)
-  console.log('reviews:::', reviews)
 
-  function fetchReviews(id) {
-    Axios
-      .get(`/api/stores/${id}/reviews`)
-      .then(res => setReviews(res.data))
+  var displayedReviews = storeReviews.slice(0, numOfReviews)
+
+  console.log('store:::', store)
+  console.log('store reviews:::', storeReviews)
+
+  function fetchStoreReviews(id) {
+    axios
+      .get(`/stores/${id}/reviews`)
+      .then(res => setStoreReviews(res.data))
   }
 
-
-  function submitReview() {
+  function getMaxRating() {
+    const reducer = (previousValue, currentValue) => previousValue + currentValue;
+    const rating = storeReviews.map(reviews => reviews.rating)
+    const finalRating = rating.reduce(reducer) / storeReviews.length
+    setTotalReviews(finalRating.toFixed(1))
   }
 
   function handleReview() {
     setAddReview(!addReview)
   }
 
-  function handleRatingChange(newRate) {
-    setRate(newRate)
+  const handleMoreReviews = () => {
+    setNumOfReviews(numOfReviews === storeReviews.length ? 3 : storeReviews.length)
   }
 
   useEffect(() => {
-    fetchReviews(store.id)
-  }, [])
+    fetchStoreReviews(store.id)
+  }, [store])
+
+  useEffect(() => {
+    setTimeout(() => getMaxRating(), 500)
+  }, [storeReviews])
 
   return (
-    <div className="reviews">
+    <div className="reviewsList">
       <div className="reviews-header">
         <div style={{ fontSize: '30px', color: 'white', marginRight: '16px' }}>Reviews</div>
         <div style={{ display: 'flex', alignItems: 'flex-end', height: '32px' }}>
-          <div style={{ marginRight: '4px', color: 'rgb(199 197 197)', fontSize: '20px' }}>5.0</div>
-          <div style={{ fontSize: '15px', marginRight: '10px', height: '20px', marginLeft: '3px', color: 'rgb(201 199 199)' }}>(14)</div>
+          <div style={{ marginRight: '4px', color: 'rgb(199 197 197)', fontSize: '20px' }}>{totalReviews}</div>
+          <div style={{ fontSize: '15px', marginRight: '10px', height: '20px', marginLeft: '3px', color: 'rgb(201 199 199)' }}>({storeReviews.length})</div>
         </div>
 
         <div>
-          {reviews.map((review) => (
-            //make a conditional for which store is picked
-            <StarRating rate={review.rating} />
-          ))}
+          <StarRating total={totalReviews} />
         </div>
       </div>
       <hr className="hr" />
-      <a href="" onClick={handleReview}>Add Review</a>
-      <div className={`Modal ${displayModal ? 'Show' : ''}`}>
-        {addReview ? <ReviewModal toggle={handleReview} submit="submitReview" /> : null}
+      <div className="reviewButtons">
+        {storeReviews.length > 2 && (
+          <div>
+            <button className="reviewButton" onClick={handleMoreReviews}>
+              {numOfReviews === storeReviews.length ? 'Hide' : 'More'} Reviews</button>
+          </div>)}
+        <button onClick={handleReview}>Add Review</button>
       </div>
-      <div className={`Overlay ${displayModal ? 'Show' : ''}`} />
-      {reviews.map((review) => (
+      <div className={`Modal ${addReview ? 'Show' : ''}`}>
+        {addReview ? <ReviewModal toggle={handleReview} fetch={fetchStoreReviews} store={store} userID={userID} /> : null}
+      </div>
+      <div className={`Overlay ${addReview ? 'Show' : ''}`} />
+
       <div className="reviews">
-        <div className="review" style={{ background: '#ffffff2e', borderRadius: '21px', padding: '15px', marginTop: '12px' }}>
-          <div className="review-header" style={{ marginBottom: '6px' }}>
-            <div style={{ color: 'white', marginRight: '5px', marginLeft: '10px' }}>Janie Smith</div>
-            <div><Rating
-              emptySymbol={<FaRegStar />}
-              fullSymbol={<FaStar />}
-              initialRating={review.rating} readonly />
+        {displayedReviews.map((review) => (
+          <div className="review" style={{ background: '#ffffff2e', borderRadius: '21px', padding: '15px', marginTop: '12px', minWidth:'686px'}}>
+            <div className="review-header" style={{ marginBottom: '6px' }}>
+              <div style={{ color: 'white', marginRight: '5px', marginLeft: '10px' }}>{review.username}</div>
+              <div><Rating
+                key={review.id}
+                emptySymbol={<FaRegStar />}
+                fullSymbol={<FaStar />}
+                initialRating={review.rating}
+                readonly
+                style={{color:'rgb(255, 207, 46)'}}/>
+              </div>
+            </div>
+            <div className="review-comment" style={{ color: 'white', fontSize: '12px', marginLeft: '10px' }}>
+              {review.body}
             </div>
           </div>
-          <div className="review-comment" style={{ color: 'white', fontSize: '12px', marginLeft: '10px' }}>
-            {review.body}
-          </div>
-        </div>
-        <div className="review" style={{ background: '#ffffff2e', borderRadius: '21px', padding: '15px', marginTop: '12px' }}>
-          <div className="review-header" style={{ marginBottom: '6px' }}>
-            <div style={{ color: 'white', marginRight: '5px', marginLeft: '10px' }}>John Doe</div>
-            <div style={{ color: 'rgb(255, 207, 46)', fontSize: '12px' }}>★★★★★</div>
-          </div>
-          <div className="review-comment" style={{ color: 'white', fontSize: '12px', marginLeft: '10px' }}>
-            Great customer service! They had my coffee out in just a couple minutes!
-          </div>
-        </div>
+        ))}
       </div>
-
-      ))}
 
     </div>
   )

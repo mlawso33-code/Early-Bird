@@ -105,4 +105,5 @@ typings/
 # TernJS port file
 .tern-port
 
-./frontend/dist/bundle.js
+
+frontend/dist/bundle.js

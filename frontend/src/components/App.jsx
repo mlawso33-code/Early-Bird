@@ -5,26 +5,24 @@ import GlobalContext from '../contexts/context.js';
 import Login from './login/Login.jsx';
 import Register from './login/Register.jsx';
 import StoreView from './store/StoreView.jsx';
-import UserInfo from './login/UserInfo.jsx';
+import UserUpdate from './login/UserUpdate.jsx';
 
 
 const App = () => {
   const [page, setPage] = useState('userInfo');
-  const [userInfo, setUserInfo] = useState({
-    username: '',
-    address: ''
-  })
+  const [userInfo, setUserInfo] = useState({})
   const [storeData, setStoreData] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [currStore, setCurrStore] = useState({});
 
   return (
-    <GlobalContext.Provider value={{page, setPage, userInfo, setUserInfo, storeData, setStoreData}}>
+    <GlobalContext.Provider value={{page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn, currStore, setCurrStore}}>
       <BrowserRouter><Routes>
 
   <Route path="/" element={<Login />} />
   <Route path="register" element={<Register />} />
   <Route path="Home" element={<StoreView />} />
-  <Route path="userInfo" element={<UserInfo />} />
-
+  <Route path="userUpdate" element={<UserUpdate />} />
       </Routes></BrowserRouter>
     </GlobalContext.Provider>
   )

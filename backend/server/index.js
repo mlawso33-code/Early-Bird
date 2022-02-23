@@ -17,10 +17,39 @@ app.use('/', express.static(__dirname + '/../../frontend/dist'));
 // need to use json() middleware so express can parse get/post data
 app.use(express.json());
 
+
 // get, post, delete request routing
 app.get('/api/stores/:store_id/reviews', controllers.getSomeData);
 app.get('/api/stores', controllers.getStores)
 app.post('/api/stores/reviews', controllers.postSomeData);
+=======
+// get request routes
+app.get('/stores/:id/details', controllers.getStoreDetails);
+app.get('/stores/:id/reviews', controllers.getStoreReviews);
+app.get('/stores/:id/menu', controllers.getStoreMenu);
+app.get('/stores/nearby/:lat/:lng', controllers.getNearbyStores);
+app.get('/product/:id', controllers.getProductDetails);
+app.get('/user/:username/:password', controllers.getUserDetails);
+
+// post request routes
+app.post('/user', controllers.addNewUser);
+app.post('/user/review', controllers.addNewReview);
+app.post('/store/details', controllers.addNewStore);
+
+// put request routes
+app.put('/user/rewards', controllers.updateUserRewardsPoints);
+app.put('/user/details', controllers.updateUserInformation);
+
+
+// catch any get requests that don't have valid route
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
+
 
 
 // listen for get/post requests

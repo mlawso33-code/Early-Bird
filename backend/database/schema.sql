@@ -11,7 +11,7 @@ USE early_bird;
 CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT,
   username VARCHAR(20) UNIQUE NOT NULL,
-  password VARCHAR(50) NOT NULL,
+  password VARCHAR(100) NOT NULL,
   email VARCHAR(50) NOT NULL,
   street_address VARCHAR(100) NOT NULL,
   city VARCHAR(50) NOT NULL,
@@ -20,7 +20,8 @@ CREATE TABLE users (
   reward_points INT DEFAULT 0,
   latitude VARCHAR(50) NOT NULL,
   longitude VARCHAR(50) NOT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  INDEX (username)
 );
 
 CREATE TABLE payment_info (
@@ -31,23 +32,38 @@ CREATE TABLE payment_info (
   ccv INT NOT NULL,
   billing_zip VARCHAR(10) NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (user_id)
-  REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+CREATE TABLE products (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(20) NOT NULL,
+  price DECIMAL(3,2) NOT NULL,
+  category VARCHAR(20) NOT NULL,
+  menu_categories VARCHAR(20),
+  PRIMARY KEY (id),
+  INDEX (menu_categories)
+);
+
 
 CREATE TABLE stores (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(50) NOT NULL,
-  street_address VARCHAR(100) NOT NULL,
-  city VARCHAR(50) NOT NULL,
-  state VARCHAR(20) NOT NULL,
-  zip VARCHAR(10) NOT NULL,
+  address VARCHAR(100) NOT NULL,
   latitude VARCHAR(50) NOT NULL,
   longitude VARCHAR(50) NOT NULL,
+  miles_away VARCHAR(5),
   store_open TIME NOT NULL,
   store_close TIME NOT NULL,
   url VARCHAR(250),
-  PRIMARY KEY (id)
+  featured_foods VARCHAR(100),
+  featured_drinks VARCHAR(100),
+  food_tag BOOLEAN DEFAULT 0,
+  tea_tag BOOLEAN DEFAULT 0,
+  coffee_tag BOOLEAN DEFAULT 0,
+  menu_id INT NOT NULL,
+  PRIMARY KEY (id),
+  INDEX (name, latitude, longitude, menu_id)
 );
 
 CREATE TABLE reviews (
@@ -58,23 +74,12 @@ CREATE TABLE reviews (
   body VARCHAR(250) NOT NULL,
   date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
-  FOREIGN KEY (user_id)
-  REFERENCES users(id),
-  FOREIGN KEY (store_id)
-  REFERENCES stores(id)
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (store_id) REFERENCES stores(id),
+  INDEX (user_id, store_id)
 );
 
-CREATE TABLE products (
-  id INT NOT NULL AUTO_INCREMENT,
-  store_id INT NOT NULL,
-  name VARCHAR(20) NOT NULL,
-  price DECIMAL(3,2) NOT NULL,
-  category VARCHAR(20) NOT NULL,
-  is_featured_item BOOLEAN DEFAULT 0,
-  PRIMARY KEY (id),
-  FOREIGN KEY (store_id)
-  REFERENCES stores(id)
-);
+
 
 /*  Execute this file from the command line by typing:
  *    mysql -u <USER> < schema.sql

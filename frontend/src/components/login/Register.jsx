@@ -2,19 +2,22 @@ import React, { useState, useEffect, useContext } from 'react';
 import GlobalContext from '../../contexts/context.js';
 import axios from 'axios';
 import { GiCoffeeBeans } from 'react-icons/gi'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
+import DataSimulator from './DataSimulator.jsx';
 
 const Register = () => {
-  const { page, setPage } = useContext(GlobalContext);
+  const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn, currStore, setCurrStore } = useContext(GlobalContext);
   const [userRegister, setUserRegister] = useState({
     username: '',
     password: '',
     email: '',
-    address: '',
+    street_address: '',
     city: '',
     state: '',
-    zip: ''
+    zip: '',
+    reward_points: 0,
   });
+  let navigate = useNavigate();
 
   const handleChange = (event) => {
     setUserRegister({
@@ -46,7 +49,7 @@ const Register = () => {
         <input type="text" className="login-input" placeholder="Username" name="username" style={{ marginTop: '44px' }} onChange={handleChange} />
         <input type="text" className="login-input" placeholder="Password" name="password" onChange={handleChange} />
         <input type="email" className="login-input" placeholder="Email" name="email" onChange={handleChange} />
-        <input type="text" className="login-input" placeholder="Address" name="address" onChange={handleChange} />
+        <input type="text" className="login-input" placeholder="Address" name="street_address" onChange={handleChange} />
         <div className="address">
           <input type="text" className="login-input" placeholder="City" name="city" style={{
             width: '50%',
@@ -63,13 +66,14 @@ const Register = () => {
         </div>
         <div className="buttons">
           <button className="login-button" onClick={(event) => {
+            event.preventDefault();
             if (userRegister.username.length === 0) {
               alert('Please enter a Username')
             } else if (userRegister.password.length === 0) {
               alert('Please enter a Password')
             } else if (userRegister.email.length === 0 || !ValidateEmail(userRegister.email)) {
               alert('Please enter a valid Email')
-            } else if (userRegister.address.length === 0 || !hasNumber(userRegister.address) || !hasLetter(userRegister.address)) {
+            } else if (userRegister.street_address.length === 0 || !hasNumber(userRegister.street_address) || !hasLetter(userRegister.street_address)) {
               alert('Please enter a valid adress')
             } else if (userRegister.username.includes('<')) {
               let text = userRegister.username;
@@ -85,21 +89,18 @@ const Register = () => {
             } else if (userRegister.zip.length !== 5 || hasLetter(userRegister.zip)) {
               alert('Please enter a valid Zipcode')
             } else {
-              axios.post('/api/some_endpoint', userRegister).then(
-                console.log(userRegister)
-              )
-              const auth = getAuth();
-              createUserWithEmailAndPassword(auth, userRegister.email, userRegister.password)
-                .then((userCredential) => {
-                  // Signed in
-                  const user = userCredential.user;
-                  // ...
+              axios.post('/user', userRegister).then(() => {
+                axios.get(`user/${userRegister.username}/${userRegister.password}`).then(async (result) => {
+                  setUserInfo(result.data[0]);
+                  setLoggedIn(true);
+                  localStorage.setItem('logged', 'true')
+                  localStorage.setItem('username', userRegister.username)
+                  localStorage.setItem('password', userRegister.password)
+                  let value = await DataSimulator(result.data[0]);
+                  setStoreData(value);
+                  navigate('/Home');
                 })
-                .catch((error) => {
-                  const errorCode = error.code;
-                  const errorMessage = error.message;
-                  // ..
-                });
+              })
             }
           }}>Register</button>
         </div>

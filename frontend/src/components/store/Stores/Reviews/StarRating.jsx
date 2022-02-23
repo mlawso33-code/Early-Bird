@@ -1,16 +1,17 @@
 import React from 'react'
 import Rating from 'react-rating'
 
-import {FaRegStar, FaStar} from 'react-icons/fa'
+import { FaRegStar, FaStar } from 'react-icons/fa'
 
-const StarRating = ({ rate }) => {
+const StarRating = ({ total }) => {
   return (
     <Rating
-    emptySymbol={<FaRegStar />}
-    fullSymbol={<FaStar/>}
-    initialRating={rate}
-    readonly
-  />
+      emptySymbol={<FaRegStar />}
+      fullSymbol={<FaStar />}
+      initialRating={total}
+      readonly
+      style={{color:'rgb(255, 207, 46)'}}
+    />
   )
 }
 
