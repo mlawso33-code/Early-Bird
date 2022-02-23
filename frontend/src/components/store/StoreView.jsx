@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import GlobalContext from '../../contexts/context.js';
+import Axios from 'Axios'
+import ReviewList from './Stores/Reviews/ReviewList.jsx'
 import axios from 'axios'
 import { Link, withRouter, Redirect, useNavigate } from 'react-router-dom';
 import ReviewList from './Stores/Reviews/ReviewList.jsx'
@@ -11,12 +13,12 @@ import { GiCoffeeBeans, GiBreadSlice, GiCoffeeMug } from 'react-icons/gi';
 import {HiUserCircle} from 'react-icons/hi'
 import {AiFillEdit} from 'react-icons/ai';
 
+
 const StoreView = () => {
   const [stores, setStores] = useState([])
   const [menuModal, setMenuModal] = useState(false)
   const [loading, setLoading] = useState(true)
   const [editLocation, setEditLocation] = useState(false);
-
   const { page, setPage, userInfo, setUserInfo, storeData, setStoreData, loggedIn, setLoggedIn, currStore, setCurrStore } = useContext(GlobalContext);
   let navigate = useNavigate();
   //We need to confirm the user is logged in before returning the following html.
@@ -25,6 +27,7 @@ const StoreView = () => {
   function handleMenu() {
     setMenuModal(!menuModal)
   }
+
 
   function fetchStores() {
     axios
@@ -40,8 +43,6 @@ const StoreView = () => {
   useEffect(() => {
     setTimeout(() => setLoading(false), 2000)
   }, [])
-
-
 
   function checkLogin() {
   let log = localStorage.getItem('logged')
@@ -92,8 +93,6 @@ const StoreView = () => {
       return <div className="featured-food">{food}</div>
     });
   }
-
-
   return (
     <>
       {loading === false ? (
@@ -161,7 +160,11 @@ const StoreView = () => {
               <ReviewList key={currStore.id} store={currStore} userID={userInfo.id} />
             </div>
           </div>
-        </div>)
+          <ReviewList store={stores}/>
+        </div>
+      </div>
+    </div>
+        </div>
         : (<LoadingScreen />
         )}
     </>

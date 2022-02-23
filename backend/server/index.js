@@ -2,8 +2,6 @@
 const express = require('express');
 const db = require('../database/index.js');
 const controllers = require('../database/controllers.js');
-require("babel-core/register");
-require("babel-polyfill");
 const path = require('path')
 
 // create express app
@@ -19,6 +17,12 @@ app.use('/', express.static(__dirname + '/../../frontend/dist'));
 // need to use json() middleware so express can parse get/post data
 app.use(express.json());
 
+
+// get, post, delete request routing
+app.get('/api/stores/:store_id/reviews', controllers.getSomeData);
+app.get('/api/stores', controllers.getStores)
+app.post('/api/stores/reviews', controllers.postSomeData);
+=======
 // get request routes
 app.get('/stores/:id/details', controllers.getStoreDetails);
 app.get('/stores/:id/reviews', controllers.getStoreReviews);
@@ -45,6 +49,7 @@ app.get('/*', function(req, res) {
     }
   })
 })
+
 
 
 // listen for get/post requests
