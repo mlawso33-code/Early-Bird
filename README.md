@@ -1,9 +1,9 @@
 # Final Capstone
 - Overview
-  As a team of six, built a coffee shop app that searches for nearby local shops
+  - As a team of six, built a coffee shop app that searches for nearby local shops
   
 - Table of Contents
-  v1.0:
+  - v1.0:
     * Login
     * Simulated local shops
     * Google Map with directions
@@ -30,7 +30,7 @@
     * "react-scripts": "^5.0.0",
     * "recompose": "^0.30.0"
 - Usage
-  Currently set up for local use. Since the app was for educational purposes, it is not planned to continue further work.
+  - Currently set up for local use. Since the app was for educational purposes, it is not planned to continue further work.
   
 - Demo
   
